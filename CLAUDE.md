@@ -1,8 +1,10 @@
 # Project Overview
-This project was scaffolded using the `repo-init` skill. 
+Internal primary repo for the Intermediate DevOps course (Harness CI/CD, IaC, credentials, Docker, Kubernetes). Scaffolded with the `repo-init` skill. Course outline: `devops-demos/catalog/Intermediate-DevOps-Outline.docx.md`.
 
 ## Directory Layout
+- `devops-demos/`: existing demos, labs, slides, catalog, and app code (flattened from the former nicklotz/devops-demos clone).
 - `llm-context/`: Stores context for LLM agents.
+- `scripts/`: Build and export helpers.
 
 ## Verification Steps
 TBD
