@@ -20,6 +20,10 @@
   /* These YAML examples need a wider code column, not smaller type or scrolling. */
   .reveal .code-wide .cols-60-40 { grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); }
 
+  /* Print keeps the title "present"; keep its pale page number off light pages. */
+  html.reveal-print .reveal .slides .pdf-page .slide-number-pdf { color: var(--color-text-light); }
+  html.reveal-print .reveal .slides .pdf-page:has(.title-slide) .slide-number-pdf { color: #96ffeb; }
+
   /* Day 1 additions: compact table rows for the schedule and the references list. */
   .reveal table.compact td { padding: 7px 22px 7px 0; font-size: 19px; }
   .reveal table.compact th { padding-bottom: 6px; }
