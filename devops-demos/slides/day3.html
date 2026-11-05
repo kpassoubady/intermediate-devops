@@ -6,9 +6,9 @@
 <title>Intermediate DevOps · Day 3: Containers, Kubernetes and continuous delivery</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
-<link rel="stylesheet" href="themes/blue/blue-theme.css">
-<link rel="stylesheet" href="themes/blue/blue-polished.css">
-<link rel="stylesheet" href="themes/blue/blue-polished-gradients.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kpassoubady/revealjs-theme@v1/blue-theme.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kpassoubady/revealjs-theme@v1/blue-polished.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kpassoubady/revealjs-theme@v1/blue-polished-gradients.css">
 <style>
   /* Retain the course's 22px density on the polished theme's 720px canvas. */
   :root { --r-main-font-size: 22px; --slide-padding: 52px 72px 56px; }
@@ -135,59 +135,90 @@
 </section>
 
 <section>
-  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
-  <h2>Virtual machines and containers</h2>
-  <svg class="diagram" viewBox="0 0 1136 370" role="img" aria-label="Virtual machines each run a guest kernel on a hypervisor. Containers share the host Linux kernel.">
-    <g font-size="20" font-weight="700" fill="#14263D">
-      <text x="0" y="22">Virtual machines</text>
-      <text x="616" y="22">Containers</text>
-    </g>
-    <g fill="#fff" stroke="#C3CAD0" stroke-width="1.5">
-      <rect x="0" y="40" width="255" height="186" rx="6"/>
-      <rect x="265" y="40" width="255" height="186" rx="6"/>
-      <rect x="616" y="40" width="255" height="132" rx="6"/>
-      <rect x="881" y="40" width="255" height="132" rx="6"/>
-    </g>
-    <g fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5">
-      <rect x="15" y="54" width="225" height="44" rx="4"/>
-      <rect x="15" y="108" width="225" height="44" rx="4"/>
-      <rect x="15" y="162" width="225" height="50" rx="4"/>
-      <rect x="280" y="54" width="225" height="44" rx="4"/>
-      <rect x="280" y="108" width="225" height="44" rx="4"/>
-      <rect x="280" y="162" width="225" height="50" rx="4"/>
-      <rect x="0" y="240" width="520" height="50" rx="6"/>
-      <rect x="0" y="304" width="520" height="50" rx="6"/>
-      <rect x="631" y="54" width="225" height="44" rx="4"/>
-      <rect x="631" y="108" width="225" height="44" rx="4"/>
-      <rect x="896" y="54" width="225" height="44" rx="4"/>
-      <rect x="896" y="108" width="225" height="44" rx="4"/>
-      <rect x="616" y="186" width="520" height="44" rx="6"/>
-      <rect x="616" y="304" width="520" height="50" rx="6"/>
-    </g>
-    <rect x="616" y="240" width="520" height="50" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
-    <g font-size="18" fill="#14263D" text-anchor="middle">
-      <text x="127" y="82">App</text><text x="127" y="136">Libraries</text><text x="127" y="193">Guest OS kernel</text>
-      <text x="392" y="82">App</text><text x="392" y="136">Libraries</text><text x="392" y="193">Guest OS kernel</text>
-      <text x="260" y="271">Hypervisor</text>
-      <text x="260" y="335">Hardware</text>
-      <text x="743" y="82">App</text><text x="743" y="136">Libraries</text>
-      <text x="1008" y="82">App</text><text x="1008" y="136">Libraries</text>
-      <text x="876" y="214">Container runtime (containerd)</text>
-      <text x="876" y="271">Host Linux kernel, shared by all containers</text>
-      <text x="876" y="335">Hardware</text>
-    </g>
-  </svg>
-  <p>A virtual machine runs its own kernel on virtual hardware. A container is a group of ordinary processes on the host kernel, with an isolated view of the system.</p>
-  <aside class="notes">
-    Start with history. Unix chroot (1979) gave a process its own view of the filesystem. FreeBSD jails (2000) and
-    Solaris Zones (2004) isolated more of the system. Linux gained the needed kernel features between 2002 and 2013,
-    LXC (2008) combined them, and Docker (2013) made them easy to use with images and a simple command line.
-    Consequences of sharing the kernel: a container starts in milliseconds because no operating system boots; images are
-    small because they contain no kernel; and a kernel vulnerability affects every container on the host, which is why
-    host patching still matters.
-    On a Mac or Windows laptop, Docker Desktop runs a small Linux virtual machine, and the containers run inside it.
-    On your lab machine they run on the Ubuntu kernel itself.
-  </aside>
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <h2>Virtual machines and containers</h2>
+    <svg class="diagram" viewBox="0 0 1136 370" role="img" aria-label="Virtual machines each run a guest kernel on a hypervisor. Containers share the host Linux kernel.">
+      <g font-size="20" font-weight="700" fill="#14263D">
+        <text x="0" y="22">Virtual machines</text>
+        <text x="616" y="22">Containers</text>
+      </g>
+      <g fill="#fff" stroke="#C3CAD0" stroke-width="1.5">
+        <rect x="0" y="40" width="255" height="186" rx="6"/>
+        <rect x="265" y="40" width="255" height="186" rx="6"/>
+        <rect x="616" y="40" width="255" height="132" rx="6"/>
+        <rect x="881" y="40" width="255" height="132" rx="6"/>
+      </g>
+      <g fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5">
+        <rect x="15" y="54" width="225" height="44" rx="4"/>
+        <rect x="15" y="108" width="225" height="44" rx="4"/>
+        <rect x="15" y="162" width="225" height="50" rx="4"/>
+        <rect x="280" y="54" width="225" height="44" rx="4"/>
+        <rect x="280" y="108" width="225" height="44" rx="4"/>
+        <rect x="280" y="162" width="225" height="50" rx="4"/>
+        <rect x="0" y="240" width="520" height="50" rx="6"/>
+        <rect x="0" y="304" width="520" height="50" rx="6"/>
+        <rect x="631" y="54" width="225" height="44" rx="4"/>
+        <rect x="631" y="108" width="225" height="44" rx="4"/>
+        <rect x="896" y="54" width="225" height="44" rx="4"/>
+        <rect x="896" y="108" width="225" height="44" rx="4"/>
+        <rect x="616" y="186" width="520" height="44" rx="6"/>
+        <rect x="616" y="304" width="520" height="50" rx="6"/>
+      </g>
+      <rect x="616" y="240" width="520" height="50" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
+      <g font-size="18" fill="#14263D" text-anchor="middle">
+        <text x="127" y="82">App</text><text x="127" y="136">Libraries</text><text x="127" y="193">Guest OS kernel</text>
+        <text x="392" y="82">App</text><text x="392" y="136">Libraries</text><text x="392" y="193">Guest OS kernel</text>
+        <text x="260" y="271">Hypervisor</text>
+        <text x="260" y="335">Hardware</text>
+        <text x="743" y="82">App</text><text x="743" y="136">Libraries</text>
+        <text x="1008" y="82">App</text><text x="1008" y="136">Libraries</text>
+        <text x="876" y="214">Container runtime (containerd)</text>
+        <text x="876" y="271">Host Linux kernel, shared by all containers</text>
+        <text x="876" y="335">Hardware</text>
+      </g>
+    </svg>
+    <p>A virtual machine runs its own kernel on virtual hardware. A container is a group of ordinary processes on the host kernel, with an isolated view of the system.</p>
+    <p class="small muted">Press &darr; for supporting detail: Containers vs. Virtual Machines</p>
+    <aside class="notes">
+      Start with history. Unix chroot (1979) gave a process its own view of the filesystem. FreeBSD jails (2000) and
+      Solaris Zones (2004) isolated more of the system. Linux gained the needed kernel features between 2002 and 2013,
+      LXC (2008) combined them, and Docker (2013) made them easy to use with images and a simple command line.
+      Consequences of sharing the kernel: a container starts in milliseconds because no operating system boots; images are
+      small because they contain no kernel; and a kernel vulnerability affects every container on the host, which is why
+      host patching still matters.
+      On a Mac or Windows laptop, Docker Desktop runs a small Linux virtual machine, and the containers run inside it.
+      On your lab machine they run on the Ubuntu kernel itself.
+    </aside>
+  </section>
+
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <span class="reference-badge">Reference only</span>
+    <p class="eyebrow">Deep Dive / Isolation Model</p>
+    <h2>Containers vs. Virtual Machines</h2>
+    <div class="cols">
+      <div class="term-card">
+        <span class="tag">Virtual Machines</span>
+        <h3>Hardware Virtualization</h3>
+        <p>A hypervisor runs multiple complete operating systems on virtualized hardware. Each VM runs its own independent guest kernel, system daemons, and gigabytes of disk/memory, taking minutes to boot.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">Containers</span>
+        <h3>Operating System Virtualization</h3>
+        <p>Containers are ordinary Linux processes sharing the single host kernel. <strong>Namespaces</strong> partition what processes see (network, mounts, PIDs); <strong>cgroups</strong> restrict what resources they consume.</p>
+      </div>
+    </div>
+    <div class="gfm-alert gfm-tip">
+      <div class="gfm-alert-title">Performance &amp; Portability</div>
+      <p>Because containers share the host kernel, they start in milliseconds and consume megabytes rather than gigabytes. The exact same image runs identically on a developer laptop, CI server, or Kubernetes cluster.</p>
+    </div>
+    <aside class="notes">
+      For BAs, QEs, and mainframe/ops engineers:
+      Think of VMs like standalone houses (separate foundation, plumbing, and heating). Think of containers like apartments in a high-rise (private rooms and keycards, but sharing the building infrastructure and utilities).
+      Sharing the Linux kernel makes containers fast and lightweight, which is why CI pipelines can spin up dozens of them per build.
+    </aside>
+  </section>
 </section>
 
 <section>
@@ -829,95 +860,169 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
-  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
-  <h2>Deployments, ReplicaSets and Pods</h2>
-  <svg class="diagram" viewBox="0 0 1136 340" role="img" aria-label="A Deployment owns a new ReplicaSet with three Pods and an old ReplicaSet with zero Pods.">
-    <defs><marker id="arr-rs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
-    <rect x="368" y="0" width="400" height="84" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
-    <g fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5">
-      <rect x="40" y="140" width="440" height="70" rx="6"/>
-      <rect x="656" y="140" width="440" height="70" rx="6"/>
-      <rect x="656" y="256" width="130" height="56" rx="6"/>
-      <rect x="811" y="256" width="130" height="56" rx="6"/>
-      <rect x="966" y="256" width="130" height="56" rx="6"/>
-    </g>
-    <text x="568" y="36" font-size="19" font-weight="700" fill="#14263D" text-anchor="middle">Deployment flight-status</text>
-    <text x="568" y="66" font-size="17" fill="#5C6B7B" text-anchor="middle">replicas: 3, image tag 1.5.0</text>
-    <g font-size="18" text-anchor="middle">
-      <text x="260" y="181" fill="#5C6B7B">ReplicaSet for 1.4.0: 0 Pods</text>
-      <text x="876" y="181" fill="#14263D">ReplicaSet for 1.5.0: 3 Pods</text>
-      <text x="721" y="290" fill="#14263D">Pod</text>
-      <text x="876" y="290" fill="#14263D">Pod</text>
-      <text x="1031" y="290" fill="#14263D">Pod</text>
-      <text x="260" y="246" fill="#5C6B7B" font-size="17">Kept for rollback</text>
-    </g>
-    <g stroke="#5C6B7B" stroke-width="1.8" marker-end="url(#arr-rs)">
-      <line x1="500" y1="86" x2="330" y2="134"/>
-      <line x1="636" y1="86" x2="806" y2="134"/>
-      <line x1="721" y1="212" x2="721" y2="250"/>
-      <line x1="876" y1="212" x2="876" y2="250"/>
-      <line x1="1031" y1="212" x2="1031" y2="250"/>
-    </g>
-  </svg>
-  <p>A Pod is one or more containers that share an IP address and volumes. A Deployment creates a new ReplicaSet for each new Pod template, scales the old one to zero and keeps it for rollback.</p>
-  <aside class="notes">
-    Build the picture from the bottom. A Pod is the smallest unit Kubernetes schedules. Its containers share one network
-    namespace, so they reach each other on localhost, and they can share volumes. Most Pods have one main container.
-    A ReplicaSet keeps a number of identical Pods running. You rarely create one yourself.
-    A Deployment manages ReplicaSets. When you change the Pod template, for example the image tag, the Deployment creates
-    a new ReplicaSet and moves Pods from the old one to the new one. The old ReplicaSet stays with zero Pods, up to ten
-    revisions by default (revisionHistoryLimit), and "kubectl rollout undo" scales it back up.
-    In Lab 08 you will see the ReplicaSet names change with each rollout: the suffix is a hash of the Pod template.
-  </aside>
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <h2>Deployments, ReplicaSets and Pods</h2>
+    <svg class="diagram" viewBox="0 0 1136 340" role="img" aria-label="A Deployment owns a new ReplicaSet with three Pods and an old ReplicaSet with zero Pods.">
+      <defs><marker id="arr-rs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
+      <rect x="368" y="0" width="400" height="84" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
+      <g fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5">
+        <rect x="40" y="140" width="440" height="70" rx="6"/>
+        <rect x="656" y="140" width="440" height="70" rx="6"/>
+        <rect x="656" y="256" width="130" height="56" rx="6"/>
+        <rect x="811" y="256" width="130" height="56" rx="6"/>
+        <rect x="966" y="256" width="130" height="56" rx="6"/>
+      </g>
+      <text x="568" y="36" font-size="19" font-weight="700" fill="#14263D" text-anchor="middle">Deployment flight-status</text>
+      <text x="568" y="66" font-size="17" fill="#5C6B7B" text-anchor="middle">replicas: 3, image tag 1.5.0</text>
+      <g font-size="18" text-anchor="middle">
+        <text x="260" y="181" fill="#5C6B7B">ReplicaSet for 1.4.0: 0 Pods</text>
+        <text x="876" y="181" fill="#14263D">ReplicaSet for 1.5.0: 3 Pods</text>
+        <text x="721" y="290" fill="#14263D">Pod</text>
+        <text x="876" y="290" fill="#14263D">Pod</text>
+        <text x="1031" y="290" fill="#14263D">Pod</text>
+        <text x="260" y="246" fill="#5C6B7B" font-size="17">Kept for rollback</text>
+      </g>
+      <g stroke="#5C6B7B" stroke-width="1.8" marker-end="url(#arr-rs)">
+        <line x1="500" y1="86" x2="330" y2="134"/>
+        <line x1="636" y1="86" x2="806" y2="134"/>
+        <line x1="721" y1="212" x2="721" y2="250"/>
+        <line x1="876" y1="212" x2="876" y2="250"/>
+        <line x1="1031" y1="212" x2="1031" y2="250"/>
+      </g>
+    </svg>
+    <p>A Pod is one or more containers that share an IP address and volumes. A Deployment creates a new ReplicaSet for each new Pod template, scales the old one to zero and keeps it for rollback.</p>
+    <p class="small muted">Press &darr; for supporting detail: Hierarchy of Kubernetes Objects</p>
+    <aside class="notes">
+      Build the picture from the bottom. A Pod is the smallest unit Kubernetes schedules. Its containers share one network
+      namespace, so they reach each other on localhost, and they can share volumes. Most Pods have one main container.
+      A ReplicaSet keeps a number of identical Pods running. You rarely create one yourself.
+      A Deployment manages ReplicaSets. When you change the Pod template, for example the image tag, the Deployment creates
+      a new ReplicaSet and moves Pods from the old one to the new one. The old ReplicaSet stays with zero Pods, up to ten
+      revisions by default (revisionHistoryLimit), and "kubectl rollout undo" scales it back up.
+      In Lab 08 you will see the ReplicaSet names change with each rollout: the suffix is a hash of the Pod template.
+    </aside>
+  </section>
+
+  <section class="concept">
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <span class="reference-badge">Reference only</span>
+    <p class="eyebrow">Deep Dive / Kubernetes Architecture</p>
+    <h2>Hierarchy of Kubernetes Objects</h2>
+    <div class="term-grid">
+      <div class="term-card">
+        <span class="tag">1. Pod</span>
+        <h3>Atomic Unit</h3>
+        <p>The smallest schedulable unit. One or more co-located containers sharing an IP address, storage volumes, and IPC/localhost communication.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">2. ReplicaSet</span>
+        <h3>Replica Governor</h3>
+        <p>Guarantees that a specified count of identical Pods remain running. If a worker node crashes or a Pod terminates, it launches a replacement immediately.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">3. Deployment</span>
+        <h3>Rollout Controller</h3>
+        <p>Higher-level controller managing ReplicaSets. Drives zero-downtime rolling updates, tracks revisions, and powers instant rollbacks (<code>kubectl rollout undo</code>).</p>
+      </div>
+    </div>
+    <div class="gfm-alert gfm-note">
+      <div class="gfm-alert-title">Declarative Object Hierarchy</div>
+      <p>Engineers define Deployments in Git YAML files and rarely manage ReplicaSets or Pods directly. The Deployment controller automates version upgrades and replica health under the hood.</p>
+    </div>
+    <aside class="notes">
+      For BAs, QEs, and mainframe/ops engineers:
+      Deployment = The blueprint &amp; rollout strategy.
+      ReplicaSet = The supervisor enforcing headcounts.
+      Pod = The atomic worker unit executing containers.
+      When we deploy version 1.5.0 in Lab 08, the Deployment spins up a new ReplicaSet and gradually replaces pods while keeping the old ReplicaSet ready for rollback.
+    </aside>
+  </section>
 </section>
 
 <section>
-  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
-  <h2>Services and Ingress</h2>
-  <svg class="diagram" viewBox="0 0 1136 290" role="img" aria-label="Browser to k3d load balancer to Traefik ingress controller to Service to two ready Pods. A Pod that is not ready gets no traffic.">
-    <defs><marker id="arr-svc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
-    <g fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5">
-      <rect x="0" y="110" width="180" height="84" rx="6"/>
-      <rect x="220" y="110" width="190" height="84" rx="6"/>
-      <rect x="450" y="110" width="200" height="84" rx="6"/>
-      <rect x="920" y="20" width="216" height="64" rx="6"/>
-      <rect x="920" y="120" width="216" height="64" rx="6"/>
-    </g>
-    <rect x="690" y="110" width="190" height="84" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
-    <rect x="920" y="220" width="216" height="64" rx="6" fill="#fff" stroke="#C3CAD0" stroke-width="1.5" stroke-dasharray="7 5"/>
-    <g font-size="18" fill="#14263D" text-anchor="middle">
-      <text x="90" y="158">Browser</text>
-      <text x="315" y="146">k3d load</text><text x="315" y="172">balancer</text>
-      <text x="550" y="146">Ingress controller</text><text x="550" y="172">(Traefik)</text>
-      <text x="785" y="146">Service</text><text x="785" y="172">flight-status</text>
-      <text x="1028" y="58">Pod: ready</text>
-      <text x="1028" y="158">Pod: ready</text>
-    </g>
-    <text x="1028" y="258" font-size="18" fill="#5C6B7B" text-anchor="middle">Pod: not ready</text>
-    <g font-size="16" fill="#5C6B7B" text-anchor="middle">
-      <text x="90" y="226">localhost:8080</text>
-      <text x="550" y="226">routes by host name</text>
-      <text x="785" y="226">selects Pods by label</text>
-    </g>
-    <g stroke="#5C6B7B" stroke-width="1.8" marker-end="url(#arr-svc)">
-      <line x1="182" y1="152" x2="214" y2="152"/>
-      <line x1="412" y1="152" x2="444" y2="152"/>
-      <line x1="652" y1="152" x2="684" y2="152"/>
-      <line x1="882" y1="140" x2="914" y2="62"/>
-      <line x1="882" y1="152" x2="914" y2="152"/>
-    </g>
-  </svg>
-  <p>A Service gives a set of Pods one stable name and address, and sends traffic only to Pods that pass their readiness probe. An Ingress routes HTTP requests to Services by host name and path.</p>
-  <aside class="notes">
-    Pods come and go and get new IP addresses each time. A Service is the stable front: a fixed virtual IP and a DNS
-    name, such as flight-status.flightops-dev.svc.cluster.local. It selects Pods by label, and its endpoint list holds
-    only the Pods that are ready.
-    An Ingress describes HTTP routing: requests for a host name and path go to a Service. An Ingress controller does the
-    routing. k3s ships Traefik as its Ingress controller, and k3d publishes it on port 8080 of your lab machine.
-    In Amazon EKS, the AWS Load Balancer Controller usually turns an Ingress into an Application Load Balancer, which is
-    the same role the load balancer plays in front of ECS services.
-    In Lab 08 you open the app in the browser through the Ingress and see the version change during a rollout.
-  </aside>
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <h2>Services and Ingress</h2>
+    <svg class="diagram" viewBox="0 0 1136 290" role="img" aria-label="Browser to k3d load balancer to Traefik ingress controller to Service to two ready Pods. A Pod that is not ready gets no traffic.">
+      <defs><marker id="arr-svc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
+      <g fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5">
+        <rect x="0" y="110" width="180" height="84" rx="6"/>
+        <rect x="220" y="110" width="190" height="84" rx="6"/>
+        <rect x="450" y="110" width="200" height="84" rx="6"/>
+        <rect x="920" y="20" width="216" height="64" rx="6"/>
+        <rect x="920" y="120" width="216" height="64" rx="6"/>
+      </g>
+      <rect x="690" y="110" width="190" height="84" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
+      <rect x="920" y="220" width="216" height="64" rx="6" fill="#fff" stroke="#C3CAD0" stroke-width="1.5" stroke-dasharray="7 5"/>
+      <g font-size="18" fill="#14263D" text-anchor="middle">
+        <text x="90" y="158">Browser</text>
+        <text x="315" y="146">k3d load</text><text x="315" y="172">balancer</text>
+        <text x="550" y="146">Ingress controller</text><text x="550" y="172">(Traefik)</text>
+        <text x="785" y="146">Service</text><text x="785" y="172">flight-status</text>
+        <text x="1028" y="58">Pod: ready</text>
+        <text x="1028" y="158">Pod: ready</text>
+      </g>
+      <text x="1028" y="258" font-size="18" fill="#5C6B7B" text-anchor="middle">Pod: not ready</text>
+      <g font-size="16" fill="#5C6B7B" text-anchor="middle">
+        <text x="90" y="226">localhost:8080</text>
+        <text x="550" y="226">routes by host name</text>
+        <text x="785" y="226">selects Pods by label</text>
+      </g>
+      <g stroke="#5C6B7B" stroke-width="1.8" marker-end="url(#arr-svc)">
+        <line x1="182" y1="152" x2="214" y2="152"/>
+        <line x1="412" y1="152" x2="444" y2="152"/>
+        <line x1="652" y1="152" x2="684" y2="152"/>
+        <line x1="882" y1="140" x2="914" y2="62"/>
+        <line x1="882" y1="152" x2="914" y2="152"/>
+      </g>
+    </svg>
+    <p>A Service gives a set of Pods one stable name and address, and sends traffic only to Pods that pass their readiness probe. An Ingress routes HTTP requests to Services by host name and path.</p>
+    <p class="small muted">Press &darr; for supporting detail: Why do we need a Service?</p>
+    <aside class="notes">
+      Pods come and go and get new IP addresses each time. A Service is the stable front: a fixed virtual IP and a DNS
+      name, such as flight-status.flightops-dev.svc.cluster.local. It selects Pods by label, and its endpoint list holds
+      only the Pods that are ready.
+      An Ingress describes HTTP routing: requests for a host name and path go to a Service. An Ingress controller does the
+      routing. k3s ships Traefik as its Ingress controller, and k3d publishes it on port 8080 of your lab machine.
+      In Amazon EKS, the AWS Load Balancer Controller usually turns an Ingress into an Application Load Balancer, which is
+      the same role the load balancer plays in front of ECS services.
+      In Lab 08 you open the app in the browser through the Ingress and see the version change during a rollout.
+    </aside>
+  </section>
+
+  <section class="concept">
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <span class="reference-badge">Reference only</span>
+    <p class="eyebrow">Deep Dive / Kubernetes Networking</p>
+    <h2>Why Do We Need a Kubernetes Service?</h2>
+    <div class="term-grid">
+      <div class="term-card">
+        <span class="tag">The Problem</span>
+        <h3>Ephemeral Pod IPs</h3>
+        <p>Pods are mortal. Every restart, reschedule, or autoscaling event assigns a new dynamic IP address. Clients cannot rely on direct Pod IP endpoints.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">The Solution</span>
+        <h3>Stable Virtual IP &amp; DNS</h3>
+        <p>A Service provides a permanent ClusterIP and internal DNS record (<code>flight-status.flightops-dev.svc.cluster.local</code>) that never changes across deployments.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">Traffic Distribution</span>
+        <h3>Label Selector &amp; Probes</h3>
+        <p>The Service tracks Pods with matching labels (e.g. <code>app: flight-status</code>). Traffic is routed only to Pods currently passing readiness health probes.</p>
+      </div>
+    </div>
+    <div class="gfm-alert gfm-tip">
+      <div class="gfm-alert-title">Service vs. Ingress</div>
+      <p>A <strong>Service</strong> manages internal Layer 4 (TCP/UDP) routing and load balancing within the cluster. An <strong>Ingress</strong> handles external Layer 7 (HTTP/HTTPS) routing, host matching, and SSL/TLS termination.</p>
+    </div>
+    <aside class="notes">
+      Clarify for all roles:
+      Without a Service, you would have to update firewall rules and DNS records every time a Pod restarted.
+      The Service decouples consumer requests from ephemeral worker containers. kube-proxy maintains iptables/IPVS rules on every node to load balance traffic across ready Pod endpoints.
+    </aside>
+  </section>
 </section>
 
 <section>
@@ -1182,44 +1287,75 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
-  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
-  <h2>Continuous delivery and continuous deployment</h2>
-  <svg class="diagram" viewBox="0 0 1136 220" role="img" aria-label="Commit, build and test, deploy to a test environment, release decision, production.">
-    <defs><marker id="arr-cd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
-    <g fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5">
-      <rect x="0" y="30" width="160" height="80" rx="6"/>
-      <rect x="200" y="30" width="190" height="80" rx="6"/>
-      <rect x="430" y="30" width="220" height="80" rx="6"/>
-      <rect x="920" y="30" width="216" height="80" rx="6"/>
-    </g>
-    <rect x="690" y="30" width="190" height="80" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
-    <g font-size="18" fill="#14263D" text-anchor="middle">
-      <text x="80" y="76">Commit</text>
-      <text x="295" y="64">Build and</text><text x="295" y="90">test</text>
-      <text x="540" y="64">Deploy to a test</text><text x="540" y="90">environment</text>
-      <text x="785" y="64">Release</text><text x="785" y="90">decision</text>
-      <text x="1028" y="76">Production</text>
-    </g>
-    <g stroke="#5C6B7B" stroke-width="1.8" marker-end="url(#arr-cd)">
-      <line x1="162" y1="70" x2="194" y2="70"/><line x1="392" y1="70" x2="424" y2="70"/>
-      <line x1="652" y1="70" x2="684" y2="70"/><line x1="882" y1="70" x2="914" y2="70"/>
-    </g>
-    <g font-size="17" fill="#5C6B7B" text-anchor="middle">
-      <text x="785" y="156">Delivery: a person decides.</text>
-      <text x="785" y="184">Deployment: the pipeline decides.</text>
-    </g>
-  </svg>
-  <p>Continuous delivery keeps every change that passes the pipeline ready to release at any time (Humble and Farley, 2010). Continuous deployment releases each of those changes automatically.</p>
-  <aside class="notes">
-    The two terms are often mixed up. In continuous delivery, the software is always in a releasable state, and releasing
-    is a business decision that takes one click. In continuous deployment, every change that passes all checks goes to
-    production with no manual step. Timothy Fitz described continuous deployment at IMVU in 2009; Humble and Farley's book
-    Continuous Delivery followed in 2010.
-    Continuous deployment needs strong automated checks and fast rollback, because no person looks at the change before
-    users do. Many regulated organisations practise continuous delivery with an approval before production.
-    Lab 09 is close to continuous deployment: a merge to main deploys to prod if dev passed. The next slides cover what makes
-    that safe.
-  </aside>
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <h2>Continuous delivery and continuous deployment</h2>
+    <svg class="diagram" viewBox="0 0 1136 220" role="img" aria-label="Commit, build and test, deploy to a test environment, release decision, production.">
+      <defs><marker id="arr-cd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
+      <g fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5">
+        <rect x="0" y="30" width="160" height="80" rx="6"/>
+        <rect x="200" y="30" width="190" height="80" rx="6"/>
+        <rect x="430" y="30" width="220" height="80" rx="6"/>
+        <rect x="920" y="30" width="216" height="80" rx="6"/>
+      </g>
+      <rect x="690" y="30" width="190" height="80" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
+      <g font-size="18" fill="#14263D" text-anchor="middle">
+        <text x="80" y="76">Commit</text>
+        <text x="295" y="64">Build and</text><text x="295" y="90">test</text>
+        <text x="540" y="64">Deploy to a test</text><text x="540" y="90">environment</text>
+        <text x="785" y="64">Release</text><text x="785" y="90">decision</text>
+        <text x="1028" y="76">Production</text>
+      </g>
+      <g stroke="#5C6B7B" stroke-width="1.8" marker-end="url(#arr-cd)">
+        <line x1="162" y1="70" x2="194" y2="70"/><line x1="392" y1="70" x2="424" y2="70"/>
+        <line x1="652" y1="70" x2="684" y2="70"/><line x1="882" y1="70" x2="914" y2="70"/>
+      </g>
+      <g font-size="17" fill="#5C6B7B" text-anchor="middle">
+        <text x="785" y="156">Delivery: a person decides.</text>
+        <text x="785" y="184">Deployment: the pipeline decides.</text>
+      </g>
+    </svg>
+    <p>Continuous delivery keeps every change that passes the pipeline ready to release at any time (Humble and Farley, 2010). Continuous deployment releases each of those changes automatically.</p>
+    <p class="small muted">Press &darr; for supporting detail: Delivery vs. Deployment</p>
+    <aside class="notes">
+      The two terms are often mixed up. In continuous delivery, the software is always in a releasable state, and releasing
+      is a business decision that takes one click. In continuous deployment, every change that passes all checks goes to
+      production with no manual step. Timothy Fitz described continuous deployment at IMVU in 2009; Humble and Farley's book
+      Continuous Delivery followed in 2010.
+      Continuous deployment needs strong automated checks and fast rollback, because no person looks at the change before
+      users do. Many regulated organisations practise continuous delivery with an approval before production.
+      Lab 09 is close to continuous deployment: a merge to main deploys to prod if dev passed. The next slides cover what makes
+      that safe.
+    </aside>
+  </section>
+
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <span class="reference-badge">Reference only</span>
+    <p class="eyebrow">Deep Dive / Release Strategy</p>
+    <h2>Delivery vs. Deployment Mental Model</h2>
+    <div class="cols">
+      <div class="term-card">
+        <span class="tag">Continuous Delivery (CD)</span>
+        <h3>Releasable on Demand</h3>
+        <p>Every commit that passes automated builds and tests is deployed to staging. The codebase is continually proven releasable, but production rollout pauses at an explicit business approval gate.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">Continuous Deployment (CD)</span>
+        <h3>Direct to Production</h3>
+        <p>Every commit passing automated pipeline gates is deployed directly to production with zero manual intervention. Relies on automated canary verification and automated rollbacks.</p>
+      </div>
+    </div>
+    <div class="gfm-alert gfm-important">
+      <div class="gfm-alert-title">Enterprise Reality</div>
+      <p>Most enterprise and regulated organizations practice <strong>Continuous Delivery</strong>: pipelines automate all verification and staging deployments, while business owners retain control over production release timing.</p>
+    </div>
+    <aside class="notes">
+      Distinction for BAs, QEs, and mainframe/ops engineers:
+      Both share identical automated CI pipelines and staging deployments.
+      The sole difference is the final gate to production: a human decision click (Delivery) vs. automated straight-through processing (Deployment).
+    </aside>
+  </section>
 </section>
 
 <section>

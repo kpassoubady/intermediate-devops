@@ -6,9 +6,9 @@
 <title>Intermediate DevOps · Day 2: Infrastructure as code and credentials</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
-<link rel="stylesheet" href="themes/blue/blue-theme.css">
-<link rel="stylesheet" href="themes/blue/blue-polished.css">
-<link rel="stylesheet" href="themes/blue/blue-polished-gradients.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kpassoubady/revealjs-theme@v1/blue-theme.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kpassoubady/revealjs-theme@v1/blue-polished.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kpassoubady/revealjs-theme@v1/blue-polished-gradients.css">
 <style>
   /* Retain the course's 22px density on the polished theme's 720px canvas. */
   :root { --r-main-font-size: 22px; --slide-padding: 52px 72px 56px; }
@@ -30,6 +30,563 @@
   .reveal section.title-slide .t-sub.low { top: 430px; }
   .reveal ul.refs > li { font-size: 18px; line-height: 1.35; margin-bottom: 10px; }
   .reveal ul.refs > li::before { top: 10px; }
+
+  /* Slide 6: How infrastructure was managed before code */
+  .reveal .infra-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 18px;
+  }
+  .reveal .infra-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+    text-align: left;
+    box-sizing: border-box;
+  }
+  .reveal .infra-card.legacy {
+    border-top: 5px solid #dc2626;
+  }
+  .reveal .infra-card.modern {
+    border-top: 5px solid #16a34a;
+  }
+  .reveal .infra-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .reveal .infra-badge {
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .reveal .infra-badge.danger {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .reveal .infra-badge.success {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .reveal .infra-card h3 {
+    font-size: 20px;
+    margin: 0;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .reveal .infra-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .reveal .infra-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+  .reveal .infra-icon {
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .reveal .infra-card.legacy .infra-icon { color: #dc2626; }
+  .reveal .infra-card.modern .infra-icon { color: #16a34a; }
+  .reveal .infra-turning-point {
+    margin-top: 16px;
+    background: #e0f2fe;
+    border: 1px solid #7dd3fc;
+    border-left: 6px solid #0284c7;
+    border-radius: 10px;
+    padding: 12px 18px;
+    text-align: left;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .reveal .turning-point-badge {
+    background: #0284c7;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .reveal .turning-point-text {
+    font-size: 14px;
+    color: #0c4a6e;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Slide 12: Configuration Drift */
+  .reveal .drift-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .reveal .drift-top-row {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 14px;
+  }
+  .reveal .drift-equation-box {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-left: 5px solid #e11d48;
+    border-radius: 10px;
+    padding: 11px 16px;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  .reveal .drift-equation-formula {
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 800;
+    color: #9f1239;
+    margin-bottom: 4px;
+  }
+  .reveal .drift-equation-desc {
+    font-size: 13.5px;
+    color: #881337;
+    margin: 0;
+    line-height: 1.35;
+  }
+  .reveal .drift-causes-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .reveal .drift-cause-badge {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-warning);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    text-align: left;
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+  .reveal .drift-cause-badge strong {
+    color: var(--color-text);
+  }
+  .reveal .drift-resolution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .reveal .drift-res-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  .reveal .drift-res-card.revert {
+    border-top: 4px solid #d97706;
+  }
+  .reveal .drift-res-card.codify {
+    border-top: 4px solid #16a34a;
+  }
+  .reveal .drift-res-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .reveal .drift-res-header h3 {
+    font-size: 16.5px;
+    margin: 0;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .reveal .drift-res-pill {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .reveal .drift-res-pill.revert {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .reveal .drift-res-pill.codify {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .reveal .drift-res-card p {
+    font-size: 13.5px;
+    line-height: 1.35;
+    margin: 0;
+    color: var(--color-text);
+  }
+  .reveal .drift-prevention-banner {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 6px solid var(--color-primary);
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: var(--color-text);
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 27: Remote State & Locking */
+  .reveal .state-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .reveal .state-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+  }
+  .reveal .state-card.risk {
+    border-top: 5px solid #dc2626;
+  }
+  .reveal .state-card.shield {
+    border-top: 5px solid #0284c7;
+  }
+  .reveal .state-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .reveal .state-card h3 {
+    font-size: 18px;
+    margin: 0;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .reveal .state-badge {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .reveal .state-badge.danger {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .reveal .state-badge.shield {
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+  .reveal .state-card p {
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0 0 8px;
+  }
+  .reveal .state-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .reveal .state-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+  .reveal .step-num {
+    background: #0284c7;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .reveal .state-rule-box {
+    margin-top: 16px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 6px solid #f59e0b;
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: #92400e;
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 38: Where Secrets Leak */
+  .reveal .leak-vector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .reveal .leak-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-top: 4px solid #ef4444;
+    border-radius: 10px;
+    padding: 13px 15px;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(30, 41, 59, 0.04);
+    min-height: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .reveal .leak-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .reveal .leak-card h3 {
+    font-size: 16px;
+    margin: 0;
+    color: #b91c1c;
+    font-weight: 700;
+  }
+  .reveal .leak-vector-tag {
+    font-size: 10.5px;
+    font-weight: 800;
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .reveal .leak-card p {
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .reveal .leak-defense-banner {
+    margin-top: 14px;
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-left: 6px solid #e11d48;
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: #881337;
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 40: The Secret-Zero Problem */
+  .reveal .secret-zero-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .reveal .secret-zero-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 15px 18px;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+  }
+  .reveal .secret-zero-card.trap {
+    border-top: 5px solid #dc2626;
+  }
+  .reveal .secret-zero-card.solution {
+    border-top: 5px solid #16a34a;
+  }
+  .reveal .secret-zero-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .reveal .secret-zero-header h3 {
+    font-size: 18px;
+    margin: 0;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .reveal .secret-zero-badge {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .reveal .secret-zero-badge.danger {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .reveal .secret-zero-badge.success {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .reveal .secret-zero-desc {
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0 0 10px;
+  }
+  .reveal .workload-identity-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .reveal .identity-mechanism-pill {
+    background: #ffffff;
+    border: 1px solid #bbf7d0;
+    border-left: 3px solid #16a34a;
+    border-radius: 6px;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 12.5px;
+    line-height: 1.3;
+    color: var(--color-text);
+    box-sizing: border-box;
+  }
+  .reveal .identity-mechanism-pill strong {
+    display: block;
+    font-size: 13px;
+    color: #166534;
+    margin-bottom: 2px;
+  }
+  .reveal .secret-zero-takeaway {
+    margin-top: 4px;
+    background: #e0f2fe;
+    border: 1px solid #7dd3fc;
+    border-left: 6px solid #0284c7;
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: #0c4a6e;
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 54: Day 2 Summary */
+  .reveal .summary-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .reveal .summary-pillar-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-top: 5px solid var(--color-primary);
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 285px;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+    box-sizing: border-box;
+  }
+  .reveal .pillar-badge {
+    font-size: 11px;
+    font-weight: 800;
+    background: #e3f2fd;
+    color: var(--color-primary-dark);
+    padding: 3px 8px;
+    border-radius: 4px;
+    width: fit-content;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .reveal .summary-pillar-card h3 {
+    font-size: 17px;
+    margin: 0 0 8px;
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .reveal .summary-pillar-card ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    flex-grow: 1;
+  }
+  .reveal .summary-pillar-card ul li {
+    margin-bottom: 6px;
+  }
+  .reveal .summary-next-banner {
+    margin-top: 16px;
+    background: linear-gradient(90deg, #1e3a8a, #0284c7);
+    border-radius: 10px;
+    padding: 13px 20px;
+    color: #ffffff;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14.5px;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+    box-sizing: border-box;
+  }
+  .reveal .summary-next-banner strong {
+    color: #ffffff;
+  }
+  .reveal .next-day-pill {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-right: 12px;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    display: inline-block;
+  }
 </style>
 </head>
 <body>
@@ -127,13 +684,36 @@
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>How infrastructure was managed before code</h2>
-  <ul>
-    <li>Engineers built and changed servers by hand, from a runbook or from memory.</li>
-    <li>New servers came through tickets and took days or weeks.</li>
-    <li>Servers that started the same became different over time. Fowler (2012) calls them snowflake servers.</li>
-    <li>Rebuilding a failed server was slow, because nobody knew its full configuration.</li>
-  </ul>
-  <p>Cloud APIs, starting with Amazon Elastic Compute Cloud (EC2) in 2006, made it possible to create servers and networks from a program in minutes.</p>
+  <div class="infra-comparison">
+    <div class="infra-card legacy fragment fade-up" data-fragment-index="1">
+      <div class="infra-header">
+        <h3>The Snowflake Era</h3>
+        <span class="infra-badge danger">Manual &amp; Fragile</span>
+      </div>
+      <ul class="infra-list">
+        <li><span class="infra-icon">&times;</span> Built and patched by hand from runbooks or memory</li>
+        <li><span class="infra-icon">&times;</span> Multi-week ticketing queues for provisioning</li>
+        <li><span class="infra-icon">&times;</span> Diverged into unique, unrepeatable "snowflake" servers</li>
+        <li><span class="infra-icon">&times;</span> Slow disaster recovery: nobody knew full configuration</li>
+      </ul>
+    </div>
+    <div class="infra-card modern fragment fade-up" data-fragment-index="2">
+      <div class="infra-header">
+        <h3>Programmable Cloud</h3>
+        <span class="infra-badge success">Declarative &amp; Automated</span>
+      </div>
+      <ul class="infra-list">
+        <li><span class="infra-icon">&check;</span> Version-controlled declarations in Git repositories</li>
+        <li><span class="infra-icon">&check;</span> Pull request review gates before any environment change</li>
+        <li><span class="infra-icon">&check;</span> Automated idempotency and convergence across environments</li>
+        <li><span class="infra-icon">&check;</span> Disposable &amp; reproducible: rebuilt in minutes via APIs</li>
+      </ul>
+    </div>
+  </div>
+  <div class="infra-turning-point fragment fade-up" data-fragment-index="3">
+    <span class="turning-point-badge">The Turning Point</span>
+    <p class="turning-point-text"><strong>AWS EC2 (2006)</strong> transformed infrastructure from physical procurement into programmable API calls &mdash; turning servers into disposable, versioned, and auditable software artifacts.</p>
+  </div>
   <aside class="notes">
     Start with history, because infrastructure as code is an answer to a specific problem. In a data centre, a server was a
     physical purchase and its setup was manual. Each emergency fix made one server a little different from its neighbours.
@@ -245,50 +825,106 @@ kubectl create quota dev-quota \
 </section>
 
 <section>
-  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
-  <h2>Desired state and convergence</h2>
-  <svg class="diagram" viewBox="0 0 1136 240" role="img" aria-label="Declared state in code, read the actual state, calculate the difference, apply only the difference, then repeat">
-    <defs><marker id="arr-d2-conv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
-    <g font-size="19" fill="#14263D" text-anchor="middle">
-      <rect x="0" y="40" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="110" y="80">Declared state</text><text x="110" y="105">in code</text>
-      <rect x="290" y="40" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="400" y="80">Read the actual</text><text x="400" y="105">state</text>
-      <rect x="580" y="40" width="220" height="90" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
-      <text x="690" y="80">Calculate the</text><text x="690" y="105">difference</text>
-      <rect x="870" y="40" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="980" y="80">Apply only the</text><text x="980" y="105">difference</text>
-    </g>
-    <g stroke="#5C6B7B" stroke-width="1.8" fill="none">
-      <line x1="222" y1="85" x2="286" y2="85" marker-end="url(#arr-d2-conv)"/>
-      <line x1="512" y1="85" x2="576" y2="85" marker-end="url(#arr-d2-conv)"/>
-      <line x1="802" y1="85" x2="866" y2="85" marker-end="url(#arr-d2-conv)"/>
-      <path d="M980,132 L980,185 L400,185 L400,136" marker-end="url(#arr-d2-conv)"/>
-    </g>
-    <text x="690" y="220" font-size="17" fill="#5C6B7B" text-anchor="middle">Repeat on every run. If nothing differs, nothing changes.</text>
-  </svg>
-  <p>Mark Burgess designed CFEngine in 1993 around this idea. Each run moves a system closer to the declared state. Terraform plans and Kubernetes controllers work the same way.</p>
-  <aside class="notes">
-    Desired state means you write down what the system should look like. Convergence means a tool repeatedly compares the
-    system with that description and corrects the differences. Mark Burgess built CFEngine at Oslo University College in 1993
-    on this principle, and later formalised it in his work on promise theory. A convergent tool does not need to know the
-    history of a system. It only needs the current state and the desired state. Terraform does one pass of this loop each
-    time you run plan and apply. Kubernetes controllers run the loop continuously, every few seconds, which you will see on
-    Day 3 when a deleted pod comes back by itself. Source: Burgess, M. (1995) Cfengine: a site configuration engine,
-    USENIX Computing Systems 8(3).
-  </aside>
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <h2>Desired state and convergence</h2>
+    <svg class="diagram" viewBox="0 0 1136 240" role="img" aria-label="Declared state in code, read the actual state, calculate the difference, apply only the difference, then repeat">
+      <defs><marker id="arr-d2-conv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
+      <g font-size="19" fill="#14263D" text-anchor="middle">
+        <rect x="0" y="40" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="110" y="80">Declared state</text><text x="110" y="105">in code</text>
+        <rect x="290" y="40" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="400" y="80">Read the actual</text><text x="400" y="105">state</text>
+        <rect x="580" y="40" width="220" height="90" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
+        <text x="690" y="80">Calculate the</text><text x="690" y="105">difference</text>
+        <rect x="870" y="40" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="980" y="80">Apply only the</text><text x="980" y="105">difference</text>
+      </g>
+      <g stroke="#5C6B7B" stroke-width="1.8" fill="none">
+        <line x1="222" y1="85" x2="286" y2="85" marker-end="url(#arr-d2-conv)"/>
+        <line x1="512" y1="85" x2="576" y2="85" marker-end="url(#arr-d2-conv)"/>
+        <line x1="802" y1="85" x2="866" y2="85" marker-end="url(#arr-d2-conv)"/>
+        <path d="M980,132 L980,185 L400,185 L400,136" marker-end="url(#arr-d2-conv)"/>
+      </g>
+      <text x="690" y="220" font-size="17" fill="#5C6B7B" text-anchor="middle">Repeat on every run. If nothing differs, nothing changes.</text>
+    </svg>
+    <p>Mark Burgess designed CFEngine in 1993 around this idea. Each run moves a system closer to the declared state. Terraform plans and Kubernetes controllers work the same way.</p>
+    <p class="small muted">Press &darr; for supporting detail: Declarative vs. Imperative IaC</p>
+    <aside class="notes">
+      Desired state means you write down what the system should look like. Convergence means a tool repeatedly compares the
+      system with that description and corrects the differences. Mark Burgess built CFEngine at Oslo University College in 1993
+      on this principle, and later formalised it in his work on promise theory. A convergent tool does not need to know the
+      history of a system. It only needs the current state and the desired state. Terraform does one pass of this loop each
+      time you run plan and apply. Kubernetes controllers run the loop continuously, every few seconds, which you will see on
+      Day 3 when a deleted pod comes back by itself. Source: Burgess, M. (1995) Cfengine: a site configuration engine,
+      USENIX Computing Systems 8(3).
+    </aside>
+  </section>
+
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <span class="reference-badge">Reference only</span>
+    <p class="eyebrow">Deep Dive / What is IaC?</p>
+    <h2>Declarative vs. Imperative Infrastructure</h2>
+    <div class="cols">
+      <div class="term-card">
+        <span class="tag">Imperative (Scripting "How")</span>
+        <h3>Step-by-Step Procedure</h3>
+        <p>Explicit commands specify each operation: <em>"create subnet, wait 10s, provision VM"</em>. If a script fails midway, rerunning it causes duplicate name collisions unless you write complex defensive rollback logic.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">Declarative (Declaring "What")</span>
+        <h3>Target End State</h3>
+        <p>You describe the desired result in code: <em>"a VPC with three subnets and two VMs"</em>. The tool (Terraform, CloudFormation) computes the current state, calculates the delta, and executes only what is missing or changed.</p>
+      </div>
+    </div>
+    <div class="gfm-alert gfm-note">
+      <div class="gfm-alert-title">Why Console Clicks Fail in Teams</div>
+      <p>Manual console clicks create undocumented, untracked "snowflake" environments. Declaring infrastructure in version-controlled code ensures peer review, automated testing, disaster repeatability, and drift detection.</p>
+    </div>
+    <aside class="notes">
+      For BAs, QEs, and mainframe/ops engineers new to IaC:
+      Imperative is like giving turn-by-turn driving directions (if one street is blocked, you get lost). Declarative is typing the destination into GPS (the system figures out how to get there from wherever you currently are).
+      Clicking around the AWS or Azure web console works for a one-off experiment, but in enterprise teams it leads to configuration drift and unrepeatable outages.
+    </aside>
+  </section>
 </section>
 
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Configuration drift</h2>
-  <ul>
-    <li>Drift is any difference between the code and the real infrastructure.</li>
-    <li>It comes from manual changes in a console, emergency fixes, and other tools that change the same objects.</li>
-    <li>Terraform reports drift in the next plan. CloudFormation has a drift detection command.</li>
-    <li>After you find drift, apply the code to remove it, or change the code to keep it.</li>
-  </ul>
-  <p>In Lab 04 you make a manual change with kubectl and find it in the next Terraform plan.</p>
+  <div class="drift-layout">
+    <div class="drift-top-row fragment fade-up" data-fragment-index="1">
+      <div class="drift-equation-box">
+        <div class="drift-equation-formula">Git Code (Intended) &ne; Cloud State (Actual)</div>
+        <p class="drift-equation-desc"><strong>Drift:</strong> Any divergence between declared code and live infrastructure. Detected via <code>terraform plan</code> refresh or CloudFormation drift detection.</p>
+      </div>
+      <div class="drift-causes-container">
+        <div class="drift-cause-badge"><strong>Console ClickOps:</strong> Manual edits directly in cloud/K8s web consoles</div>
+        <div class="drift-cause-badge"><strong>2 AM Hotfixes:</strong> Urgent production patches never backported to Git</div>
+        <div class="drift-cause-badge"><strong>Rogue Automation:</strong> Ad-hoc scripts modifying live resources outside IaC</div>
+      </div>
+    </div>
+    <div class="drift-resolution-grid fragment fade-up" data-fragment-index="2">
+      <div class="drift-res-card revert">
+        <div class="drift-res-header">
+          <h3>Path A: Revert to Code</h3>
+          <span class="drift-res-pill revert">Overwrite</span>
+        </div>
+        <p>Run <code>terraform apply</code> to overwrite and destroy unauthorized manual changes, restoring reality to the declared Git baseline.</p>
+      </div>
+      <div class="drift-res-card codify">
+        <div class="drift-res-header">
+          <h3>Path B: Codify into Git</h3>
+          <span class="drift-res-pill codify">Adopt</span>
+        </div>
+        <p>Submit a pull request adopting the manual change into Terraform code, keeping intent, review history, and cloud reality synchronized.</p>
+      </div>
+    </div>
+    <div class="drift-prevention-banner fragment fade-up" data-fragment-index="3">
+      <strong>Drift Prevention Rule:</strong> Revoke human console write access in production environments &mdash; only authenticated CI/CD pipelines hold credentials to apply changes.
+    </div>
+  </div>
   <aside class="notes">
     Drift is the most common problem for teams that use infrastructure as code. Someone fixes a production problem at 2 a.m. in the console, and the
     fix never reaches the code. The next apply quietly undoes the fix, or the next environment built from the code lacks it.
@@ -382,51 +1018,82 @@ kubectl create quota dev-quota \
 </section>
 
 <section>
-  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
-  <h2>How Terraform is built</h2>
-  <svg class="diagram" viewBox="0 0 1136 300" role="img" aria-label="Configuration files and state go into Terraform core, which talks to provider plugins over gRPC, which call the Kubernetes API server and AWS APIs">
-    <defs>
-      <marker id="arr-d2-arch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker>
-    </defs>
-    <g font-size="19" fill="#14263D" text-anchor="middle">
-      <rect x="0" y="30" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="110" y="70">Configuration</text><text x="110" y="96">.tf files</text>
-      <rect x="0" y="190" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="110" y="230">State</text><text x="110" y="256" font-size="17">terraform.tfstate</text>
-      <rect x="310" y="60" width="260" height="190" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="440" y="108" font-weight="700">Terraform core</text>
-      <text x="440" y="145" font-size="17" fill="#5C6B7B">reads code and state</text>
-      <text x="440" y="172" font-size="17" fill="#5C6B7B">builds the graph</text>
-      <text x="440" y="199" font-size="17" fill="#5C6B7B">makes the plan</text>
-      <rect x="650" y="60" width="230" height="190" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
-      <text x="765" y="108" font-weight="700">Provider plugins</text>
-      <text x="765" y="145" font-size="17" fill="#5C6B7B">kubernetes</text>
-      <text x="765" y="172" font-size="17" fill="#5C6B7B">aws</text>
-      <text x="765" y="199" font-size="17" fill="#5C6B7B">helm, github, …</text>
-      <rect x="960" y="30" width="176" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="1048" y="70">Kubernetes</text><text x="1048" y="96">API server</text>
-      <rect x="960" y="190" width="176" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="1048" y="242">AWS APIs</text>
-    </g>
-    <g stroke="#5C6B7B" stroke-width="1.8" fill="none">
-      <line x1="222" y1="78" x2="306" y2="118" marker-end="url(#arr-d2-arch)"/>
-      <line x1="226" y1="232" x2="306" y2="192" marker-start="url(#arr-d2-arch)" marker-end="url(#arr-d2-arch)"/>
-      <line x1="572" y1="155" x2="646" y2="155" marker-start="url(#arr-d2-arch)" marker-end="url(#arr-d2-arch)"/>
-      <line x1="882" y1="118" x2="956" y2="80" marker-end="url(#arr-d2-arch)"/>
-      <line x1="882" y1="192" x2="956" y2="230" marker-end="url(#arr-d2-arch)"/>
-    </g>
-    <text x="609" y="142" font-size="15" fill="#5C6B7B" text-anchor="middle">gRPC</text>
-  </svg>
-  <p>Terraform core has no knowledge of Kubernetes or AWS. Providers are separate programs that turn resources into API calls. <code>terraform init</code> downloads them from the Terraform Registry.</p>
-  <aside class="notes">
-    Terraform is split into two parts. The core is the terraform binary. It parses the configuration, reads the state, builds
-    the dependency graph and calculates the plan. Everything that talks to a real system is in a provider plugin, a separate
-    executable that the core starts and talks to over gRPC. There are thousands of providers: AWS, Kubernetes, GitHub, Datadog,
-    and Harness itself. This split is why Terraform can manage almost anything with an API, and it is why provider versions
-    matter as much as the Terraform version. In Lab 04 you use the hashicorp/kubernetes provider, which talks to the k3d
-    cluster's API server with the credentials in your kubeconfig. Source: HashiCorp, "How Terraform works with plugins",
-    developer.hashicorp.com/terraform.
-  </aside>
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <h2>How Terraform is built</h2>
+    <svg class="diagram" viewBox="0 0 1136 300" role="img" aria-label="Configuration files and state go into Terraform core, which talks to provider plugins over gRPC, which call the Kubernetes API server and AWS APIs">
+      <defs>
+        <marker id="arr-d2-arch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker>
+      </defs>
+      <g font-size="19" fill="#14263D" text-anchor="middle">
+        <rect x="0" y="30" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="110" y="70">Configuration</text><text x="110" y="96">.tf files</text>
+        <rect x="0" y="190" width="220" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="110" y="230">State</text><text x="110" y="256" font-size="17">terraform.tfstate</text>
+        <rect x="310" y="60" width="260" height="190" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="440" y="108" font-weight="700">Terraform core</text>
+        <text x="440" y="145" font-size="17" fill="#5C6B7B">reads code and state</text>
+        <text x="440" y="172" font-size="17" fill="#5C6B7B">builds the graph</text>
+        <text x="440" y="199" font-size="17" fill="#5C6B7B">makes the plan</text>
+        <rect x="650" y="60" width="230" height="190" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
+        <text x="765" y="108" font-weight="700">Provider plugins</text>
+        <text x="765" y="145" font-size="17" fill="#5C6B7B">kubernetes</text>
+        <text x="765" y="172" font-size="17" fill="#5C6B7B">aws</text>
+        <text x="765" y="199" font-size="17" fill="#5C6B7B">helm, github, …</text>
+        <rect x="960" y="30" width="176" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="1048" y="70">Kubernetes</text><text x="1048" y="96">API server</text>
+        <rect x="960" y="190" width="176" height="90" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="1048" y="242">AWS APIs</text>
+      </g>
+      <g stroke="#5C6B7B" stroke-width="1.8" fill="none">
+        <line x1="222" y1="78" x2="306" y2="118" marker-end="url(#arr-d2-arch)"/>
+        <line x1="226" y1="232" x2="306" y2="192" marker-start="url(#arr-d2-arch)" marker-end="url(#arr-d2-arch)"/>
+        <line x1="572" y1="155" x2="646" y2="155" marker-start="url(#arr-d2-arch)" marker-end="url(#arr-d2-arch)"/>
+        <line x1="882" y1="118" x2="956" y2="80" marker-end="url(#arr-d2-arch)"/>
+        <line x1="882" y1="192" x2="956" y2="230" marker-end="url(#arr-d2-arch)"/>
+      </g>
+      <text x="609" y="142" font-size="15" fill="#5C6B7B" text-anchor="middle">gRPC</text>
+    </svg>
+    <p>Terraform core has no knowledge of Kubernetes or AWS. Providers are separate programs that turn resources into API calls. <code>terraform init</code> downloads them from the Terraform Registry.</p>
+    <p class="small muted">Press &darr; for supporting detail: What is Terraform?</p>
+    <aside class="notes">
+      Terraform is split into two parts. The core is the terraform binary. It parses the configuration, reads the state, builds
+      the dependency graph and calculates the plan. Everything that talks to a real system is in a provider plugin, a separate
+      executable that the core starts and talks to over gRPC. There are thousands of providers: AWS, Kubernetes, GitHub, Datadog,
+      and Harness itself. This split is why Terraform can manage almost anything with an API, and it is why provider versions
+      matter as much as the Terraform version. In Lab 04 you use the hashicorp/kubernetes provider, which talks to the k3d
+      cluster's API server with the credentials in your kubeconfig. Source: HashiCorp, "How Terraform works with plugins",
+      developer.hashicorp.com/terraform.
+    </aside>
+  </section>
+
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <span class="reference-badge">Reference only</span>
+    <p class="eyebrow">Deep Dive / Core Architecture</p>
+    <h2>What is Terraform? Core vs. Providers</h2>
+    <div class="cols">
+      <div class="term-card">
+        <span class="tag">Terraform Core</span>
+        <h3>The Orchestration Engine</h3>
+        <p>A single compiled binary. It parses HashiCorp Configuration Language (HCL), constructs the dependency graph, inspects previous state, and calculates <em>what</em> resources need creation, update, or destruction.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">Provider Plugins</span>
+        <h3>Platform Translators</h3>
+        <p>Standalone executables (AWS, Kubernetes, Azure) maintained independently. Core communicates with them over gRPC, asking providers to execute the vendor API requests required to reach the target state.</p>
+      </div>
+    </div>
+    <div class="gfm-alert gfm-tip">
+      <div class="gfm-alert-title">Clean Separation of Concerns</div>
+      <p>Terraform Core has zero cloud knowledge built in. When AWS releases a new service or Kubernetes adds an API, only the respective provider plugin needs updating—your Terraform CLI binary stays unchanged.</p>
+    </div>
+    <aside class="notes">
+      Clarify for all backgrounds:
+      Terraform is not a giant monolithic cloud driver. Core is the architect and project manager; providers are the specialized contractors who know how to speak to AWS, Kubernetes, or GitHub.
+      `terraform init` looks up the providers requested in your .tf files, downloads the corresponding binaries from the Terraform Registry, and locks their checksums in .terraform.lock.hcl.
+    </aside>
+  </section>
 </section>
 
 <section class="code-wide">
@@ -494,24 +1161,60 @@ output "namespaces" { value = keys(kubernetes_namespace_v1.env) }</code></pre>
 </section>
 
 <section>
-  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
-  <h2>Why Terraform keeps state</h2>
-  <ul>
-    <li>State maps each resource address to a real object. <code>kubernetes_namespace_v1.env["dev"]</code> maps to the namespace <code>flightops-dev</code>.</li>
-    <li>State records dependencies, so Terraform can delete objects in the right order after you remove them from the code.</li>
-    <li>State stores the last known attribute values, which plans compare against.</li>
-    <li>By default, state is a JSON file named <code>terraform.tfstate</code> in the working folder.</li>
-  </ul>
-  <p>If the state is lost, Terraform no longer knows which objects it created.</p>
-  <aside class="notes">
-    Students often ask why Terraform needs a state file when it could look at the cloud. The main reason is mapping.
-    Many APIs cannot tell Terraform which real object belongs to which block of code. The state records that
-    kubernetes_namespace_v1.env["dev"] is the namespace called flightops-dev, or that an aws_instance block is instance
-    i-0abc123. The state also remembers dependencies for objects that are no longer in the code, which is how Terraform
-    deletes them in a safe order. In Lab 04 you will look at the state with terraform state list and terraform state show.
-    If state is lost, Terraform would try to create everything again and fail on name conflicts; objects can be brought back
-    under management with terraform import. Source: HashiCorp, "Purpose of Terraform State".
-  </aside>
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <h2>Why Terraform keeps state</h2>
+    <ul>
+      <li>State maps each resource address to a real object (e.g. <code>kubernetes_namespace_v1.env["dev"]</code> to <code>flightops-dev</code>).</li>
+      <li>State records dependencies, so Terraform deletes objects in the right order after code removal.</li>
+      <li>State stores last known attribute values, which plans compare against.</li>
+      <li>By default, state is a JSON file named <code>terraform.tfstate</code>.</li>
+    </ul>
+    <p>If state is lost, Terraform no longer knows which objects it created.</p>
+    <p class="small muted">Press &darr; for supporting detail: The State File Mental Model</p>
+    <aside class="notes">
+      Students often ask why Terraform needs a state file when it could look at the cloud. The main reason is mapping.
+      Many APIs cannot tell Terraform which real object belongs to which block of code. The state records that
+      kubernetes_namespace_v1.env["dev"] is the namespace called flightops-dev, or that an aws_instance block is instance
+      i-0abc123. The state also remembers dependencies for objects that are no longer in the code, which is how Terraform
+      deletes them in a safe order. In Lab 04 you will look at the state with terraform state list and terraform state show.
+      If state is lost, Terraform would try to create everything again and fail on name conflicts; objects can be brought back
+      under management with terraform import. Source: HashiCorp, "Purpose of Terraform State".
+    </aside>
+  </section>
+
+  <section class="concept">
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <span class="reference-badge">Reference only</span>
+    <p class="eyebrow">Deep Dive / Mental Model</p>
+    <h2>The State File Mental Model</h2>
+    <div class="term-grid">
+      <div class="term-card">
+        <span class="tag">1. Identity Mapping</span>
+        <h3>Code to Cloud IDs</h3>
+        <p>Cloud APIs only know generated IDs (e.g. <code>i-0abc1234def</code>). State maps human-readable code addresses (<code>aws_instance.web</code>) to actual physical cloud entities.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">2. Drift Detection</span>
+        <h3>Spotting Rogue Edits</h3>
+        <p>State stores last-known attributes. During <code>plan</code>, Terraform refreshes against live APIs to pinpoint out-of-band manual changes made in web consoles.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">3. Safe Deletions</span>
+        <h3>Dependency Memory</h3>
+        <p>When you delete code, the code is gone! State remembers that the object existed and what depended on it, allowing clean, reverse-order destruction.</p>
+      </div>
+    </div>
+    <div class="gfm-alert gfm-important">
+      <div class="gfm-alert-title">Why Can't Terraform Just Query the Cloud?</div>
+      <p>Cloud APIs cannot tell which team or Terraform workspace created an arbitrary security group or VPC, nor can they track resources that were just deleted from code without a state record.</p>
+    </div>
+    <aside class="notes">
+      Explain for BAs, QEs, and mainframe/ops engineers:
+      Without a state file, Terraform is blind to what it manages. It cannot tell whether an existing VM named "web" was made by your pipeline or another department.
+      State also provides performance caching and stores dependencies that no longer exist in code after a deletion.
+    </aside>
+  </section>
 </section>
 
 <section>
@@ -746,30 +1449,35 @@ variable "namespace" {
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Remote state and locking</h2>
-  <svg class="diagram" viewBox="0 0 1136 290" role="img" aria-label="Pipeline run A holds the lock in the backend; pipeline run B gets an error acquiring the state lock">
-    <defs><marker id="arr-d2-lock" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
-    <g font-size="19" fill="#14263D" text-anchor="middle">
-      <rect x="0" y="20" width="250" height="80" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="125" y="55">Pipeline run A</text><text x="125" y="80" font-size="16" fill="#5C6B7B">running apply</text>
-      <rect x="0" y="190" width="250" height="80" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="125" y="225">Pipeline run B</text><text x="125" y="250" font-size="16" fill="#5C6B7B">starts while A runs</text>
-      <rect x="620" y="10" width="440" height="270" rx="6" fill="#fff" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="840" y="48" font-weight="700">Backend</text>
-      <rect x="650" y="80" width="180" height="120" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="740" y="132">State</text><text x="740" y="158" font-size="16" fill="#5C6B7B">a Secret in Lab 05</text>
-      <rect x="860" y="80" width="170" height="120" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
-      <text x="945" y="132">Lock</text><text x="945" y="158" font-size="16" fill="#5C6B7B">a Lease in Lab 05</text>
-    </g>
-    <g stroke="#5C6B7B" stroke-width="1.8" fill="none" marker-end="url(#arr-d2-lock)">
-      <line x1="252" y1="60" x2="616" y2="110"/>
-      <line x1="252" y1="230" x2="616" y2="200" stroke-dasharray="7 5"/>
-    </g>
-    <g font-size="16" fill="#5C6B7B" text-anchor="middle">
-      <text x="430" y="70">holds the lock</text>
-      <text x="430" y="248">Error acquiring the state lock</text>
-    </g>
-  </svg>
-  <p>A backend stores state outside the working folder, for example in Amazon Simple Storage Service (S3), HashiCorp Cloud Platform (HCP) Terraform or a Kubernetes Secret. Locking stops two runs from changing the same state at once.</p>
+  <div class="state-grid">
+    <div class="state-card risk fragment fade-up" data-fragment-index="1">
+      <div class="state-card-header">
+        <h3>Race Condition Risk</h3>
+        <span class="state-badge danger">Concurrency Clash</span>
+      </div>
+      <p>Without distributed locking, two team members or pipeline jobs running <code>apply</code> simultaneously create catastrophic race conditions:</p>
+      <ul class="state-steps">
+        <li><span class="infra-icon" style="color: #dc2626;">&times;</span> <div>Both runs read the identical baseline state at execution start</div></li>
+        <li><span class="infra-icon" style="color: #dc2626;">&times;</span> <div>Second write overwrites and clobbers first run's state updates</div></li>
+        <li><span class="infra-icon" style="color: #dc2626;">&times;</span> <div>State mapping corrupts; resources orphan or duplicate in cloud</div></li>
+      </ul>
+    </div>
+    <div class="state-card shield fragment fade-up" data-fragment-index="2">
+      <div class="state-card-header">
+        <h3>Distributed Lock Mesh</h3>
+        <span class="state-badge shield">Remote Shield</span>
+      </div>
+      <p>Remote backends enforce mutual exclusion through coordinated locking before any modification begins:</p>
+      <ul class="state-steps">
+        <li><span class="step-num">1</span> <div><strong>Remote Storage:</strong> State saved centrally in AWS S3, HCP Terraform, or K8s Secret (Lab 05).</div></li>
+        <li><span class="step-num">2</span> <div><strong>Lock Acquisition:</strong> Acquires lock ID in DynamoDB or K8s Lease; Run B fails with <em>"Error acquiring the state lock"</em>.</div></li>
+        <li><span class="step-num">3</span> <div><strong>Atomic Release:</strong> Lock is released only after state successfully flushes to backend.</div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="state-rule-box fragment fade-up" data-fragment-index="3">
+    <strong>Golden Rule:</strong> Never edit state files by hand. Remote state is Terraform's single authoritative source of truth &mdash; use <code>terraform force-unlock</code> only after confirming no process is running.
+  </div>
   <aside class="notes">
     A backend decides where Terraform keeps state. The default local backend writes terraform.tfstate next to the code, which
     only works for one person. Remote backends keep state in shared storage. Amazon S3 is the most common choice on AWS. HCP
@@ -1041,15 +1749,53 @@ exit "$rc"</code></pre>
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Where secrets leak</h2>
-  <table>
-    <tr><th>Place</th><th>Example</th></tr>
-    <tr><td>Source code and Git history</td><td>A password committed and later deleted is still in the history.</td></tr>
-    <tr><td>Pipeline logs</td><td><code>echo $TOKEN</code> or <code>set -x</code> prints the value.</td></tr>
-    <tr><td>Container images</td><td>A file copied in one layer stays in the image after a later layer deletes it.</td></tr>
-    <tr><td>Infrastructure state</td><td>Terraform state stores generated passwords in plain text.</td></tr>
-    <tr><td>Shell history and process data</td><td>Passwords typed as arguments; <code>docker inspect</code> shows environment variables.</td></tr>
-    <tr><td>Chat, tickets and wikis</td><td>A value pasted to help a colleague.</td></tr>
-  </table>
+  <div class="leak-vector-grid">
+    <div class="leak-card fragment fade-up" data-fragment-index="1">
+      <div class="leak-card-header">
+        <h3>Git History</h3>
+        <span class="leak-vector-tag">Source Code</span>
+      </div>
+      <p>Passwords committed and later deleted remain permanently accessible in commit DAG history.</p>
+    </div>
+    <div class="leak-card fragment fade-up" data-fragment-index="1">
+      <div class="leak-card-header">
+        <h3>Pipeline Logs</h3>
+        <span class="leak-vector-tag">CI/CD Output</span>
+      </div>
+      <p><code>echo $TOKEN</code> or unmasked <code>set -x</code> prints credentials to shared build stdout logs.</p>
+    </div>
+    <div class="leak-card fragment fade-up" data-fragment-index="1">
+      <div class="leak-card-header">
+        <h3>Image Layers</h3>
+        <span class="leak-vector-tag">Containers</span>
+      </div>
+      <p>Secrets copied via <code>COPY</code> in layer 1 persist in image blobs even if deleted by layer 2.</p>
+    </div>
+    <div class="leak-card fragment fade-up" data-fragment-index="2">
+      <div class="leak-card-header">
+        <h3>State Files</h3>
+        <span class="leak-vector-tag">Terraform</span>
+      </div>
+      <p>Terraform <code>.tfstate</code> files store generated passwords and connection strings in plain text.</p>
+    </div>
+    <div class="leak-card fragment fade-up" data-fragment-index="2">
+      <div class="leak-card-header">
+        <h3>Process Data</h3>
+        <span class="leak-vector-tag">Shell &amp; /proc</span>
+      </div>
+      <p><code>docker inspect</code> and <code>/proc</code> expose runtime environment variables to local host users.</p>
+    </div>
+    <div class="leak-card fragment fade-up" data-fragment-index="2">
+      <div class="leak-card-header">
+        <h3>Chat &amp; Tickets</h3>
+        <span class="leak-vector-tag">Collaboration</span>
+      </div>
+      <p>Credentials casually pasted into Slack, Teams, or Jira tickets to quickly unblock a colleague.</p>
+    </div>
+  </div>
+  <div class="leak-defense-banner fragment fade-up" data-fragment-index="3">
+    <strong>Defense in Depth:</strong> Deleting a secret does not remove it from history or backups. Any exposed credential must be revoked and rotated immediately.
+  </div>
   <aside class="notes">
     Most leaks are accidents in ordinary places. Git keeps every version of every file, so deleting a committed secret in a
     later commit does not remove it; the credential must be rotated. Pipeline logs are read by many people and often kept for
@@ -1064,28 +1810,39 @@ exit "$rc"</code></pre>
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The secret-zero problem</h2>
-  <svg class="diagram" viewBox="0 0 1136 210" role="img" aria-label="The pipeline step signs in to the secret store with credential A, the store returns password B, the step connects to the database with password B">
-    <defs><marker id="arr-d2-zero" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker>
-      <marker id="arr-d2-zero-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0033A0"/></marker></defs>
-    <g font-size="19" fill="#14263D" text-anchor="middle">
-      <rect x="0" y="60" width="200" height="80" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="100" y="106">Database</text>
-      <rect x="468" y="60" width="200" height="80" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="568" y="106">Pipeline step</text>
-      <rect x="936" y="60" width="200" height="80" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="1036" y="106">Secret store</text>
-    </g>
-    <line x1="670" y1="82" x2="932" y2="82" stroke="#0033A0" stroke-width="2.5" marker-end="url(#arr-d2-zero-a)"/>
-    <g stroke="#5C6B7B" stroke-width="1.8" fill="none" marker-end="url(#arr-d2-zero)">
-      <line x1="934" y1="118" x2="672" y2="118"/>
-      <line x1="466" y1="100" x2="204" y2="100"/>
-    </g>
-    <text x="802" y="68" font-size="17" fill="#0033A0" text-anchor="middle">1. Signs in with credential A</text>
-    <text x="802" y="146" font-size="17" fill="#5C6B7B" text-anchor="middle">2. Returns password B</text>
-    <text x="334" y="86" font-size="17" fill="#5C6B7B" text-anchor="middle">3. Connects with password B</text>
-    <text x="568" y="196" font-size="18" fill="#0033A0" text-anchor="middle">Credential A is the secret zero.</text>
-  </svg>
-  <p>A pipeline needs a credential to read from a secret store. If that first credential is a static token, it can leak like any other secret. Workload identity removes it. The platform proves who the workload is, for example with an AWS Identity and Access Management (IAM) role for an EKS pod or a Kubernetes ServiceAccount token.</p>
+  <div class="secret-zero-layout">
+    <div class="secret-zero-card trap fragment fade-up" data-fragment-index="1">
+      <div class="secret-zero-header">
+        <h3>The Static Bootstrap Dilemma</h3>
+        <span class="secret-zero-badge danger">The Secret-Zero Trap</span>
+      </div>
+      <p class="secret-zero-desc">To retrieve dynamic credentials from HashiCorp Vault or AWS Secrets Manager, a pipeline must first authenticate to the store. If this bootstrap key is a static token or long-lived API secret, it <strong>is</strong> Secret Zero &mdash; a single point of failure that can leak across logs, images, and history.</p>
+    </div>
+    <div class="secret-zero-card solution fragment fade-up" data-fragment-index="2">
+      <div class="secret-zero-header">
+        <h3>Tokenless Cryptographic Attestation</h3>
+        <span class="secret-zero-badge success">Workload Identity</span>
+      </div>
+      <p class="secret-zero-desc">Instead of storing bootstrap passwords, the execution platform cryptographically proves who the running workload is:</p>
+      <div class="workload-identity-grid">
+        <div class="identity-mechanism-pill">
+          <strong>OIDC Federated Trust</strong>
+          CI pipelines mint ephemeral OpenID Connect JWTs exchanged directly with cloud IAM for temporary tokens.
+        </div>
+        <div class="identity-mechanism-pill">
+          <strong>Cloud IAM Roles (IRSA)</strong>
+          EKS Pods and Harness delegates assume IAM roles directly via AWS STS without any stored access keys.
+        </div>
+        <div class="identity-mechanism-pill">
+          <strong>K8s ServiceAccounts</strong>
+          API server cryptographically signs time-bound, audience-scoped JWT tokens projected into Pod volumes.
+        </div>
+      </div>
+    </div>
+    <div class="secret-zero-takeaway fragment fade-up" data-fragment-index="3">
+      <strong>Core Principle:</strong> Never store static credentials to unlock other credentials. Eliminate Secret Zero entirely by moving to platform-attested workload identities.
+    </div>
+  </div>
   <aside class="notes">
     A secret store does not remove every stored credential. To read from the store, the pipeline must authenticate,
     and that credential is the secret zero. If it is a long-lived token in an environment variable, an attacker who gets it
@@ -1256,47 +2013,78 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section>
-  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
-  <h2>Secret stores and pipelines</h2>
-  <svg class="diagram" viewBox="0 0 1136 275" role="img" aria-label="Pipeline YAML holds a reference; Harness reads the value from the secret store when the step starts and passes it to the step as an environment variable, which connects to the database or API">
-    <defs><marker id="arr-d2-store" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
-    <rect x="300" y="0" width="560" height="76" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-    <g font-size="16">
-      <text x="322" y="31" fill="#5C6B7B">Open Source</text>
-      <text x="462" y="31" fill="#14263D" font-family="Menlo, 'DejaVu Sans Mono', monospace">${{ secrets.get("db_password") }}</text>
-      <text x="322" y="60" fill="#5C6B7B">Platform</text>
-      <text x="462" y="60" fill="#14263D" font-family="Menlo, 'DejaVu Sans Mono', monospace">&lt;+secrets.getValue("db_password")&gt;</text>
-    </g>
-    <g font-size="18" fill="#14263D" text-anchor="middle">
-      <rect x="0" y="150" width="230" height="100" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="115" y="184">Secret store</text>
-      <text x="115" y="210" font-size="16" fill="#5C6B7B">TSS, AWS Secrets</text>
-      <text x="115" y="232" font-size="16" fill="#5C6B7B">Manager, Vault</text>
-      <rect x="320" y="150" width="220" height="100" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
-      <text x="430" y="184">Harness reads</text><text x="430" y="208">the value when</text><text x="430" y="232">the step starts</text>
-      <rect x="630" y="150" width="230" height="100" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="745" y="194">Step: value in an</text><text x="745" y="219">environment variable</text>
-      <rect x="950" y="150" width="186" height="100" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
-      <text x="1043" y="194">Database</text><text x="1043" y="219">or API</text>
-    </g>
-    <g stroke="#5C6B7B" stroke-width="1.8" fill="none" marker-end="url(#arr-d2-store)">
-      <line x1="430" y1="78" x2="430" y2="146"/>
-      <line x1="232" y1="200" x2="316" y2="200"/>
-      <line x1="542" y1="200" x2="626" y2="200"/>
-      <line x1="862" y1="200" x2="946" y2="200"/>
-    </g>
-  </svg>
-  <p>The pipeline YAML holds a reference to the secret. At United, the enterprise store is TSS. The Harness platform reads external stores through secret manager connectors. Harness Open Source keeps secrets in its own database.</p>
-  <aside class="notes">
-    An enterprise secret store holds the authoritative copy of each credential. It stores credentials encrypted, controls who
-    can read each one, logs every access, and often rotates them. At United that store is TSS. AWS Secrets Manager and HashiCorp Vault are
-    other common examples. A pipeline should never contain a secret value. It contains a reference, and the pipeline platform
-    resolves the reference when the step starts, then passes the value to the step, usually as an environment variable.
-    The two lines at the top show the reference syntax in Harness Open Source, which you use in the labs, and in the Harness
-    platform. In the platform, a secret manager is configured as a connector, and the delegate fetches values inside the
-    company network. Harness Open Source has only its built-in store. The value still exists inside the step, which is why the
-    next slide matters.
-  </aside>
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <h2>Secret stores and pipelines</h2>
+    <svg class="diagram" viewBox="0 0 1136 275" role="img" aria-label="Pipeline YAML holds a reference; Harness reads the value from the secret store when the step starts and passes it to the step as an environment variable, which connects to the database or API">
+      <defs><marker id="arr-d2-store" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
+      <rect x="300" y="0" width="560" height="76" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+      <g font-size="16">
+        <text x="322" y="31" fill="#5C6B7B">Open Source</text>
+        <text x="462" y="31" fill="#14263D" font-family="Menlo, 'DejaVu Sans Mono', monospace">${{ secrets.get("db_password") }}</text>
+        <text x="322" y="60" fill="#5C6B7B">Platform</text>
+        <text x="462" y="60" fill="#14263D" font-family="Menlo, 'DejaVu Sans Mono', monospace">&lt;+secrets.getValue("db_password")&gt;</text>
+      </g>
+      <g font-size="18" fill="#14263D" text-anchor="middle">
+        <rect x="0" y="150" width="230" height="100" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="115" y="184">Secret store</text>
+        <text x="115" y="210" font-size="16" fill="#5C6B7B">TSS, AWS Secrets</text>
+        <text x="115" y="232" font-size="16" fill="#5C6B7B">Manager, Vault</text>
+        <rect x="320" y="150" width="220" height="100" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5"/>
+        <text x="430" y="184">Harness reads</text><text x="430" y="208">the value when</text><text x="430" y="232">the step starts</text>
+        <rect x="630" y="150" width="230" height="100" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="745" y="194">Step: value in an</text><text x="745" y="219">environment variable</text>
+        <rect x="950" y="150" width="186" height="100" rx="6" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
+        <text x="1043" y="194">Database</text><text x="1043" y="219">or API</text>
+      </g>
+      <g stroke="#5C6B7B" stroke-width="1.8" fill="none" marker-end="url(#arr-d2-store)">
+        <line x1="430" y1="78" x2="430" y2="146"/>
+        <line x1="232" y1="200" x2="316" y2="200"/>
+        <line x1="542" y1="200" x2="626" y2="200"/>
+        <line x1="862" y1="200" x2="946" y2="200"/>
+      </g>
+    </svg>
+    <p>The pipeline YAML holds a reference to the secret. At United, the enterprise store is TSS. The Harness platform reads external stores through secret manager connectors. Harness Open Source keeps secrets in its own database.</p>
+    <p class="small muted">Press &darr; for supporting detail: Enterprise Secrets Managers</p>
+    <aside class="notes">
+      An enterprise secret store holds the authoritative copy of each credential. It stores credentials encrypted, controls who
+      can read each one, logs every access, and often rotates them. At United that store is TSS. AWS Secrets Manager and HashiCorp Vault are
+      other common examples. A pipeline should never contain a secret value. It contains a reference, and the pipeline platform
+      resolves the reference when the step starts, then passes the value to the step, usually as an environment variable.
+      The two lines at the top show the reference syntax in Harness Open Source, which you use in the labs, and in the Harness
+      platform. In the platform, a secret manager is configured as a connector, and the delegate fetches values inside the
+      company network. Harness Open Source has only its built-in store. The value still exists inside the step, which is why the
+      next slide matters.
+    </aside>
+  </section>
+
+  <section>
+    <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+    <span class="reference-badge">Reference only</span>
+    <p class="eyebrow">Deep Dive / Credential Security</p>
+    <h2>What is an Enterprise Secrets Manager?</h2>
+    <div class="cols">
+      <div class="term-card">
+        <span class="tag">The Vulnerability</span>
+        <h3>Hardcoded &amp; Static Secrets</h3>
+        <p>Hardcoding passwords or storing plain text in files and environment variables leaves permanent audit leaks in Git commits, container layers, and shell history where they sit unrotated for months.</p>
+      </div>
+      <div class="term-card">
+        <span class="tag">The Solution</span>
+        <h3>Runtime Dynamic Injection</h3>
+        <p>Enterprise vaults (TSS, HashiCorp Vault, AWS Secrets Manager) securely encrypt secrets, enforce access control, log every retrieval, and vend short-lived credentials directly to running jobs.</p>
+      </div>
+    </div>
+    <div class="gfm-alert gfm-note">
+      <div class="gfm-alert-title">Secrets Injection Boundary</div>
+      <p>Pipeline definitions store only references (e.g. <code>&lt;+secrets.getValue("db_password")&gt;</code>). The Harness Delegate retrieves the secret in memory when the step begins and purges it immediately on completion.</p>
+    </div>
+    <aside class="notes">
+      Context for non-security specialists:
+      Hardcoded credentials are the primary cause of repo leaks. An enterprise secrets manager replaces permanent passwords with centrally audited, temporary access tokens.
+      At United, TSS is the enterprise vault. In our pipelines, we never write secret values into YAML; we reference them, and Harness injects them into the running container step only.
+    </aside>
+  </section>
 </section>
 
 <section class="industry-example" data-industry="primary" data-concept="credential-delivery" data-duration-minutes="2">
@@ -1426,13 +2214,62 @@ S3cr3t-Value</code></pre>
 <section class="discussion-answer" data-duration-minutes="1.5">
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Day 2 summary</h2>
-  <ul>
-    <li>Infrastructure as code describes the desired state in version-controlled files and applies it with automation.</li>
-    <li>Terraform compares the code, the state and the real infrastructure, shows a plan, and applies it.</li>
-    <li>In a team, state is remote and locked, plans are reviewed in pull requests, and apply runs after merge.</li>
-    <li>Credentials have a narrow scope, a short lifetime where possible, a place in a secret store, and never appear in logs.</li>
-  </ul>
-  <p>Day 3 covers containers, Kubernetes deployments and an end-to-end delivery pipeline.</p>
+  <div class="summary-pillars-grid">
+    <div class="summary-pillar-card fragment fade-up" data-fragment-index="1">
+      <div>
+        <span class="pillar-badge">Pillar 1</span>
+        <h3>Declarative IaC</h3>
+        <ul>
+          <li>Desired state defined in version-controlled Git files</li>
+          <li>Idempotent execution engines (Terraform, CloudFormation)</li>
+          <li>Automated graph resolution of cloud dependencies</li>
+          <li>Immutable infrastructure over in-place snowflake mutation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-pillar-card fragment fade-up" data-fragment-index="1">
+      <div>
+        <span class="pillar-badge">Pillar 2</span>
+        <h3>Terraform Workflow</h3>
+        <ul>
+          <li>Three-way comparison: Code vs. State vs. Real Cloud</li>
+          <li>Plan generated on PR; apply executed on main merge</li>
+          <li>Encrypted remote backend storage (S3 / HCP / K8s)</li>
+          <li>Distributed state locking prevents concurrency collisions</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-pillar-card fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="pillar-badge">Pillar 3</span>
+        <h3>Delivery Engine</h3>
+        <ul>
+          <li>Dedicated CI runners with pinned tool versions</li>
+          <li>Scheduled drift detection catches out-of-band ClickOps</li>
+          <li>Drift remediation choice: Revert change vs. Codify into Git</li>
+          <li>Shift-left policy as code validation gates (OPA / Conftest)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-pillar-card fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="pillar-badge">Pillar 4</span>
+        <h3>Secret Hygiene</h3>
+        <ul>
+          <li>Least privilege permissions with minimal blast radius</li>
+          <li>Central secret managers; never leak values in build logs</li>
+          <li>Eliminate Secret Zero via OIDC and Workload Identity</li>
+          <li>Mandatory rotation: verify old token revoked &amp; new active</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="summary-next-banner fragment fade-up" data-fragment-index="3">
+    <div>
+      <span class="next-day-pill">Tomorrow &middot; Day 3</span>
+      <strong>Containers, Kubernetes Orchestration &amp; Continuous Delivery Pipelines</strong>
+    </div>
+  </div>
   <aside class="notes">
     Debrief for one and a half minutes. Verify allowed and denied operations with authorization checks, and verify
     rotation by testing that the old credential is rejected while the intended replacement works.

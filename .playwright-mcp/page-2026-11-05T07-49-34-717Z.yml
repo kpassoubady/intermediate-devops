@@ -1,0 +1,30 @@
+- application [ref=f1e2]:
+  - generic:
+    - generic [ref=f1e3]:
+      - img "Kavin School"
+      - generic [ref=f1e5]: "Intermediate DevOpsDay 1: Continuous integration"
+      - generic [ref=f1e6]: United Airlines · Pluralsight instructor-led training
+      - generic [ref=f1e7]: Kangeyan Passoubady9-11 November 2026
+    - generic [aria-hidden]:
+      - heading [level=2]: Prerequisites
+      - list:
+        - listitem: Basic IT and software development experience.
+        - listitem: Some scripting or programming experience.
+        - listitem: Exposure to basic DevOps principles.
+        - listitem: Comfort working at a Linux command line.
+      - paragraph: "Recommended preparation: Pluralsight DevOps Foundations Skill IQ and about 30 minutes of its recommended learning."
+    - generic [aria-hidden]:
+      - text: CHAT WATERFALL
+      - heading [level=2]: Introduce Yourself
+      - paragraph: "Draft one short chat message:"
+      - list:
+        - listitem: Your name and location or time zone.
+        - listitem: Your role.
+        - listitem: Your experience in IT and at your current organization.
+      - paragraph: "Type without sending. Send together after the countdown: 3... 2... 1... send."
+      - paragraph: You may speak when invited, keep a private note, or pass. Share only what feels comfortable.
+    - text: CHAT WATERFALL KEY POINTS HANDS-ON LAB KNOWLEDGE CHECK HANDS-ON LAB KNOWLEDGE CHECK HANDS-ON LAB DISCUSSION ANSWER
+  - link "1" [ref=f1e12] [cursor=pointer]:
+    - /url: "#/"
+  - text: Speaker notes
+  - generic [ref=f1e13]: "Intermediate DevOps Day 1: Continuous integration United Airlines · Pluralsight instructor-led training Kangeyan Passoubady 9-11 November 2026"
