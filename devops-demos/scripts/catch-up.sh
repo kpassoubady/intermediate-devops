@@ -2,8 +2,8 @@
 # Bring a FRESH lab machine to the start of a lab by replaying the earlier labs.
 #
 #   sudo apt-get update && sudo apt-get install -y git
-#   git clone https://github.com/nicklotz/devops-demos.git ~/devops-demos
-#   ~/devops-demos/scripts/catch-up.sh 04      # ready to start Lab 04
+#   git clone git@github.com:kpassoubady/intermediate-devops.git ~/intermediate-devops
+#   ~/intermediate-devops/devops-demos/scripts/catch-up.sh 04      # ready to start Lab 04
 #
 # It runs the commands from each earlier lab, does the Harness UI steps through
 # the Harness API, and checks the results. Run it on a machine where you have not

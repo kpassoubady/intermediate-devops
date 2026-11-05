@@ -25,7 +25,7 @@
   <div class="t-band"></div>
   <div class="t-main">Intermediate DevOps<br>Day 2: Infrastructure as code<br>and credentials</div>
   <div class="t-sub low">United Airlines · Pluralsight instructor-led training</div>
-  <div class="t-meta">Nick Lotz<br>27–29 October 2026</div>
+  <div class="t-meta">Kangeyan Passoubady<br>9-11 November 2026</div>
   <aside class="notes">
     Welcome back to Day 2. Yesterday was about continuous integration: getting code changes tested and merged safely.
     Today moves one layer down, to the infrastructure the application runs on, and to the credentials that pipelines and
@@ -36,7 +36,24 @@
   </aside>
 </section>
 
-<section>
+<section class="discussion retrieval" data-duration-minutes="2">
+  <h2>Recall: Follow a change</h2>
+  <p>Without opening your notes, write a short explanation:</p>
+  <ol>
+    <li>How does a changed file reach the pipeline?</li>
+    <li>What prevents a failing change from merging to main?</li>
+    <li>Why can a passing pipeline still miss a defect?</li>
+  </ol>
+  <p>Think privately for 60 seconds, then optionally share one sentence in chat. Compare with the next slide.</p>
+  <aside class="notes">
+    Allow two minutes here and one on the feedback slide, three minutes total.
+    This retrieves yesterday's model rather than testing today's Terraform teaching.
+    Invite a written or spoken response without requiring either; private notes and passing are valid.
+    Collect one misconception to address immediately on the next slide.
+  </aside>
+</section>
+
+<section class="discussion-answer retrieval-answer" data-duration-minutes="1">
   <h2>What you built on Day 1</h2>
   <ul>
     <li>Harness Open Source running in Docker on your lab machine, with the <code>flightops</code> project and the <code>flight-status</code> repository.</li>
@@ -46,12 +63,11 @@
   </ul>
   <p>Today you create the infrastructure the application will run on, and you manage the credentials it needs.</p>
   <aside class="notes">
-     Ask who finished Lab 03 and who did not. Anyone who did not finish can run
-    scripts/catch-up.sh 04 from the course repository during the first lecture. The script brings a lab machine to the
-    starting state of Lab 04, so nobody is blocked by yesterday. Ask one or two people what surprised them yesterday. Common
-    answers are that each pipeline step runs in its own container, and that the branch rule blocked even the administrator.
-    Both points matter today. Infrastructure code also goes through pull requests and a pipeline, and the same branch rule
-    protects it.
+    Debrief for one minute. A pushed change or pull-request event starts the configured pipeline; the required status
+    check and branch rule control merge. Tests prove only the cases and assertions they exercise, not every requirement.
+    Ask learners to correct one detail in their explanation. Address one misconception collected on the preceding slide.
+    Check unfinished labs privately. scripts/catch-up.sh 04 replays earlier labs on a fresh machine;
+    it is not a general repair tool for a partial run. Infrastructure changes will reuse the same PR and CI workflow.
   </aside>
 </section>
 
@@ -60,7 +76,7 @@
   <ol>
     <li>Day 1 recap</li>
     <li>Lecture: Infrastructure as code concepts</li>
-    <li>Lecture: Terraform, CloudFormation and the AWS CDK</li>
+    <li>Lecture: Terraform, CloudFormation and the AWS Cloud Development Kit (CDK)</li>
     <li>Lab 04: Terraform foundations on Kubernetes</li>
     <li>Lecture: Infrastructure as code in pipelines</li>
     <li>Lab 05: Terraform in the pipeline</li>
@@ -68,6 +84,7 @@
     <li>Lab 06: Managing credentials</li>
     <li>Summary and questions</li>
   </ol>
+  <p class="small">AWS: Amazon Web Services. EKS: Elastic Kubernetes Service.</p>
   <aside class="notes">
     The day has the same rhythm as yesterday: a short lecture, then a lab that uses it. Lab 04 is the longest lab of the course, because it installs the Kubernetes tools and introduces Terraform from zero. Lab 05 and Lab 06 build
     on the Lab 04 results, so keep your cluster and your Terraform folder. If you fall behind, the catch-up script exists
@@ -85,7 +102,7 @@
     <li>Servers that started the same became different over time. Fowler (2012) calls them snowflake servers.</li>
     <li>Rebuilding a failed server was slow, because nobody knew its full configuration.</li>
   </ul>
-  <p>Cloud APIs, starting with Amazon EC2 in 2006, made it possible to create servers and networks from a program in minutes.</p>
+  <p>Cloud APIs, starting with Amazon Elastic Compute Cloud (EC2) in 2006, made it possible to create servers and networks from a program in minutes.</p>
   <aside class="notes">
     Start with history, because infrastructure as code is an answer to a specific problem. In a data centre, a server was a
     physical purchase and its setup was manual. Each emergency fix made one server a little different from its neighbours.
@@ -363,22 +380,19 @@ kubectl create quota dev-quota \
 
 <section>
   <h2>The Terraform language</h2>
+  <p class="small">HCL: HashiCorp Configuration Language.</p>
   <div class="cols-60-40">
 <pre><code>variable "environments" {
   type    = set(string)
   default = ["dev", "prod"]
 }
-
 resource "kubernetes_namespace_v1" "env" {
   for_each = var.environments
   metadata {
     name = "flightops-${each.key}"
   }
 }
-
-output "namespaces" {
-  value = keys(kubernetes_namespace_v1.env)
-}</code></pre>
+output "namespaces" { value = keys(kubernetes_namespace_v1.env) }</code></pre>
     <ul>
       <li><code>variable</code> is an input value.</li>
       <li><code>resource</code> is an object Terraform manages. Its address is the type and the name.</li>
@@ -683,7 +697,7 @@ variable "namespace" {
       <text x="430" y="248">Error acquiring the state lock</text>
     </g>
   </svg>
-  <p>A backend stores state outside the working folder, for example in Amazon S3, HCP Terraform or a Kubernetes Secret. Locking stops two runs from changing the same state at once.</p>
+  <p>A backend stores state outside the working folder, for example in Amazon Simple Storage Service (S3), HashiCorp Cloud Platform (HCP) Terraform or a Kubernetes Secret. Locking stops two runs from changing the same state at once.</p>
   <aside class="notes">
     A backend decides where Terraform keeps state. The default local backend writes terraform.tfstate next to the code, which
     only works for one person. Remote backends keep state in shared storage. Amazon S3 is the most common choice on AWS. HCP
@@ -734,6 +748,41 @@ variable "namespace" {
   </aside>
 </section>
 
+<section class="industry-example" data-industry="primary" data-concept="infrastructure-workflow" data-duration-minutes="2">
+  <h2>Infrastructure through code (General DevOps)</h2>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>GitLab: managing GitLab.com infrastructure.</p>
+  <ul>
+    <li>GitLab's engineering handbook describes Terraform configuration for production, staging and operations environments.</li>
+    <li>Shared configuration keeps staging and production topology aligned; variables hold environment-specific sizing.</li>
+    <li>Course connection: review infrastructure changes in version control and apply them through CI.</li>
+  </ul>
+  <p class="small">Source: <a href="https://handbook.gitlab.com/handbook/engineering/infrastructure-platforms/production-engineering/networking-and-incident-management/sre-onboarding/">GitLab handbook, infrastructure management</a>.</p>
+  <aside class="notes">
+    Allow two minutes. The handbook explicitly calls for changes to be merged and applied through CI.
+    Compare the shared configuration and environment variables with the namespaces and module inputs in Lab 04.
+    GitLab's production infrastructure is not the same product or topology as the local Harness lab.
+  </aside>
+</section>
+
+<section class="industry-example" data-industry="secondary" data-concept="infrastructure-workflow" data-duration-minutes="2">
+  <h2>Infrastructure through code (Retail)</h2>
+  <div class="skip-badge">SKIP</div>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Wayfair: self-service cloud environments with Terraform.</p>
+  <ul>
+    <li>Wayfair described a Terraform module that creates development and production cloud projects with foundational settings.</li>
+    <li>Its sandbox allowed manual prototyping, while development and production changes had to go through infrastructure as code.</li>
+    <li>Course connection: experimentation and controlled environments can have different change paths.</li>
+  </ul>
+  <p class="small">Source: <a href="https://www.hashicorp.com/en/resources/transforming-access-to-cloud-infrastructure-at-wayfair-with-terraform-enterprise">Wayfair's HashiCorp presentation</a>.</p>
+  <aside class="notes">
+    Allow two minutes if selected for delivery. This case concerns Google Cloud projects, not the Kubernetes objects
+    created in our labs. The transferable practice is a reusable, reviewed infrastructure definition.
+    Do not imply that the sandbox's broader privileges are appropriate for production.
+  </aside>
+</section>
+
 <section>
   <h2>Reviewing a plan</h2>
   <ul>
@@ -775,7 +824,7 @@ variable "namespace" {
 
 <section>
   <h2>Policy as code</h2>
-  <p>A policy is a rule written as code and checked automatically. This Open Policy Agent rule, written in Rego, rejects a plan that deletes a namespace.</p>
+  <p>A policy is a rule written as code and checked automatically. This Open Policy Agent (OPA) rule, written in Rego, rejects a plan that deletes a namespace.</p>
 <pre><code>package terraform.namespaces
 
 deny contains msg if {
@@ -839,6 +888,22 @@ exit "$rc"</code></pre>
   </aside>
 </section>
 
+<section class="kahoot" data-duration-minutes="5">
+  <h2>Section Quiz 1: Terraform in Pipelines</h2>
+  <p>Four questions. Five minutes, including feedback.</p>
+  <ul>
+    <li>Use the Kahoot game PIN shared by your instructor.</li>
+    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
+    <li>After each answer, compare the reasoning with your own.</li>
+  </ul>
+  <aside class="notes">
+    Instructor source and answer key: quizzes/day2/kahoot-1.md. Prepare the game before class or read the questions
+    and options aloud. Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
+    Debrief state locking, stale plans, replacement actions and sensitive values in state.
+    Keep the complete activity within five minutes; do not consume the following lab's budget.
+  </aside>
+</section>
+
 <section>
   <h2>Lab 05: Terraform in the pipeline</h2>
   <p>Open <code>labs/05-terraform-pipeline.md</code> in the course repository.</p>
@@ -865,7 +930,7 @@ exit "$rc"</code></pre>
   <ul>
     <li>Passwords and database connection strings</li>
     <li>API tokens, such as your Harness personal access token</li>
-    <li>SSH and TLS private keys</li>
+    <li>Secure Shell (SSH) and Transport Layer Security (TLS) private keys</li>
     <li>Cloud access keys, such as an AWS access key ID and secret access key</li>
     <li>kubeconfig files and Kubernetes ServiceAccount tokens</li>
   </ul>
@@ -926,13 +991,13 @@ exit "$rc"</code></pre>
     <text x="334" y="86" font-size="17" fill="#5C6B7B" text-anchor="middle">3. Connects with password B</text>
     <text x="568" y="196" font-size="18" fill="#0033A0" text-anchor="middle">Credential A is the secret zero.</text>
   </svg>
-  <p>A pipeline needs a credential to read from a secret store. If that first credential is a static token, it can leak like any other secret. Workload identity removes it. The platform proves who the workload is, for example with an AWS IAM role for an EKS pod or a Kubernetes ServiceAccount token.</p>
+  <p>A pipeline needs a credential to read from a secret store. If that first credential is a static token, it can leak like any other secret. Workload identity removes it. The platform proves who the workload is, for example with an AWS Identity and Access Management (IAM) role for an EKS pod or a Kubernetes ServiceAccount token.</p>
   <aside class="notes">
     A secret store does not remove every stored credential. To read from the store, the pipeline must authenticate,
     and that credential is the secret zero. If it is a long-lived token in an environment variable, an attacker who gets it
     can read everything the token can read. The modern answer is workload identity. Instead of a stored secret, the platform
     confirms the identity of the workload. Examples are AWS IAM roles for service accounts or EKS Pod Identity, Kubernetes ServiceAccount
-    tokens that the API server signs, and OIDC tokens that CI systems issue to each job, which a cloud can exchange for
+    tokens that the API server signs, and OpenID Connect (OIDC) tokens that CI systems issue to each job, which a cloud can exchange for
     temporary credentials. Harness delegates running in EKS can use IAM roles in this way, so no static AWS key is needed.
     Source: OWASP Secrets Management Cheat Sheet, section on secret zero.
   </aside>
@@ -1011,7 +1076,7 @@ rules:
   <table>
     <tr><th>Mechanism</th><th>Lifetime</th><th>Example</th></tr>
     <tr><td>Kubernetes bound ServiceAccount token</td><td>Chosen per request, for example one hour</td><td><code>kubectl create token deployer --duration=1h</code></td></tr>
-    <tr><td>AWS STS temporary credentials</td><td>15 minutes to 12 hours</td><td>An IAM role assumed by a pipeline or a pod</td></tr>
+    <tr><td>AWS Security Token Service (STS) temporary credentials</td><td>15 minutes to 12 hours</td><td>An IAM role assumed by a pipeline or a pod</td></tr>
     <tr><td>Vault dynamic database credentials</td><td>A lease, for example one hour</td><td>A new database user per request, removed when the lease ends</td></tr>
   </table>
   <p>A leaked short-lived credential stops working on its own. A long-lived credential works until someone revokes it.</p>
@@ -1134,6 +1199,41 @@ S3cr3t-Value</code></pre>
   </aside>
 </section>
 
+<section class="industry-example" data-industry="primary" data-concept="credential-delivery" data-duration-minutes="2">
+  <h2>Delivering secrets (General DevOps)</h2>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>GitLab: its documented HashiCorp Vault integration.</p>
+  <ul>
+    <li>A GitLab CI job can receive a signed identity token and use it to authenticate to Vault.</li>
+    <li>Vault checks the token and its role constraints before granting access to the requested secret.</li>
+    <li>Course connection: keep secret values out of pipeline definitions and limit which workloads can retrieve them.</li>
+  </ul>
+  <p class="small">Source: <a href="https://docs.gitlab.com/ci/secrets/hashicorp_vault_tutorial/">GitLab, authenticating and reading secrets with Vault</a>.</p>
+  <aside class="notes">
+    Allow two minutes. This is a documented product integration, not evidence that GitLab's internal pipelines all use it.
+    It illustrates the secret-zero and workload-identity concepts. Do not copy this syntax into Harness Open Source:
+    the products have different integration features. Configuring Vault is outside the course scope.
+  </aside>
+</section>
+
+<section class="industry-example" data-industry="secondary" data-concept="credential-delivery" data-duration-minutes="2">
+  <h2>Delivering secrets (Retail)</h2>
+  <div class="skip-badge">SKIP</div>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Shopify: encrypted application secrets, published in 2015.</p>
+  <ul>
+    <li>Shopify introduced EJSON to deliver API keys and database passwords to containerized applications.</li>
+    <li>Public-key encryption let developers add or rotate encrypted values without access to the decryption key.</li>
+    <li>Course connection: protect the decryption key separately. Encoding a Kubernetes Secret is not encryption.</li>
+  </ul>
+  <p class="small">Source: <a href="https://shopify.engineering/secrets-at-shopify-introducing-ejson">Shopify, Secrets at Shopify: Introducing EJSON</a>.</p>
+  <aside class="notes">
+    Allow two minutes if selected for delivery. This is a historical design, not a recommendation to install EJSON
+    or a claim about Shopify's current architecture. Distinguish encrypted versioned values from committing plaintext.
+    The lab uses Harness secret references and Kubernetes Secrets, not EJSON.
+  </aside>
+</section>
+
 <section>
   <h2>Secret scanning and log masking</h2>
   <div class="cols">
@@ -1167,6 +1267,22 @@ S3cr3t-Value</code></pre>
   </aside>
 </section>
 
+<section class="kahoot" data-duration-minutes="5">
+  <h2>Section Quiz 2: Credentials</h2>
+  <p>Four questions. Five minutes, including feedback.</p>
+  <ul>
+    <li>Use the Kahoot game PIN shared by your instructor.</li>
+    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
+    <li>After each answer, compare the reasoning with your own.</li>
+  </ul>
+  <aside class="notes">
+    Instructor source and answer key: quizzes/day2/kahoot-2.md. Prepare the game before class or read the questions
+    and options aloud. Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
+    Debrief revocation, least privilege, log hygiene and encoding versus encryption.
+    Keep the complete activity within five minutes; do not consume the following lab's budget.
+  </aside>
+</section>
+
 <section>
   <h2>Lab 06: Managing credentials</h2>
   <p>Open <code>labs/06-credentials.md</code> in the course repository.</p>
@@ -1186,7 +1302,23 @@ S3cr3t-Value</code></pre>
 
 <!-- ===================== Close ===================== -->
 
-<section>
+<section class="discussion" data-duration-minutes="2.5">
+  <h2>Credential boundaries: Discussion</h2>
+  <p>Explain the dev deployer credential to a new teammate without showing any secret values.</p>
+  <ol>
+    <li>Think privately for 30 seconds: what can it change, and what evidence checks that boundary?</li>
+    <li>In pairs, explain for 60 seconds. The listener asks: what proves an old credential no longer works?</li>
+    <li>Revise one sentence naming the identity, its allowed scope and the verification.</li>
+  </ol>
+  <p>Solo written explanations are equally valid. Do not share tokens, kubeconfigs or production details.</p>
+  <aside class="notes">
+    Allow two and a half minutes here, then one and a half for feedback. Use existing partners or chat pairs.
+    Collect one volunteered sentence; ask for evidence such as authorization checks and old/new credential behavior.
+    Do not ask learners to paste command output containing credentials.
+  </aside>
+</section>
+
+<section class="discussion-answer" data-duration-minutes="1.5">
   <h2>Day 2 summary</h2>
   <ul>
     <li>Infrastructure as code describes the desired state in version-controlled files and applies it with automation.</li>
@@ -1196,9 +1328,11 @@ S3cr3t-Value</code></pre>
   </ul>
   <p>Day 3 covers containers, Kubernetes deployments and an end-to-end delivery pipeline.</p>
   <aside class="notes">
-    Summarise briefly and leave time for questions. Ask the class to name one change they would make in their own
-    team's workflow based on today, for example reviewing plans in pull requests or removing a long-lived token from a
-    pipeline. Tomorrow starts with containers: how an image is built from layers, how to scan it, and how a Compose file maps
+    Debrief for one and a half minutes. Verify allowed and denied operations with authorization checks, and verify
+    rotation by testing that the old credential is rejected while the intended replacement works.
+    Least privilege limits damage; it does not make a leaked token harmless. Updating a stored value alone does not
+    prove the old credential was revoked. Validate one explanation and ask everyone to revise a detail.
+    Tomorrow starts with containers: how an image is built from layers, how to scan it, and how a Compose file maps
     to an ECS task definition. Then Kubernetes rollouts and rollbacks, and finally one pipeline that tests, builds, scans and
     deploys the flight-status service using the deploy ServiceAccount from Lab 06. Keep your lab machine as it is tonight;
     tomorrow's labs start from today's state.
@@ -1232,6 +1366,16 @@ S3cr3t-Value</code></pre>
     OWASP Secrets Management Cheat Sheet is short and practical, and it is a good document to share with your team. The
     Saltzer and Schroeder paper is old but readable, and its eight design principles still appear in security standards.
     The Terraform and Kubernetes documentation pages listed are the ones the labs link to.
+  </aside>
+</section>
+
+<section class="connect" data-duration-minutes="0">
+  <h2>Let's Connect</h2>
+  <p><a href="https://www.linkedin.com/in/kpassoubady">linkedin.com/in/kpassoubady</a></p>
+  <img src="../../images/ConnectLinkedIn.jpg" alt="Kangeyan Passoubady's contact card with a LinkedIn QR code" style="display:block; margin:0 auto; max-height:420px; max-width:100%;">
+  <aside class="notes">
+    Leave this slide visible at wrap-up. The written link is an alternative to scanning the QR code.
+    This closing contact slide has zero allocated teaching time.
   </aside>
 </section>
 

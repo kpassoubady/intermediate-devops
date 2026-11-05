@@ -6,8 +6,20 @@
 <title>Intermediate DevOps · Day 1: Continuous integration</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
-<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="themes/blue/blue-theme.css">
+<link rel="stylesheet" href="themes/blue/blue-polished.css">
+<link rel="stylesheet" href="themes/blue/blue-polished-gradients.css">
 <style>
+  /* Retain the course's 22px density on the polished theme's 720px canvas. */
+  :root { --r-main-font-size: 22px; --slide-padding: 52px 72px 56px; }
+  .reveal h2 { font-size: 36px; }
+  .reveal pre, .reveal pre code { font-size: 17px; }
+  .reveal table { font-size: 20px; }
+  .reveal .small { font-size: 18px; }
+
+  /* These YAML examples need a wider code column, not smaller type or scrolling. */
+  .reveal .code-wide .cols-60-40 { grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); }
+
   /* Day 1 additions: compact table rows for the schedule and the references list. */
   .reveal table.compact td { padding: 7px 22px 7px 0; font-size: 19px; }
   .reveal table.compact th { padding-bottom: 6px; }
@@ -20,26 +32,95 @@
 
 <!-- ============================ Welcome ============================ -->
 
-<section class="title-slide" data-state="title" data-background-color="#0B1F3A">
+<section class="title-slide" data-state="title">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <div class="t-band"></div>
   <div class="t-main">Intermediate DevOps<br>Day 1: Continuous integration</div>
   <div class="t-sub">United Airlines · Pluralsight instructor-led training</div>
-  <div class="t-meta">Nick Lotz<br>27–29 October 2026</div>
+  <div class="t-meta">Kangeyan Passoubady<br>9-11 November 2026</div>
   <aside class="notes">
     Welcome everyone. Introduce yourself and your background in DevOps and in teaching.
     Explain that this is a three-day, hands-on course. 
     Today is about continuous integration: how code moves from a developer's machine into a shared main branch, and how automated
     pipelines check every change. By the end of the day every participant will have their own Harness Open Source installation,
     a repository with a small Python service, and a pipeline that tests every pull request.
-    Ask participants to introduce themselves briefly: role, team, and how much they use Git, Harness and Kubernetes today.
-    Note the mix of roles for later examples.
+    Use the learner introduction and experience waterfalls that follow to learn about the group.
   </aside>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Prerequisites</h2>
+  <ul>
+    <li>Basic IT and software development experience.</li>
+    <li>Some scripting or programming experience.</li>
+    <li>Exposure to basic DevOps principles.</li>
+    <li>Comfort working at a Linux command line.</li>
+  </ul>
+  <p>Recommended preparation: Pluralsight DevOps Foundations Skill IQ and about 30 minutes of its recommended learning.</p>
+  <aside class="notes">
+    Allow one minute. These prerequisites come from the course outline. Check for access or experience gaps privately
+    during the first lab. Docker, Harness Open Source, Terraform and Kubernetes are installed during the labs;
+    do not ask learners to have them installed before class.
+  </aside>
+</section>
+
+<section class="chat-waterfall">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Introduce Yourself</h2>
+  <p>Draft one short chat message:</p>
+  <ol>
+    <li>Your name and location or time zone.</li>
+    <li>Your role.</li>
+    <li>Your experience in IT and at your current organization.</li>
+  </ol>
+  <p>Type without sending. Send together after the countdown: 3... 2... 1... send.</p>
+  <p>You may speak when invited, keep a private note, or pass. Share only what feels comfortable.</p>
+  <aside class="notes">
+    Allow two minutes. Give everyone quiet drafting time before the countdown. Read a few responses and acknowledge
+    the mix of roles without ranking experience or requiring anyone to disclose personal information.
+    Invite spoken contributions without requiring them.
+  </aside>
+</section>
+
+<section class="chat-waterfall">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Your DevOps Experience</h2>
+  <p>Draft one short response:</p>
+  <ol>
+    <li>Your starting point with Git, pipelines, Terraform, Docker or Kubernetes.</li>
+    <li>Your main work focus: development, analysis, testing, operations or another area.</li>
+    <li>One delivery problem or DevOps question you want this course to address.</li>
+  </ol>
+  <p>Type without sending. Send together after the countdown: 3... 2... 1... send.</p>
+  <p>Speaking when invited, a private note, and passing are equally welcome.</p>
+  <aside class="notes">
+    Allow two minutes. Do not assume everyone has used these tools. Ask for a starting point, not a proficiency score.
+    Read the responses before moving directly to the synthesis. Record questions that need a later lab or discussion.
+  </aside>
+</section>
+
+<section class="chat-waterfall-answer">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Your DevOps Experience: What We Learned</h2>
+  <ul>
+    <li>Starting points: Day 1 builds from Git changes to automated tests in Harness.</li>
+    <li>Work focus: development and testing connect to infrastructure and credentials on Day 2, then deployment and operations on Day 3.</li>
+    <li>Key questions: use pipeline logs, Terraform plans and rollout health to explain failures and choose a next step.</li>
+  </ul>
+  <p>Compare these themes with your response. Note one lab or topic to revisit.</p>
+  <aside class="notes">
+    Allow one minute. Connect two or three actual responses to the themes above; do not claim these themes summarize
+    the group before reading its answers. Name questions outside the course scope and offer a follow-up route.
+    The two waterfalls plus prerequisites and synthesis have a six-minute budget.
+  </aside>
+</section>
+
+<section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>About this course</h2>
   <ul>
-    <li>Instructor: Nick Lotz.</li>
+    <li>Instructor: Kangeyan Passoubady (Kangs).</li>
     <li>About 30% of the time is lecture. About 70% is hands-on lab work.</li>
     <li>Each lecture prepares you for the lab that follows it.</li>
     <li>Ask questions at any time, by voice or in the chat.</li>
@@ -54,12 +135,13 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The three days</h2>
   <table>
     <tr><th>Day</th><th>Lectures</th><th>Labs</th></tr>
     <tr><td>1 · Continuous integration</td><td>DevOps foundations, version control and CI, pipelines in Harness, testing and quality gates</td><td style="white-space:nowrap">01, 02, 03</td></tr>
-    <tr><td>2 · Infrastructure as code and credentials</td><td>IaC concepts, Terraform, IaC in pipelines, credential management</td><td style="white-space:nowrap">04, 05, 06</td></tr>
-    <tr><td>3 · Containers, Kubernetes and delivery</td><td>Containers, ECS and Fargate, Kubernetes, continuous delivery</td><td style="white-space:nowrap">07, 08, 09</td></tr>
+    <tr><td>2 · Infrastructure as code (IaC) and credentials</td><td>IaC concepts, Terraform, IaC in pipelines, credential management</td><td style="white-space:nowrap">04, 05, 06</td></tr>
+    <tr><td>3 · Containers, Kubernetes and delivery</td><td>Containers, Elastic Container Service (ECS) and Fargate, Kubernetes, continuous delivery</td><td style="white-space:nowrap">07, 08, 09</td></tr>
   </table>
   <p>The labs build on each other. The application and pipelines from Day 1 are used again on Days 2 and 3.</p>
   <aside class="notes">
@@ -73,6 +155,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Today's sessions</h2>
   <ol>
     <li>Welcome and course overview</li>
@@ -95,9 +178,10 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>How the labs work</h2>
   <ul>
-    <li>The labs are Markdown files in the course repository: <code>github.com/nicklotz/devops-demos</code>.</li>
+    <li>The labs are Markdown files in the course repository: <code>https://github.com/kpassoubady/intermediate-devops</code>.</li>
     <li>Each step explains why before it shows a command. Read the explanation before you run anything.</li>
     <li>Checkpoints show what you should see. Troubleshooting notes cover the common problems.</li>
     <li>"Going further" tasks are optional, for when you finish early.</li>
@@ -114,6 +198,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Your lab machine and United's platform</h2>
   <p>Each of you has an Ubuntu 24.04 machine with 8 CPUs and 16 GB of memory. You install every tool yourself during the labs.</p>
   <table>
@@ -124,6 +209,7 @@
     <tr><td>Terraform</td><td>Infrastructure as code</td><td>AWS CDK shared library</td></tr>
     <tr><td>Harness secrets, Kubernetes Secrets</td><td>Credentials</td><td>TSS</td></tr>
   </table>
+  <p class="small">AWS: Amazon Web Services. EKS: Elastic Kubernetes Service. CDK: Cloud Development Kit.</p>
   <aside class="notes">
     The lab machines start empty on purpose. Installing the tools shows what each one is for and what it depends on.
     No AWS account or Harness account is needed. Each tool in the lab stands in for a service used at United.
@@ -138,13 +224,14 @@
 <!-- ============================ L1 DevOps foundations ============================ -->
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Where DevOps came from</h2>
   <ul>
     <li>2008: Andrew Shafer and Patrick Debois meet at the Agile 2008 conference to discuss agile infrastructure.</li>
     <li>2009: John Allspaw and Paul Hammond present "10+ Deploys per Day" about Flickr's development and operations teams.</li>
     <li>2009: Debois organises the first devopsdays conference in Ghent, Belgium. The name DevOps comes from it.</li>
     <li>2013 and 2016: <em>The Phoenix Project</em> and <em>The DevOps Handbook</em> describe the practices.</li>
-    <li>From 2014: the State of DevOps research, later DORA, measures delivery performance.</li>
+    <li>From 2014: the State of DevOps research, later DORA (DevOps Research and Assessment), measures delivery performance.</li>
   </ul>
   <aside class="notes">
     Give the history briefly. In 2008 Andrew Clay Shafer proposed a session on agile infrastructure at the Agile conference in Toronto,
@@ -158,6 +245,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The problem DevOps addresses</h2>
   <svg class="diagram" viewBox="0 0 1136 250" role="img" aria-label="Development hands a large release to Operations; feedback returns weeks later">
     <defs><marker id="arr-s8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -187,6 +275,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The Three Ways</h2>
   <svg class="diagram" viewBox="0 0 1136 300" role="img" aria-label="Flow left to right, feedback right to left, continual learning">
     <defs><marker id="arr-s9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker>
@@ -219,6 +308,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Value streams and lead time</h2>
   <svg class="diagram" viewBox="0 0 1136 250" role="img" aria-label="A change from commit to production: 6.5 hours of work, about 9 days of lead time">
     <defs><marker id="arr-s10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -256,6 +346,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Batch size and work in progress</h2>
   <ul>
     <li>A batch is the amount of change released at one time.</li>
@@ -278,6 +369,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Measuring delivery performance</h2>
   <table>
     <tr><th>Metric</th><th>Question it answers</th><th>Measures</th></tr>
@@ -298,6 +390,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What the research found</h2>
   <ul>
     <li>Teams with high throughput also had high stability. Speed and stability did not trade off against each other.</li>
@@ -321,6 +414,7 @@
 <!-- ============================ L2 Version control and CI ============================ -->
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What version control records</h2>
   <svg class="diagram" viewBox="0 0 1136 212" role="img" aria-label="Commit graph with a feature branch merged into main">
     <g stroke="#5C6B7B" stroke-width="2" fill="none">
@@ -366,6 +460,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Two branching strategies</h2>
   <table>
     <tr><th></th><th>Git Flow (Driessen, 2010)</th><th>Trunk-based development</th></tr>
@@ -387,6 +482,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Trunk-based development</h2>
   <svg class="diagram" viewBox="0 0 1136 170" role="img" aria-label="Many short branches merged back into main">
     <defs><marker id="arr-s16" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0033A0"/></marker></defs>
@@ -418,6 +514,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Pull requests and code review</h2>
   <ul>
     <li>A pull request asks to merge one branch into another. It shows the diff, the discussion and the results of automated checks.</li>
@@ -436,6 +533,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Continuous integration practices</h2>
   <ul>
     <li>Keep everything needed to build the software in version control.</li>
@@ -455,7 +553,44 @@
   </aside>
 </section>
 
+<section class="industry-example" data-industry="primary" data-concept="continuous-integration" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Small, frequent changes (General DevOps)</h2>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Flickr: development and operations cooperation, Velocity 2009.</p>
+  <ul>
+    <li>John Allspaw and Paul Hammond described how the photo-sharing service made frequent changes while protecting stability.</li>
+    <li>Their approach combined shared version control, automated deployment and shared operational feedback.</li>
+    <li>Course connection: make integration routine and inspect feedback while each change is still small.</li>
+  </ul>
+  <p class="small">Source: <a href="https://code.flickr.net/2009/06/26/slides-from-velocity-2009/">Flickr engineering, Velocity 2009 slides</a>.</p>
+  <aside class="notes">
+    Allow two minutes. This is a historical case, not a claim about Flickr's current stack or deployment rate.
+    Connect the tooling and shared responsibility to the CI practices on the preceding slide.
+    Frequent deployment also needs operational safeguards; CI alone is not a guarantee of safe production changes.
+  </aside>
+</section>
+
+<section class="industry-example" data-industry="secondary" data-concept="continuous-integration" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Small, frequent changes (Retail)</h2>
+  <div class="skip-badge">SKIP</div>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Etsy: Deployinator, reported at LISA 2011.</p>
+  <ul>
+    <li>Etsy described developers deploying production code more than 30 times per day through its deployment tool.</li>
+    <li>Small, rapid changes helped the marketplace detect failures and respond quickly.</li>
+    <li>Course connection: a short feedback loop makes a failed change easier to identify than a large release batch.</li>
+  </ul>
+  <p class="small">Source: <a href="https://www.usenix.org/conference/lisa11/deployinator-being-stupid-be-smart">USENIX, Deployinator</a>.</p>
+  <aside class="notes">
+    Allow two minutes if selected for delivery. Keep the 2011 date with the deployment-rate claim.
+    This is an illustration of small batches and feedback, not a prescription to copy Etsy's historical stack.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Why integration delay is expensive</h2>
   <svg class="diagram" viewBox="0 0 1136 250" role="img" aria-label="Daily small merges compared with one large merge after three weeks">
     <g font-size="18" fill="#14263D"><text x="0" y="66">Integrate every day</text><text x="0" y="176">Integrate after three weeks</text></g>
@@ -485,6 +620,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The deployment pipeline</h2>
   <svg class="diagram" viewBox="0 0 1136 270" role="img" aria-label="Commit stage, acceptance stage, deploy to dev, deploy to production">
     <defs><marker id="arr-s20" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -523,6 +659,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Build once, promote the same artifact</h2>
   <svg class="diagram" viewBox="0 0 1136 230" role="img" aria-label="One image built once and deployed to dev and production with different configuration">
     <defs><marker id="arr-s21" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -556,7 +693,8 @@
   </aside>
 </section>
 
-<section>
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 01: Lab environment and Harness Open Source</h2>
   <p>Open <code>labs/01-lab-environment.md</code> in the course repository.</p>
   <ul>
@@ -579,6 +717,7 @@
 <!-- ============================ L3 Pipelines and Harness ============================ -->
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The parts of a pipeline</h2>
   <svg class="diagram" viewBox="0 0 1136 270" role="img" aria-label="A trigger starts a pipeline execution with a stage of steps that reports a status check">
     <defs><marker id="arr-s23" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -614,7 +753,8 @@
   </aside>
 </section>
 
-<section>
+<section class="code-wide">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Pipeline as code</h2>
   <div class="cols-60-40">
 <pre><code>kind: pipeline
@@ -628,9 +768,7 @@ spec:
         type: run
         spec:
           container: python:3.12-slim
-          script: |
-            pip install -r requirements-dev.txt
-            pytest</code></pre>
+          script: pip install -r requirements-dev.txt &amp;&amp; pytest</code></pre>
     <ul>
       <li>The pipeline is a YAML file in the repository: <code>.harness/ci.yaml</code>.</li>
       <li>A change to the pipeline is reviewed in a pull request, like a change to the code.</li>
@@ -648,6 +786,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Containers as build environments</h2>
   <ul>
     <li>Each step names a container image, for example <code>python:3.12-slim</code>.</li>
@@ -668,6 +807,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>How Harness Open Source runs a step on your machine</h2>
   <svg class="diagram" viewBox="0 0 1136 380" role="img" aria-label="Harness container starts step containers through the Docker socket on the devops network">
     <defs><marker id="arr-s26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -714,6 +854,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Steps share the workspace</h2>
   <svg class="diagram" viewBox="0 0 1136 270" role="img" aria-label="Three step containers mount one shared workspace volume">
     <g text-anchor="middle" fill="#14263D">
@@ -745,15 +886,15 @@ spec:
   </aside>
 </section>
 
-<section>
+<section class="code-wide">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Background services</h2>
   <div class="cols-60-40">
 <pre><code>- name: db
   type: background
   spec:
     container: postgres:17-alpine
-    envs:
-      POSTGRES_PASSWORD: test
+    envs: {POSTGRES_PASSWORD: test}
 - name: integration
   type: run
   spec:
@@ -777,6 +918,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Triggers and events</h2>
   <table>
     <tr><th>Event</th><th>When it happens</th><th>Default trigger</th></tr>
@@ -797,7 +939,8 @@ spec:
   </aside>
 </section>
 
-<section>
+<section class="code-wide">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Conditions and expressions</h2>
   <div class="cols-60-40">
 <pre><code>- name: report
@@ -805,9 +948,7 @@ spec:
   when: build.event == "pull_request"
   spec:
     container: alpine:3.20
-    script: |
-      echo "Run ${{ build.number }}"
-      echo "Commit ${{ build.commit }}"
+    script: echo "Run ${{ build.number }}; Commit ${{ build.commit }}"
 - name: notify
   type: run
   when: failure()
@@ -832,6 +973,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Harness Open Source and the Harness platform</h2>
   <table>
     <tr><th>Concept</th><th>Harness Open Source (lab)</th><th>Harness platform (United)</th></tr>
@@ -853,6 +995,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Harness platform building blocks</h2>
   <svg class="diagram" viewBox="0 0 1136 340" role="img" aria-label="Harness platform connects to a delegate in the customer network that reaches EKS, ECS, Git and secrets">
     <defs><marker id="arr-s32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -888,7 +1031,26 @@ spec:
   </aside>
 </section>
 
-<section>
+<section class="kahoot" data-duration-minutes="5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Section Quiz 1: Pipelines in Harness</h2>
+  <p>Four questions. Five minutes, including feedback.</p>
+  <ul>
+    <li>Use the Kahoot game PIN shared by your instructor.</li>
+    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
+    <li>After each answer, compare the reasoning with your own.</li>
+  </ul>
+  <aside class="notes">
+    Instructor source and answer key: quizzes/day1/kahoot-1.md. Prepare the game before class; no hosted game is
+    created by this deck. If unavailable, read the questions and options aloud and use chat or private notes.
+    Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
+    Debrief shared workspaces, trigger defaults, failure conditions and background-service lifetime.
+    Keep the complete activity within five minutes; do not consume the following lab's budget.
+  </aside>
+</section>
+
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 02: Your first CI pipeline</h2>
   <p>Open <code>labs/02-first-ci-pipeline.md</code>.</p>
   <ul>
@@ -910,6 +1072,7 @@ spec:
 <!-- ============================ L4 Testing and quality gates ============================ -->
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The test pyramid</h2>
   <svg class="diagram" viewBox="0 0 1136 330" role="img" aria-label="Test pyramid: many unit tests, fewer API and integration tests, few end-to-end tests">
     <polygon points="380,10 280,110 480,110" fill="#F4F6F8" stroke="#C3CAD0" stroke-width="1.5"/>
@@ -937,6 +1100,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Three kinds of tests in the flight-status app</h2>
   <table>
     <tr><th>Test</th><th>What it checks</th><th>What it needs</th><th>Time per test</th></tr>
@@ -956,6 +1120,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Test doubles</h2>
   <table>
     <tr><th>Double</th><th>What it does</th></tr>
@@ -978,6 +1143,7 @@ spec:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Flaky tests</h2>
   <ul>
     <li>A flaky test passes and fails on the same code.</li>
@@ -996,7 +1162,44 @@ spec:
   </aside>
 </section>
 
+<section class="industry-example" data-industry="primary" data-concept="test-feedback" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Reliable test feedback (General DevOps)</h2>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Google: continuous testing, reported in 2016.</p>
+  <ul>
+    <li>Google ran tests before code submission and again after submission to inform release decisions.</li>
+    <li>Flaky results made it harder to distinguish a new regression from an unreliable test.</li>
+    <li>Course connection: a green rerun does not explain the original failure. Investigate unreliable checks.</li>
+  </ul>
+  <p class="small">Source: <a href="https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html">Google Testing Blog, Flaky Tests at Google</a>.</p>
+  <aside class="notes">
+    Allow two minutes. Avoid repeating the statistics from the preceding slide. Focus on why the quality of feedback
+    matters to a merge or release decision. This describes the published 2016 system, not a current service guarantee.
+  </aside>
+</section>
+
+<section class="industry-example" data-industry="secondary" data-concept="test-feedback" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Reliable test feedback (Retail)</h2>
+  <div class="skip-badge">SKIP</div>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Shopify: improving continuous-integration feedback.</p>
+  <ul>
+    <li>Shopify reported running more than 170,000 tests in its core monolith and using change-based test selection.</li>
+    <li>Its published improvement project reduced the 95th-percentile CI time from 45 minutes to 18.</li>
+    <li>Course connection: measure feedback time and reliability before adding more checks to every change.</li>
+  </ul>
+  <p class="small">Source: <a href="https://shopify.engineering/faster-shopify-ci">Shopify, Keeping Developers Happy with a Fast CI</a>.</p>
+  <aside class="notes">
+    Allow two minutes if selected for delivery. Explain that 95th percentile means 95% of runs finish within that time.
+    These are historical project results. Test selection needs safeguards against missed tests and is outside the labs.
+    Do not suggest replacing the course's full test runs with a selective system.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What code coverage tells you</h2>
 <pre><code>def can_board(status):
     return status in ("SCHEDULED", "DELAYED")
@@ -1021,12 +1224,13 @@ def test_can_board():
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Static analysis and linting</h2>
   <ul>
     <li>Static analysis reads the code without running it.</li>
     <li>Linters find unused imports, undefined names, risky patterns and style problems. The labs use ruff for Python.</li>
     <li>Type checkers find values of the wrong type before the code runs.</li>
-    <li>Security analysis (SAST) finds patterns such as SQL built from user input.</li>
+    <li>Static application security testing (SAST) finds patterns such as SQL built from user input.</li>
     <li>These checks take seconds, so the pipeline runs them first.</li>
   </ul>
   <aside class="notes">
@@ -1040,6 +1244,7 @@ def test_can_board():
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Finding problems earlier</h2>
   <svg class="diagram" viewBox="0 0 1136 220" role="img" aria-label="Editor, commit hook, pull request pipeline, test environment, production, with time to find and who is affected">
     <defs><marker id="arr-s40" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1072,6 +1277,7 @@ def test_can_board():
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Quality gates on the main branch</h2>
   <svg class="diagram" viewBox="0 0 1136 300" role="img" aria-label="Pull request pipeline result decides whether merge is allowed; direct pushes to main are rejected">
     <defs><marker id="arr-s41" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1104,7 +1310,25 @@ def test_can_board():
   </aside>
 </section>
 
-<section>
+<section class="kahoot" data-duration-minutes="5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Section Quiz 2: Testing and Quality Gates</h2>
+  <p>Four questions. Five minutes, including feedback.</p>
+  <ul>
+    <li>Use the Kahoot game PIN shared by your instructor.</li>
+    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
+    <li>After each answer, compare the reasoning with your own.</li>
+  </ul>
+  <aside class="notes">
+    Instructor source and answer key: quizzes/day1/kahoot-2.md. Prepare the game before class or read the questions
+    and options aloud. Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
+    Debrief fakes, coverage limits, flaky tests and required status checks.
+    Keep the complete activity within five minutes; do not consume the following lab's budget.
+  </aside>
+</section>
+
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 03: Quality gates, pull requests and integration tests</h2>
   <p>Open <code>labs/03-quality-gates.md</code>.</p>
   <ul>
@@ -1124,7 +1348,26 @@ def test_can_board():
   </aside>
 </section>
 
-<section>
+<section class="discussion" data-duration-minutes="2.5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Pipeline evidence: Discussion</h2>
+  <p>Explain to a new teammate why a green test run alone does not prove that a change is safe to merge.</p>
+  <ol>
+    <li>Think privately for 30 seconds. Name one check and the evidence it provides.</li>
+    <li>In pairs, the explainer has 60 seconds. The listener asks: what could this check miss?</li>
+    <li>Revise one sentence together. Include the check, its evidence and its limit.</li>
+  </ol>
+  <p>Working alone? Write the explanation and challenge it yourself. Sharing aloud is optional.</p>
+  <aside class="notes">
+    Allow two and a half minutes here and one and a half on the summary that follows, four minutes total.
+    Use existing table partners or chat pairs rather than spending time creating rooms.
+    Collect one volunteered explanation or written sentence. Do not repeat the preceding quiz questions.
+    Judge the explanation by whether it names observable evidence and a genuine limit, not by tool vocabulary.
+  </aside>
+</section>
+
+<section class="discussion-answer" data-duration-minutes="1.5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Day 1 summary</h2>
   <ul>
     <li>DevOps aims at fast flow and fast feedback. The DORA metrics measure both.</li>
@@ -1134,15 +1377,19 @@ def test_can_board():
     <li>Tomorrow covers infrastructure as code with Terraform, and how to handle credentials.</li>
   </ul>
   <aside class="notes">
-    Summarise the day and connect the pieces. The flight-status repository now has a pipeline that runs lint, unit, API and integration tests
+    Debrief for one and a half minutes. A passing check proves only the behavior it exercises; assertions, integration
+    boundaries and review still matter. A branch rule enforces selected checks but does not make them complete.
+    Validate the volunteered explanation, name one limit, and let everyone revise their sentence.
+    The flight-status repository now has a pipeline that runs lint, unit, API and integration tests
     on every pull request, and main is protected so that only tested changes reach it.
     That is the commit stage and part of the acceptance stage of a deployment pipeline.
-    Ask participants for one thing they learned and one thing that was unclear. Note the unclear points and start Day 2 with them.
-    Remind everyone that the lab machine keeps its state overnight. If a lab is unfinished, the catch-up script can bring the machine to the start of Lab 04 tomorrow morning.
+    Note misconceptions for the Day 2 retrieval debrief. The lab machine keeps its state overnight.
+    The catch-up script is for a fresh machine, not arbitrary repair of a partially completed lab.
   </aside>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>References</h2>
   <ul class="refs">
     <li>Allspaw, J., and Hammond, P. (2009). 10+ Deploys per Day: Dev and Ops Cooperation at Flickr. Velocity Conference.</li>
@@ -1168,6 +1415,17 @@ def test_can_board():
     These are the sources cited today. Point participants to Accelerate and to Fowler's article on continuous integration if they want to read one thing.
     The DevOps Handbook is the most practical of the books. The Harness documentation covers both Harness Open Source and the platform.
     Also recommend Pro Git by Scott Chacon and Ben Straub, free at git-scm.com/book, for anyone who wants a deeper understanding of Git.
+  </aside>
+</section>
+
+<section class="connect" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Let's Connect</h2>
+  <p><a href="https://www.linkedin.com/in/kpassoubady">linkedin.com/in/kpassoubady</a></p>
+  <img src="../../images/ConnectLinkedIn.jpg" alt="Kangeyan Passoubady's contact card with a LinkedIn QR code" style="display:block; margin:0 auto; max-height:420px; max-width:100%;">
+  <aside class="notes">
+    Leave this slide visible at wrap-up. The written link is an alternative to scanning the QR code.
+    This closing contact slide has zero allocated teaching time.
   </aside>
 </section>
 

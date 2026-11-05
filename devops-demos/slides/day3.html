@@ -27,7 +27,7 @@
   <div class="t-band" style="top:146px"></div>
   <div class="t-main" style="top:176px">Intermediate DevOps<br>Day 3: Containers, Kubernetes<br>and continuous delivery</div>
   <div class="t-sub" style="top:392px">United Airlines · Pluralsight instructor-led training</div>
-  <div class="t-meta">Nick Lotz<br>27–29 October 2026</div>
+  <div class="t-meta">Kangeyan Passoubady<br>9-11 November 2026</div>
   <aside class="notes">
     Welcome back to day 3. Today follows the flight-status application from source code to a running service.
     This morning we package it as a container image, look at what a container is at the operating-system level,
@@ -40,7 +40,23 @@
   </aside>
 </section>
 
-<section>
+<section class="discussion retrieval" data-duration-minutes="2">
+  <h2>Recall: Prepare a deployment</h2>
+  <p>Without opening your notes, explain yesterday's prerequisites:</p>
+  <ol>
+    <li>How do reviewed infrastructure changes reach the cluster?</li>
+    <li>What protects shared state from concurrent writers?</li>
+    <li>How would you check that a deployment identity has the intended permissions?</li>
+  </ol>
+  <p>Think privately for 60 seconds. Share a sentence only if you wish, then correct it using the next slide.</p>
+  <aside class="notes">
+    Allow two minutes here and one on the recap feedback slide, three minutes total.
+    Retrieve Day 2 concepts, not Kubernetes mechanics that have yet to be taught.
+    Private notes, chat, optional spoken responses and passing are valid. Collect one point needing clarification.
+  </aside>
+</section>
+
+<section class="discussion-answer retrieval-answer" data-duration-minutes="1">
   <h2>Day 2 recap</h2>
   <ul>
     <li>Infrastructure as code describes the desired state in version-controlled files.</li>
@@ -51,12 +67,14 @@
   </ul>
   <p>Your cluster now has a dev and a prod namespace, each with a quota and a Postgres database.</p>
   <aside class="notes">
-    Ask two or three people what they found hardest yesterday, and answer open questions before moving on.
+    Debrief for one minute. A reviewed merge starts the infrastructure apply pipeline; the backend's lock coordinates
+    state writers. Check allowed and denied operations for the deployment identity rather than assuming its name
+    guarantees its scope. Ask everyone to correct one detail. Clarify the collected misconception now.
     The link to today: yesterday the platform repository created the environments. Today the application pipeline
     deploys into them. The deploy ServiceAccount from Lab 06 is the identity the Lab 09 pipeline uses, so its
     permissions decide what the pipeline can and cannot change.
-    If someone did not finish Lab 06, they can run scripts/catch-up.sh 07 now. It replays the earlier labs on their
-    machine while we go through the first lecture. It takes several minutes, so start it early.
+    If someone needs a replacement environment, scripts/catch-up.sh 07 replays earlier labs on a fresh machine.
+    It is not a general repair script for an arbitrary partial run. Arrange help early without running it blindly.
   </aside>
 </section>
 
@@ -65,7 +83,7 @@
   <ol>
     <li>Day 2 recap</li>
     <li>Lecture: Containers</li>
-    <li>Lecture: Docker Compose, Amazon ECS and Fargate</li>
+    <li>Lecture: Docker Compose, Amazon Elastic Container Service (ECS) and Fargate</li>
     <li>Lab 07: Build, scan and describe a container</li>
     <li>Lecture: Kubernetes</li>
     <li>Lab 08: Kubernetes deployments, rollouts and rollbacks</li>
@@ -73,6 +91,7 @@
     <li>Lab 09: End-to-end delivery pipeline</li>
     <li>Course summary and feedback</li>
   </ol>
+  <p class="small">AWS: Amazon Web Services. EKS: Elastic Kubernetes Service.</p>
   <aside class="notes">
     Today has four lectures and three labs. The two morning lectures are about the artifact: what a container image
     is and how the same image runs on your laptop, in Docker Compose and in Amazon ECS. The afternoon lectures are about
@@ -238,7 +257,8 @@
     <tr><td>Runtime</td><td>How to run a container from an unpacked filesystem and a configuration file</td><td>runc, crun</td></tr>
     <tr><td>Distribution</td><td>The HTTP API for pushing and pulling images</td><td>Docker Hub, Amazon ECR, the k3d registry</td></tr>
   </table>
-  <p>The Open Container Initiative was founded in 2015 to standardise these formats. Because of them, an image built with Docker on your lab machine runs on containerd in k3d, on Amazon EKS and on Amazon ECS.</p>
+  <p>The Open Container Initiative (OCI) was founded in 2015 to standardise these formats. Because of them, an image built with Docker on your lab machine runs on containerd in k3d, on Amazon EKS and on Amazon ECS.</p>
+  <p class="small">ECR: Elastic Container Registry.</p>
   <aside class="notes">
     The Open Container Initiative was founded in June 2015 under the Linux Foundation by Docker, CoreOS and other
     companies. Docker donated its image format and its runtime, runc. The image and runtime specifications reached
@@ -272,6 +292,40 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
     never reused for different code. The push step prints the digest, so you can see which exact image went to dev and prod.
     Ask the class: what does "image: postgres" in a manifest resolve to? (postgres:latest on Docker Hub, which changes
     whenever a new release is published.)
+  </aside>
+</section>
+
+<section class="industry-example" data-industry="primary" data-concept="container-artifacts" data-duration-minutes="2">
+  <h2>Container deployment artifacts (General DevOps)</h2>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Netflix: the published Titus container-platform design.</p>
+  <ul>
+    <li>Titus was built to run containerized service and batch applications supporting Netflix's systems.</li>
+    <li>A job specification names the container image, entry point and required resources.</li>
+    <li>Course connection: an image is a deployment input. Record the exact artifact identity rather than relying on a mutable tag.</li>
+  </ul>
+  <p class="small">Source: <a href="https://netflix.github.io/titus/overview/">Netflix, Titus overview</a>.</p>
+  <aside class="notes">
+    Allow two minutes. This is the published Titus design, not a claim about its current release or orchestration backend.
+    The digest advice is our course connection to the preceding slide, not a claim that the source documents a
+    particular Netflix image-promotion policy. We do not install Titus in the labs.
+  </aside>
+</section>
+
+<section class="industry-example" data-industry="secondary" data-concept="container-artifacts" data-duration-minutes="2">
+  <h2>Container deployment artifacts (Retail)</h2>
+  <div class="skip-badge">SKIP</div>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Shopify: its published Docker infrastructure journey.</p>
+  <ul>
+    <li>Shopify reported investing in Docker in 2014 to make builds and deployments predictable and repeatable.</li>
+    <li>The stated benefits included simpler rollbacks and less configuration drift.</li>
+    <li>Course connection: package the application in an image and replace a running version instead of patching it by hand.</li>
+  </ul>
+  <p class="small">Source: <a href="https://shopify.engineering/shopify-infrastructure-collaboration-with-google">Shopify's Infrastructure Collaboration with Google</a>.</p>
+  <aside class="notes">
+    Allow two minutes if selected for delivery. Keep the historical framing. Immutable application images do not
+    make databases immutable or remove the need for migrations and persistent-data protection.
   </aside>
 </section>
 
@@ -337,6 +391,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <tr><td>Host OS</td><td>One kernel shared by all containers</td><td>Patched hosts, or no hosts to manage with Fargate</td></tr>
   </table>
   <p>NIST SP 800-190 groups container risks into these five areas and gives countermeasures for each (Souppaya et al., 2017).</p>
+  <p class="small">NIST: National Institute of Standards and Technology. SP: Special Publication. TLS: Transport Layer Security. RBAC: role-based access control.</p>
   <aside class="notes">
     NIST Special Publication 800-190, the Application Container Security Guide, was published in September 2017. Section 3
     lists the major risks in five groups: image, registry, orchestrator, container and host operating system. Section 4
@@ -352,7 +407,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 <section>
   <h2>Software bills of materials and vulnerability scanning</h2>
   <ul>
-    <li>A software bill of materials (SBOM) lists every package in an image, with its version. CycloneDX and SPDX are the common formats.</li>
+    <li>A software bill of materials (SBOM) lists every package in an image, with its version. CycloneDX and Software Package Data Exchange (SPDX) are the common formats.</li>
     <li>A scanner such as Trivy matches those packages against vulnerability databases.</li>
     <li>Each finding has a severity. A pipeline can fail when it finds a CRITICAL vulnerability that has a fix.</li>
     <li>New vulnerabilities are published every day, so an image that passed last month can fail today.</li>
@@ -375,7 +430,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>A signature shows who published an image and that it has not changed since.</li>
     <li>Sigstore's cosign signs an image digest and stores the signature in the registry next to the image.</li>
     <li>Provenance records how an image was built, including the source commit, the build system and the build steps.</li>
-    <li>SLSA Build levels 1 to 3 ask for provenance, then provenance signed by a hosted build platform, then a hardened build platform.</li>
+    <li>Supply-chain Levels for Software Artifacts (SLSA) Build levels 1 to 3 ask for provenance, then provenance signed by a hosted build platform, then a hardened build platform.</li>
     <li>A cluster admission policy can refuse images that are not signed by a trusted key.</li>
   </ul>
   <aside class="notes">
@@ -406,10 +461,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
       - db
   db:
     image: postgres:17-alpine
-    environment:
-      POSTGRES_USER: flights
-      POSTGRES_PASSWORD: flights
-      POSTGRES_DB: flights</code></pre>
+    environment: {POSTGRES_USER: flights, POSTGRES_PASSWORD: flights, POSTGRES_DB: flights}</code></pre>
   <p>Compose creates one network for the project, and each service is reachable by its name. The API reaches the database at the host name <code>db</code>.</p>
   <aside class="notes">
     Compose started in 2013 as a tool called Fig, which Docker acquired in 2014. The file format is now the open Compose
@@ -478,7 +530,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 <section>
   <h2>Fargate runs tasks without servers to manage</h2>
   <table class="full">
-    <tr><th></th><th>EC2 launch type</th><th>Fargate</th></tr>
+    <tr><th></th><th>Elastic Compute Cloud (EC2) launch type</th><th>Fargate</th></tr>
     <tr><td>Who manages the hosts</td><td>You, as a group of EC2 instances</td><td>AWS</td></tr>
     <tr><td>What you size</td><td>Instances, then the tasks placed on them</td><td>The CPU and memory of each task</td></tr>
     <tr><td>Network mode</td><td>bridge, host or awsvpc</td><td>awsvpc only, so each task gets its own network interface</td></tr>
@@ -526,10 +578,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 <section>
   <h2>What changes when the task runs in AWS</h2>
   <ul>
-    <li>Each Fargate task gets its own network interface and private IP address in a VPC subnet.</li>
+    <li>Each Fargate task gets its own network interface and private IP address in a virtual private cloud (VPC) subnet.</li>
     <li>The task execution role lets ECS pull the image and read secrets. The task role is what the application uses to call AWS APIs.</li>
     <li>An Application Load Balancer sends requests to healthy tasks. It replaces the port mapping on your machine.</li>
-    <li>The database is a managed service such as Amazon RDS.</li>
+    <li>The database is a managed service such as Amazon Relational Database Service (RDS).</li>
     <li>Logs go to Amazon CloudWatch Logs.</li>
   </ul>
   <aside class="notes">
@@ -576,7 +628,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     </g>
     <circle cx="510" cy="96" r="8" fill="#0033A0" stroke="#0033A0" stroke-width="2"/>
     <g font-size="18" font-weight="700" fill="#14263D" text-anchor="middle">
-      <text x="70" y="70">2003–04</text><text x="290" y="70">2013</text><text x="510" y="70">2014</text>
+      <text x="70" y="70">2003-04</text><text x="290" y="70">2013</text><text x="510" y="70">2014</text>
       <text x="730" y="70">2015</text><text x="930" y="70">2018</text><text x="1076" y="70">2019</text>
     </g>
     <g font-size="17" fill="#14263D" text-anchor="middle">
@@ -823,7 +875,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>A limit is the most a container may use. Over its memory limit it is killed. At its CPU limit it is throttled.</li>
   </ul>
   <table class="full" style="margin-top:22px">
-    <tr><th>QoS class</th><th>Rule</th><th>Under memory pressure on the node</th></tr>
+    <tr><th>Quality of service (QoS) class</th><th>Rule</th><th>Under memory pressure on the node</th></tr>
     <tr><td>Guaranteed</td><td>Every container has CPU and memory requests equal to its limits</td><td>Evicted last</td></tr>
     <tr><td>Burstable</td><td>At least one request or limit, but not Guaranteed</td><td>Evicted by how far use exceeds requests</td></tr>
     <tr><td>BestEffort</td><td>No requests or limits</td><td>Evicted first</td></tr>
@@ -892,6 +944,40 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </aside>
 </section>
 
+<section class="industry-example" data-industry="primary" data-concept="kubernetes-operations" data-duration-minutes="2">
+  <h2>Kubernetes operations (General DevOps)</h2>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Spotify: migration from its homegrown Helios orchestrator.</p>
+  <ul>
+    <li>The published case study describes adopting Kubernetes while continuing to run Helios during migration.</li>
+    <li>Running them alongside each other let teams validate Kubernetes before moving all workloads.</li>
+    <li>Course connection: preserve a working path while checking a replacement under realistic conditions.</li>
+  </ul>
+  <p class="small">Source: <a href="https://kubernetes.io/case-studies/spotify/">Kubernetes, Spotify case study</a>.</p>
+  <aside class="notes">
+    Allow two minutes. This historical migration is broader than one Deployment's rolling update. Do not imply that
+    Helios and Kubernetes are ReplicaSets or that the lab teaches cluster migration.
+    Relate the risk-control principle to readiness checks and retaining a recoverable previous version.
+  </aside>
+</section>
+
+<section class="industry-example" data-industry="secondary" data-concept="kubernetes-operations" data-duration-minutes="2">
+  <h2>Kubernetes operations (Retail)</h2>
+  <div class="skip-badge">SKIP</div>
+  <div class="industry-badge">Real-world scenario</div>
+  <p>Shopify: rollout feedback with krane and Shipit.</p>
+  <ul>
+    <li>Shopify's krane deploy tool uses kubectl apply and watches requested changes until they roll out.</li>
+    <li>It reports actionable pass/fail results and diagnostic information when deployment fails.</li>
+    <li>Course connection: submitting manifests is only the start. Inspect rollout health before calling a deployment successful.</li>
+  </ul>
+  <p class="small">Source: <a href="https://github.com/Shopify/krane">Shopify, krane project README</a>.</p>
+  <aside class="notes">
+    Allow two minutes if selected for delivery. The project says Shopify uses krane within its Shipit deployment app.
+    This is not a new lab dependency. Our equivalent check is kubectl rollout status followed by application verification.
+  </aside>
+</section>
+
 <section>
   <h2>Role-based access control</h2>
   <svg class="diagram" viewBox="0 0 1136 250" role="img" aria-label="A RoleBinding connects the ServiceAccount deployer to the Role deployer.">
@@ -945,8 +1031,8 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <tr><th></th><th>k3d on your lab machine</th><th>Amazon EKS</th></tr>
     <tr><td>Control plane</td><td>A k3s server in one Docker container</td><td>Run by AWS across availability zones</td></tr>
     <tr><td>Nodes</td><td>The same container</td><td>EC2 managed node groups or Fargate</td></tr>
-    <tr><td>Ingress</td><td>Traefik, bundled with k3s</td><td>AWS Load Balancer Controller with an ALB</td></tr>
-    <tr><td>Registry</td><td><code>k3d-registry.localhost:5000</code> over HTTP</td><td>Amazon ECR over HTTPS with IAM</td></tr>
+    <tr><td>Ingress</td><td>Traefik, bundled with k3s</td><td>AWS Load Balancer Controller with an Application Load Balancer (ALB)</td></tr>
+    <tr><td>Registry</td><td><code>k3d-registry.localhost:5000</code> over HTTP</td><td>Amazon ECR over HTTPS with Identity and Access Management (IAM)</td></tr>
     <tr><td>Workload identity</td><td>ServiceAccount tokens</td><td>ServiceAccount tokens plus IAM roles (EKS Pod Identity)</td></tr>
   </table>
   <p>The Kubernetes API, kubectl, the manifests and RBAC are the same in both. That is why the Lab 08 manifests would run on EKS with only the image and Ingress settings changed.</p>
@@ -959,6 +1045,22 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     Roles for Service Accounts let a Pod call AWS APIs without stored keys.
     At United, deployments to EKS run through the Harness platform. The objects it applies are the same Deployments,
     Services and Ingresses you write in Lab 08.
+  </aside>
+</section>
+
+<section class="kahoot" data-duration-minutes="5">
+  <h2>Section Quiz 1: Kubernetes</h2>
+  <p>Four questions. Five minutes, including feedback.</p>
+  <ul>
+    <li>Use the Kahoot game PIN shared by your instructor.</li>
+    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
+    <li>After each answer, compare the reasoning with your own.</li>
+  </ul>
+  <aside class="notes">
+    Instructor source and answer key: quizzes/day3/kahoot-1.md. Prepare the game before class or read the questions
+    and options aloud. Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
+    Debrief readiness, reconciliation, CPU throttling and stable Service endpoints.
+    Keep the complete activity within five minutes; do not consume the following lab's budget.
   </aside>
 </section>
 
@@ -1292,6 +1394,7 @@ return departures_board(flights)</code></pre>
 
 <section>
   <h2>DORA metrics revisited</h2>
+  <p class="small">DORA: DevOps Research and Assessment.</p>
   <table class="full">
     <tr><th>Metric</th><th>Practices from this course that improve it</th></tr>
     <tr><td>Deployment frequency</td><td>Small pull requests, an automated pipeline, one image promoted through environments</td></tr>
@@ -1309,6 +1412,22 @@ return departures_board(flights)</code></pre>
     The 2024 DORA report also tracks a rework rate, the share of deployments that were unplanned fixes.
     Ask the class to pick one metric their team could measure next week, and which source they would use: Harness deployment
     history, Git, or incident records.
+  </aside>
+</section>
+
+<section class="kahoot" data-duration-minutes="5">
+  <h2>Section Quiz 2: Continuous Delivery</h2>
+  <p>Four questions. Five minutes, including feedback.</p>
+  <ul>
+    <li>Use the Kahoot game PIN shared by your instructor.</li>
+    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
+    <li>After each answer, compare the reasoning with your own.</li>
+  </ul>
+  <aside class="notes">
+    Instructor source and answer key: quizzes/day3/kahoot-2.md. Prepare the game before class or read the questions
+    and options aloud. Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
+    Debrief artifact promotion, delivery versus deployment, approvals and canary exposure.
+    Keep the complete activity within five minutes; do not consume the following lab's budget.
   </aside>
 </section>
 
@@ -1340,23 +1459,39 @@ return departures_board(flights)</code></pre>
   <h2>What the three days covered</h2>
   <table class="full">
     <tr><th>Day</th><th>Concepts</th><th>Labs</th></tr>
-    <tr><td>1</td><td>DevOps foundations, continuous integration, pipelines in Harness, testing and quality gates</td><td>01–03</td></tr>
-    <tr><td>2</td><td>Infrastructure as code, Terraform, infrastructure in pipelines, credential management</td><td>04–06</td></tr>
-    <tr><td>3</td><td>Containers, Compose, ECS and Fargate, Kubernetes, continuous delivery</td><td>07–09</td></tr>
+    <tr><td>1</td><td>DevOps foundations, continuous integration, pipelines in Harness, testing and quality gates</td><td>01-03</td></tr>
+    <tr><td>2</td><td>Infrastructure as code, Terraform, infrastructure in pipelines, credential management</td><td>04-06</td></tr>
+    <tr><td>3</td><td>Containers, Compose, ECS and Fargate, Kubernetes, continuous delivery</td><td>07-09</td></tr>
   </table>
   <p>Your Harness project now tests, builds, scans and deploys the flight-status API to two environments that you defined as code.</p>
   <aside class="notes">
     Summarise the course as one path. On Day 1 a change became a pull request with automated checks. On Day 2 the
     environments became code with a reviewed plan and a least-privilege identity. On Day 3 the application became an
     immutable image, deployed by a pipeline with verification and rollback.
-    Ask each participant to name one practice they will try in their team first. Writing it down makes it more likely to
-    happen.
+    Use the following transfer-plan sequence for a concrete next action rather than adding a second reflection here.
     Leave time for questions about United's own Harness pipelines, since many participants will go back to them on Monday.
   </aside>
 </section>
 
-<section>
+<section class="chat-waterfall transfer" data-duration-minutes="2.5">
+  <h2>Put it to work</h2>
+  <p>Complete this privately:</p>
+  <p>When [specific delivery situation] occurs, I will [one practice], using [artifact or evidence]. I will know it worked when [observable result].</p>
+  <ul>
+    <li>Choose a change you can discuss safely, or use the course's synthetic service.</li>
+    <li>Check that your plan names a situation, an action, evidence and a success signal.</li>
+    <li>Sharing in chat or aloud is optional; keep production details private.</li>
+  </ul>
+  <aside class="notes">
+    Allow two and a half minutes here and one and a half for feedback. Give quiet writing time, then collect
+    one volunteered or anonymized plan. Ask for a missing evidence or success signal rather than judging ambition.
+    Use the next slide to validate the plan and let everyone revise theirs. This is not a satisfaction poll.
+  </aside>
+</section>
+
+<section class="chat-waterfall-answer transfer-answer" data-duration-minutes="1.5">
   <h2>Next steps and feedback</h2>
+  <p>Example: when our next service update is ready, I will add a version smoke test. Its response must match the expected commit before we promote the image.</p>
   <ul>
     <li>Keep the course repository. Every lab runs again on a new Ubuntu 24.04 machine.</li>
     <li>Open one of your team's pipelines in the Harness platform and find each stage from the Lab 09 mapping table.</li>
@@ -1364,6 +1499,9 @@ return departures_board(flights)</code></pre>
     <li>Please fill in the course survey. The next version of this course uses your answers.</li>
   </ul>
   <aside class="notes">
+    Debrief for one and a half minutes. Identify the example's situation, action, endpoint evidence and expected commit.
+    Help one volunteered plan acquire a verifiable signal; ask everyone to revise their own plan.
+    Production changes still require team approval and a safe environment. A plan is not permission to deploy.
     The labs are written to run on a blank Ubuntu 24.04 machine, so participants can repeat them later on any VM with the
     same specification. The catch-up script makes it possible to start at any lab.
     The most useful next step is to apply the mapping table to a real pipeline. It turns the course concepts into questions
@@ -1401,6 +1539,16 @@ return departures_board(flights)</code></pre>
     All of them are free to read online except the two books. For the AWS side, the Amazon ECS Developer Guide chapter on
     task definitions is the best companion to the Lab 07 mapping exercise. The Kubernetes documentation pages on probes and
     on rolling updates match the Lab 08 exercises one to one.
+  </aside>
+</section>
+
+<section class="connect" data-duration-minutes="0">
+  <h2>Let's Connect</h2>
+  <p><a href="https://www.linkedin.com/in/kpassoubady">linkedin.com/in/kpassoubady</a></p>
+  <img src="../../images/ConnectLinkedIn.jpg" alt="Kangeyan Passoubady's contact card with a LinkedIn QR code" style="display:block; margin:0 auto; max-height:420px; max-width:100%;">
+  <aside class="notes">
+    Leave this slide visible at wrap-up. The written link is an alternative to scanning the QR code.
+    This closing contact slide has zero allocated teaching time.
   </aside>
 </section>
 

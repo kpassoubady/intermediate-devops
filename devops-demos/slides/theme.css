@@ -1,6 +1,7 @@
 /* Intermediate DevOps slide theme for reveal.js 5 (1280 x 720).
    Plain layout: title, one diagram or one short list, page number only.
-   One accent colour (--accent). No syntax colouring, no footers, no badges. */
+   One main accent colour (--accent). No syntax colouring or footers.
+   Category badges distinguish optional examples and reference material. */
 
 /* Variable fonts from github.com/google/fonts (SIL OFL 1.1, licences in fonts/). */
 @font-face { font-family: "Manrope"; src: url("fonts/Manrope.ttf") format("truetype"); font-weight: 200 800; }
@@ -45,6 +46,23 @@ html.reveal-print .reveal .slides section:not(.title-slide):not(.stack) { paddin
 .reveal .accent { color: var(--accent); font-weight: 700; }
 .reveal .muted { color: var(--muted); }
 .reveal .small { font-size: 18px; }
+
+.reveal .industry-badge {
+  border-left: 0.25em solid #e65100;
+  background: #fff3e0;
+  padding: 0.3em 0.8em;
+  font-size: 0.78em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a63a00;
+  margin-bottom: 0.5em;
+  display: inline-block;
+  border-radius: 0 4px 4px 0;
+}
+
+.reveal .skip-badge { border-left: 0.25em solid #c62828; background: #fce4ec; padding: 0.3em 0.8em; font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #c62828; margin-bottom: 0.5em; display: inline-block; border-radius: 0 4px 4px 0; }
+.reveal .reference-badge { border-left: 0.25em solid #1a73e8; background: #e3f2fd; padding: 0.3em 0.8em; font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #145ab6; margin-bottom: 0.5em; display: inline-block; border-radius: 0 4px 4px 0; }
 
 /* Code: plain, no syntax colouring. */
 .reveal code { font-family: Menlo, "DejaVu Sans Mono", monospace; font-size: 0.86em; color: var(--ink); background: none; padding: 0; }

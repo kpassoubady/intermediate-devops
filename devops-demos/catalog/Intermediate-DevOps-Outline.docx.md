@@ -45,7 +45,7 @@ By the end of the course, participants will be able to:
 
 Each participant receives a personal, browser-accessible Linux lab machine. Participants install and configure the tools during the labs: Harness Open Source (Harness's free, self-hosted code and pipeline platform), Docker, a local Kubernetes cluster (k3d), and Terraform. No AWS or Harness accounts are required. The local Kubernetes cluster stands in for Amazon EKS, and local containers stand in for Amazon ECS/Fargate.
 
-Lab machine specification: Ubuntu 24.04 with desktop, 16 vCPUs, 32 GB RAM, 160 GB disk, outbound internet access.
+Lab machine specification: Ubuntu 24.04 with desktop, 8 vCPUs, 16 GB RAM, 80 GB disk, outbound internet access.
 
 ## Outline
 
