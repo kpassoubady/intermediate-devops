@@ -6,8 +6,24 @@
 <title>Intermediate DevOps · Day 3: Containers, Kubernetes and continuous delivery</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
-<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="themes/blue/blue-theme.css">
+<link rel="stylesheet" href="themes/blue/blue-polished.css">
+<link rel="stylesheet" href="themes/blue/blue-polished-gradients.css">
 <style>
+  /* Retain the course's 22px density on the polished theme's 720px canvas. */
+  :root { --r-main-font-size: 22px; --slide-padding: 52px 72px 56px; }
+  .reveal h2 { font-size: 36px; }
+  .reveal pre, .reveal pre code { font-size: 17px; }
+  .reveal table { font-size: 20px; }
+  .reveal .small { font-size: 18px; }
+
+  /* These comparison tables need footer clearance, not smaller text. */
+  .reveal table.footer-clear :is(th, td) { padding: 9px 16px; }
+
+  /* Print keeps the title "present"; match each page number to its own page. */
+  html.reveal-print .reveal .slides .pdf-page .slide-number-pdf { color: var(--color-text-light); }
+  html.reveal-print .reveal .slides .pdf-page:has(.title-slide) .slide-number-pdf { color: #96ffeb; }
+
   /* Day 3 additions: full-width and compact tables, agenda rows, reference list. */
   .reveal table.full { width: 100%; }
   .reveal table.dense { font-size: 18px; }
@@ -23,7 +39,8 @@
 
 <!-- ============================== Opening ============================== -->
 
-<section class="title-slide" data-state="title" data-background-color="#0B1F3A">
+<section class="title-slide" data-state="title">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <div class="t-band" style="top:146px"></div>
   <div class="t-main" style="top:176px">Intermediate DevOps<br>Day 3: Containers, Kubernetes<br>and continuous delivery</div>
   <div class="t-sub" style="top:392px">United Airlines · Pluralsight instructor-led training</div>
@@ -41,6 +58,7 @@
 </section>
 
 <section class="discussion retrieval" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Recall: Prepare a deployment</h2>
   <p>Without opening your notes, explain yesterday's prerequisites:</p>
   <ol>
@@ -57,6 +75,7 @@
 </section>
 
 <section class="discussion-answer retrieval-answer" data-duration-minutes="1">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Day 2 recap</h2>
   <ul>
     <li>Infrastructure as code describes the desired state in version-controlled files.</li>
@@ -79,6 +98,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Day 3 agenda</h2>
   <ol>
     <li>Day 2 recap</li>
@@ -104,7 +124,18 @@
 
 <!-- ============================== L9 Containers ============================== -->
 
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Containers and Docker</h1>
+  <h2>Images, layers, isolation, and registries</h2>
+  <aside class="notes">
+    Topic transition: Containers and Docker.
+    This divider slide has zero allocated teaching time.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Virtual machines and containers</h2>
   <svg class="diagram" viewBox="0 0 1136 370" role="img" aria-label="Virtual machines each run a guest kernel on a hypervisor. Containers share the host Linux kernel.">
     <g font-size="20" font-weight="700" fill="#14263D">
@@ -160,8 +191,9 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Linux namespaces isolate what a process can see</h2>
-  <table class="full">
+  <table class="full footer-clear">
     <tr><th>Namespace</th><th>What the process gets its own copy of</th></tr>
     <tr><td>PID</td><td>Process identifier. The container's first process is PID 1.</td></tr>
     <tr><td>Network</td><td>Network interfaces, IP addresses, routes and ports</td></tr>
@@ -188,6 +220,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Control groups limit what a process can use</h2>
   <ul>
     <li>A control group (cgroup) limits the CPU time, memory, disk I/O (input/output) and number of processes of a group of processes.</li>
@@ -212,6 +245,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Images are stacks of read-only layers</h2>
   <svg class="diagram" viewBox="0 0 1136 310" role="img" aria-label="Five layers: container layer, application code, dependencies, requirements file, base image.">
     <rect x="0" y="0" width="560" height="54" rx="6" fill="#fff" stroke="#0033A0" stroke-width="2.5" stroke-dasharray="8 6"/>
@@ -252,6 +286,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The OCI specifications</h2>
   <table class="full">
     <tr><th>Specification</th><th>What it defines</th><th>Examples</th></tr>
@@ -275,6 +310,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Tags and digests</h2>
 <pre><code>k3d-registry.localhost:5000/flight-status:1.4.0
 k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
@@ -298,6 +334,7 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
 </section>
 
 <section class="industry-example" data-industry="primary" data-concept="container-artifacts" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Container deployment artifacts (General DevOps)</h2>
   <div class="industry-badge">Real-world scenario</div>
   <p>Netflix: the published Titus container-platform design.</p>
@@ -315,6 +352,7 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
 </section>
 
 <section class="industry-example" data-industry="secondary" data-concept="container-artifacts" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Container deployment artifacts (Retail)</h2>
   <div class="skip-badge">SKIP</div>
   <div class="industry-badge">Real-world scenario</div>
@@ -332,6 +370,7 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Dockerfile practices</h2>
   <ul>
     <li>Start from a small, maintained base image, for example <code>python:3.12-slim</code> instead of <code>python:3.12</code>.</li>
@@ -355,6 +394,7 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>A Dockerfile for a Python web service</h2>
 <pre><code>FROM python:3.12-slim
 WORKDIR /app
@@ -383,6 +423,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Container risks in NIST SP 800-190</h2>
   <table class="full dense">
     <tr><th>Area</th><th>Example risk</th><th>What this course does about it</th></tr>
@@ -407,6 +448,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Software bills of materials and vulnerability scanning</h2>
   <ul>
     <li>A software bill of materials (SBOM) lists every package in an image, with its version. CycloneDX and Software Package Data Exchange (SPDX) are the common formats.</li>
@@ -427,6 +469,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Signing and provenance</h2>
   <ul>
     <li>A signature shows who published an image and that it has not changed since.</li>
@@ -450,7 +493,18 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 
 <!-- ============================== L10 Compose, ECS, Fargate ============================== -->
 
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Docker Compose and AWS Fargate</h1>
+  <h2>Multi-container orchestration and serverless containers</h2>
+  <aside class="notes">
+    Topic transition: Docker Compose and AWS Fargate.
+    This divider slide has zero allocated teaching time.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Docker Compose describes a multi-container application</h2>
 <pre><code>services:
   app:
@@ -478,6 +532,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Amazon ECS concepts</h2>
   <svg class="diagram" viewBox="0 0 1136 360" role="img" aria-label="A task definition describes tasks. A service in an ECS cluster keeps two tasks running.">
     <defs><marker id="arr-ecs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -530,8 +585,9 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Fargate runs tasks without servers to manage</h2>
-  <table class="full">
+  <table class="full footer-clear">
     <tr><th></th><th>Elastic Compute Cloud (EC2) launch type</th><th>Fargate</th></tr>
     <tr><td>Who manages the hosts</td><td>You, as a group of EC2 instances</td><td>AWS</td></tr>
     <tr><td>What you size</td><td>Instances, then the tasks placed on them</td><td>The CPU and memory of each task</td></tr>
@@ -552,6 +608,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Mapping Compose to an ECS task definition</h2>
   <table class="full">
     <tr><th>compose.yaml</th><th>Task definition (JSON)</th></tr>
@@ -578,6 +635,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What changes when the task runs in AWS</h2>
   <ul>
     <li>Each Fargate task gets its own network interface and private IP address in a virtual private cloud (VPC) subnet.</li>
@@ -598,7 +656,8 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </aside>
 </section>
 
-<section>
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 07: Build, scan and describe a container</h2>
   <p>Open <code>labs/07-containers.md</code> in the course repository.</p>
   <ul>
@@ -620,7 +679,18 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 
 <!-- ============================== L11 Kubernetes ============================== -->
 
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Kubernetes Core Concepts</h1>
+  <h2>Control plane architecture, Pods, Deployments, and Services</h2>
+  <aside class="notes">
+    Topic transition: Kubernetes Core Concepts.
+    This divider slide has zero allocated teaching time.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>From Borg to Kubernetes</h2>
   <svg class="diagram" viewBox="0 0 1136 190" role="img" aria-label="Timeline: Borg 2003 to 2004, Omega 2013, Kubernetes 2014, Kubernetes 1.0 and CNCF 2015, Amazon EKS 2018, k3s 2019.">
     <line x1="10" y1="96" x2="1126" y2="96" stroke="#C3CAD0" stroke-width="2"/>
@@ -656,6 +726,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The declarative API and reconciliation loops</h2>
   <svg class="diagram" viewBox="0 0 1136 330" role="img" aria-label="A controller loop: desired state, observe actual state, compare, act, repeat.">
     <defs><marker id="arr-loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -700,6 +771,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The control plane and the nodes</h2>
   <svg class="diagram" viewBox="0 0 1136 340" role="img" aria-label="kubectl and the kubelet talk to the API server. The scheduler and controller manager talk to the API server. Only the API server uses the datastore.">
     <defs><marker id="arr-cp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -757,6 +829,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Deployments, ReplicaSets and Pods</h2>
   <svg class="diagram" viewBox="0 0 1136 340" role="img" aria-label="A Deployment owns a new ReplicaSet with three Pods and an old ReplicaSet with zero Pods.">
     <defs><marker id="arr-rs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -799,6 +872,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Services and Ingress</h2>
   <svg class="diagram" viewBox="0 0 1136 290" role="img" aria-label="Browser to k3d load balancer to Traefik ingress controller to Service to two ready Pods. A Pod that is not ready gets no traffic.">
     <defs><marker id="arr-svc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -847,6 +921,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Liveness, readiness and startup probes</h2>
   <table class="full">
     <tr><th>Probe</th><th>Question it answers</th><th>What happens when it fails</th></tr>
@@ -871,6 +946,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Requests, limits and quality of service</h2>
   <ul>
     <li>A request is the amount the scheduler reserves on a node. A Pod only goes to a node with enough unreserved capacity.</li>
@@ -897,6 +973,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>A rolling update, step by step</h2>
   <svg class="diagram" viewBox="0 0 1136 370" role="img" aria-label="Rolling update of 4 replicas with maxSurge 1 and maxUnavailable 0, in five steps.">
     <g font-size="18" fill="#14263D">
@@ -947,6 +1024,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section class="industry-example" data-industry="primary" data-concept="kubernetes-operations" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Kubernetes operations (General DevOps)</h2>
   <div class="industry-badge">Real-world scenario</div>
   <p>Spotify: migration from its homegrown Helios orchestrator.</p>
@@ -964,6 +1042,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section class="industry-example" data-industry="secondary" data-concept="kubernetes-operations" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Kubernetes operations (Retail)</h2>
   <div class="skip-badge">SKIP</div>
   <div class="industry-badge">Real-world scenario</div>
@@ -981,6 +1060,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Role-based access control</h2>
   <svg class="diagram" viewBox="0 0 1136 250" role="img" aria-label="A RoleBinding connects the ServiceAccount deployer to the Role deployer.">
     <defs><marker id="arr-rbac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1028,6 +1108,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>k3d and Amazon EKS</h2>
   <table class="full">
     <tr><th></th><th>k3d on your lab machine</th><th>Amazon EKS</th></tr>
@@ -1051,11 +1132,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section class="kahoot" data-duration-minutes="5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Section Quiz 1: Kubernetes</h2>
   <p>Four questions. Five minutes, including feedback.</p>
   <ul>
     <li>Use the Kahoot game PIN shared by your instructor.</li>
-    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
@@ -1066,7 +1147,8 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </aside>
 </section>
 
-<section>
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 08: Kubernetes deployments, rollouts and rollbacks</h2>
   <p>Open <code>labs/08-kubernetes-rollouts.md</code> in the course repository.</p>
   <ul>
@@ -1089,7 +1171,18 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 
 <!-- ============================== L12 Continuous delivery ============================== -->
 
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Continuous Delivery</h1>
+  <h2>Deployment strategies, verification gates, and automated rollbacks</h2>
+  <aside class="notes">
+    Topic transition: Continuous Delivery.
+    This divider slide has zero allocated teaching time.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Continuous delivery and continuous deployment</h2>
   <svg class="diagram" viewBox="0 0 1136 220" role="img" aria-label="Commit, build and test, deploy to a test environment, release decision, production.">
     <defs><marker id="arr-cd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1130,6 +1223,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Build once, promote the same artifact</h2>
   <svg class="diagram" viewBox="0 0 1136 300" role="img" aria-label="One build produces one image digest. The same digest is deployed to dev and then promoted to prod.">
     <defs><marker id="arr-promo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1177,6 +1271,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Approvals</h2>
   <ul>
     <li>An approval is a pipeline step that waits for a named person or group to confirm.</li>
@@ -1198,6 +1293,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Rolling and blue-green deployments</h2>
   <svg class="diagram" viewBox="0 0 1136 310" role="img" aria-label="Rolling: one load balancer sends traffic to old and new Pods. Blue-green: the load balancer sends all traffic to green; blue stays on standby.">
     <defs><marker id="arr-bg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1256,6 +1352,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Canary releases</h2>
   <svg class="diagram" viewBox="0 0 1136 300" role="img" aria-label="The load balancer sends 90 percent of requests to stable and 10 percent to the canary. Metrics are compared. If the canary is healthy, send more traffic; if worse, send all traffic back to stable.">
     <defs><marker id="arr-can" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1305,6 +1402,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Feature flags separate deployment from release</h2>
 <pre><code>if flags.is_enabled("new-departures-board", user):
     return new_departures_board(flights)
@@ -1328,6 +1426,7 @@ return departures_board(flights)</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Automated verification and rollback</h2>
   <svg class="diagram" viewBox="0 0 1136 270" role="img" aria-label="Deploy, wait for rollout, smoke tests. Pass: continue to the next stage. Fail: roll back with kubectl rollout undo.">
     <defs><marker id="arr-ver" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1372,6 +1471,7 @@ return departures_board(flights)</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 09 steps and the Harness platform</h2>
   <table class="full">
     <tr><th>Lab 09 step in Harness Open Source</th><th>Harness platform feature for the same job</th></tr>
@@ -1395,6 +1495,7 @@ return departures_board(flights)</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>DORA metrics revisited</h2>
   <p class="small">DORA: DevOps Research and Assessment.</p>
   <table class="full">
@@ -1418,11 +1519,11 @@ return departures_board(flights)</code></pre>
 </section>
 
 <section class="kahoot" data-duration-minutes="5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Section Quiz 2: Continuous Delivery</h2>
   <p>Four questions. Five minutes, including feedback.</p>
   <ul>
     <li>Use the Kahoot game PIN shared by your instructor.</li>
-    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
@@ -1433,7 +1534,8 @@ return departures_board(flights)</code></pre>
   </aside>
 </section>
 
-<section>
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 09: End-to-end delivery pipeline</h2>
   <p>Open <code>labs/09-end-to-end-delivery.md</code> in the course repository.</p>
   <ul>
@@ -1458,6 +1560,7 @@ return departures_board(flights)</code></pre>
 <!-- ============================== Close ============================== -->
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What the three days covered</h2>
   <table class="full">
     <tr><th>Day</th><th>Concepts</th><th>Labs</th></tr>
@@ -1476,6 +1579,7 @@ return departures_board(flights)</code></pre>
 </section>
 
 <section class="chat-waterfall transfer" data-duration-minutes="2.5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Put it to work</h2>
   <p>Complete this privately:</p>
   <p>When [specific delivery situation] occurs, I will [one practice], using [artifact or evidence]. I will know it worked when [observable result].</p>
@@ -1492,6 +1596,7 @@ return departures_board(flights)</code></pre>
 </section>
 
 <section class="chat-waterfall-answer transfer-answer" data-duration-minutes="1.5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Next steps and feedback</h2>
   <p>Example: when our next service update is ready, I will add a version smoke test. Its response must match the expected commit before we promote the image.</p>
   <ul>
@@ -1513,6 +1618,7 @@ return departures_board(flights)</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>References</h2>
   <div class="cols">
     <ul class="refs">
@@ -1545,6 +1651,7 @@ return departures_board(flights)</code></pre>
 </section>
 
 <section class="connect" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Let's Connect</h2>
   <p><a href="https://www.linkedin.com/in/kpassoubady">linkedin.com/in/kpassoubady</a></p>
   <img src="../../images/ConnectLinkedIn.jpg" alt="Kangeyan Passoubady's contact card with a LinkedIn QR code" style="display:block; margin:0 auto; max-height:420px; max-width:100%;">

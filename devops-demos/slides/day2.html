@@ -6,8 +6,24 @@
 <title>Intermediate DevOps · Day 2: Infrastructure as code and credentials</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
-<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="themes/blue/blue-theme.css">
+<link rel="stylesheet" href="themes/blue/blue-polished.css">
+<link rel="stylesheet" href="themes/blue/blue-polished-gradients.css">
 <style>
+  /* Retain the course's 22px density on the polished theme's 720px canvas. */
+  :root { --r-main-font-size: 22px; --slide-padding: 52px 72px 56px; }
+  .reveal h2 { font-size: 36px; }
+  .reveal pre, .reveal pre code { font-size: 17px; }
+  .reveal table { font-size: 20px; }
+  .reveal .small { font-size: 18px; }
+
+  /* Keep long Terraform expressions visible without reducing code type. */
+  .reveal .code-wide .cols-60-40 { grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); }
+
+  /* Print keeps the title "present"; match each page number to its own page. */
+  html.reveal-print .reveal .slides .pdf-page .slide-number-pdf { color: var(--color-text-light); }
+  html.reveal-print .reveal .slides .pdf-page:has(.title-slide) .slide-number-pdf { color: #96ffeb; }
+
   /* Day 2 additions: a compact agenda table, a lower subtitle for the three-line title, small references. */
   .reveal table.compact td { padding: 6px 22px 6px 0; font-size: 18px; }
   .reveal table.compact th { font-size: 16px; padding-bottom: 6px; }
@@ -21,7 +37,8 @@
 
 <!-- ===================== Opening ===================== -->
 
-<section class="title-slide" data-state="title" data-background-color="#0B1F3A">
+<section class="title-slide" data-state="title">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <div class="t-band"></div>
   <div class="t-main">Intermediate DevOps<br>Day 2: Infrastructure as code<br>and credentials</div>
   <div class="t-sub low">United Airlines · Pluralsight instructor-led training</div>
@@ -37,6 +54,7 @@
 </section>
 
 <section class="discussion retrieval" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Recall: Follow a change</h2>
   <p>Without opening your notes, write a short explanation:</p>
   <ol>
@@ -54,6 +72,7 @@
 </section>
 
 <section class="discussion-answer retrieval-answer" data-duration-minutes="1">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What you built on Day 1</h2>
   <ul>
     <li>Harness Open Source running in Docker on your lab machine, with the <code>flightops</code> project and the <code>flight-status</code> repository.</li>
@@ -72,6 +91,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Day 2 agenda</h2>
   <ol>
     <li>Day 1 recap</li>
@@ -94,7 +114,18 @@
 
 <!-- ===================== L5: Infrastructure as code concepts ===================== -->
 
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Infrastructure as Code Concepts</h1>
+  <h2>Declarative specifications, idempotency, and convergence</h2>
+  <aside class="notes">
+    Topic transition: Infrastructure as Code Concepts.
+    This divider slide has zero allocated teaching time.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>How infrastructure was managed before code</h2>
   <ul>
     <li>Engineers built and changed servers by hand, from a runbook or from memory.</li>
@@ -115,6 +146,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What infrastructure as code means</h2>
   <p>Infrastructure as code applies software development practices to infrastructure (Morris, 2020).</p>
   <ul>
@@ -136,6 +168,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Kinds of infrastructure as code tools</h2>
   <table>
     <tr><th>Category</th><th>What it manages</th><th>Examples</th></tr>
@@ -158,6 +191,7 @@
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Imperative and declarative instructions</h2>
   <div class="cols">
     <div>
@@ -188,6 +222,7 @@ kubectl create quota dev-quota \
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Idempotency</h2>
   <p>An operation is idempotent when running it many times has the same effect as running it once.</p>
   <table>
@@ -210,6 +245,7 @@ kubectl create quota dev-quota \
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Desired state and convergence</h2>
   <svg class="diagram" viewBox="0 0 1136 240" role="img" aria-label="Declared state in code, read the actual state, calculate the difference, apply only the difference, then repeat">
     <defs><marker id="arr-d2-conv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -244,6 +280,7 @@ kubectl create quota dev-quota \
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Configuration drift</h2>
   <ul>
     <li>Drift is any difference between the code and the real infrastructure.</li>
@@ -264,6 +301,7 @@ kubectl create quota dev-quota \
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Mutable and immutable infrastructure</h2>
   <div class="cols">
     <div>
@@ -296,6 +334,7 @@ kubectl create quota dev-quota \
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The dependency graph</h2>
   <svg class="diagram" viewBox="0 0 1136 320" role="img" aria-label="Namespace flightops-dev before resource quota, secret and service; secret before the postgres deployment">
     <defs><marker id="arr-d2-dag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -332,7 +371,18 @@ kubectl create quota dev-quota \
 
 <!-- ===================== L6: Terraform, CloudFormation and CDK ===================== -->
 
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Terraform, CloudFormation and CDK</h1>
+  <h2>State management, resource graphs, and cloud tooling</h2>
+  <aside class="notes">
+    Topic transition: Terraform, CloudFormation and CDK.
+    This divider slide has zero allocated teaching time.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>How Terraform is built</h2>
   <svg class="diagram" viewBox="0 0 1136 300" role="img" aria-label="Configuration files and state go into Terraform core, which talks to provider plugins over gRPC, which call the Kubernetes API server and AWS APIs">
     <defs>
@@ -379,7 +429,8 @@ kubectl create quota dev-quota \
   </aside>
 </section>
 
-<section>
+<section class="code-wide">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The Terraform language</h2>
   <p class="small">HCL: HashiCorp Configuration Language.</p>
   <div class="cols-60-40">
@@ -413,6 +464,7 @@ output "namespaces" { value = keys(kubernetes_namespace_v1.env) }</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Provider versions and the lock file</h2>
   <div class="cols-60-40">
 <pre><code>terraform {
@@ -442,6 +494,7 @@ output "namespaces" { value = keys(kubernetes_namespace_v1.env) }</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Why Terraform keeps state</h2>
   <ul>
     <li>State maps each resource address to a real object. <code>kubernetes_namespace_v1.env["dev"]</code> maps to the namespace <code>flightops-dev</code>.</li>
@@ -462,6 +515,7 @@ output "namespaces" { value = keys(kubernetes_namespace_v1.env) }</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Plan and apply</h2>
   <svg class="diagram" viewBox="0 0 1136 260" role="img" aria-label="Code, state and real infrastructure go into terraform plan, which produces proposed changes, which terraform apply performs">
     <defs><marker id="arr-d2-plan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -509,7 +563,8 @@ output "namespaces" { value = keys(kubernetes_namespace_v1.env) }</code></pre>
   </aside>
 </section>
 
-<section>
+<section class="code-wide">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Modules</h2>
   <div class="cols-60-40">
 <pre><code>module "postgres" {
@@ -541,6 +596,7 @@ variable "namespace" {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>AWS CloudFormation</h2>
   <div class="cols-60-40">
     <ul>
@@ -569,6 +625,7 @@ variable "namespace" {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The AWS Cloud Development Kit</h2>
   <svg class="diagram" viewBox="0 0 1136 270" role="img" aria-label="A CDK app uses a shared construct library; cdk synth produces a CloudFormation template; cdk deploy creates a CloudFormation stack, which creates AWS resources">
     <defs><marker id="arr-d2-cdk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -610,6 +667,7 @@ variable "namespace" {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Terraform, CloudFormation and the CDK compared</h2>
   <table style="width: 100%;">
     <colgroup><col style="width: 13%;"><col style="width: 33%;"><col style="width: 27%;"><col style="width: 27%;"></colgroup>
@@ -632,7 +690,8 @@ variable "namespace" {
   </aside>
 </section>
 
-<section>
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 04: Terraform foundations on Kubernetes</h2>
   <p>Open <code>labs/04-terraform-foundations.md</code> in the course repository.</p>
   <ul>
@@ -652,7 +711,18 @@ variable "namespace" {
 
 <!-- ===================== L7: Infrastructure as code in pipelines ===================== -->
 
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Infrastructure as Code in Pipelines</h1>
+  <h2>Automated plan and apply workflows, state locking, and drift</h2>
+  <aside class="notes">
+    Topic transition: Infrastructure as Code in Pipelines.
+    This divider slide has zero allocated teaching time.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Why apply infrastructure code from a pipeline</h2>
   <p>When engineers apply from their laptops:</p>
   <ul>
@@ -674,6 +744,7 @@ variable "namespace" {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Remote state and locking</h2>
   <svg class="diagram" viewBox="0 0 1136 290" role="img" aria-label="Pipeline run A holds the lock in the backend; pipeline run B gets an error acquiring the state lock">
     <defs><marker id="arr-d2-lock" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -711,6 +782,7 @@ variable "namespace" {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Plan on pull request, apply on merge</h2>
   <svg class="diagram" viewBox="0 0 1136 210" role="img" aria-label="Change on a feature branch, open a pull request, pipeline runs fmt validate plan, review the code and the plan, merge to main and the pipeline applies">
     <defs><marker id="arr-d2-flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -750,6 +822,7 @@ variable "namespace" {
 </section>
 
 <section class="industry-example" data-industry="primary" data-concept="infrastructure-workflow" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Infrastructure through code (General DevOps)</h2>
   <div class="industry-badge">Real-world scenario</div>
   <p>GitLab: managing GitLab.com infrastructure.</p>
@@ -767,6 +840,7 @@ variable "namespace" {
 </section>
 
 <section class="industry-example" data-industry="secondary" data-concept="infrastructure-workflow" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Infrastructure through code (Retail)</h2>
   <div class="skip-badge">SKIP</div>
   <div class="industry-badge">Real-world scenario</div>
@@ -785,6 +859,7 @@ variable "namespace" {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Reviewing a plan</h2>
   <ul>
     <li>Read the summary first, for example "Plan: 1 to add, 2 to change, 0 to destroy."</li>
@@ -804,6 +879,7 @@ variable "namespace" {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>State is sensitive data</h2>
   <ul>
     <li>State stores every attribute of every resource in plain text, including generated passwords and tokens.</li>
@@ -824,6 +900,7 @@ variable "namespace" {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Policy as code</h2>
   <p>A policy is a rule written as code and checked automatically. This Open Policy Agent (OPA) rule, written in Rego, rejects a plan that deletes a namespace.</p>
 <pre><code>package terraform.namespaces
@@ -847,6 +924,7 @@ deny contains msg if {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>GitOps principles</h2>
   <table>
     <tr><th>Principle</th><th>Meaning</th></tr>
@@ -868,6 +946,7 @@ deny contains msg if {
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Detecting drift from a pipeline</h2>
   <ul>
     <li>Run a plan on a schedule, for example every night.</li>
@@ -890,11 +969,11 @@ exit "$rc"</code></pre>
 </section>
 
 <section class="kahoot" data-duration-minutes="5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Section Quiz 1: Terraform in Pipelines</h2>
   <p>Four questions. Five minutes, including feedback.</p>
   <ul>
     <li>Use the Kahoot game PIN shared by your instructor.</li>
-    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
@@ -905,7 +984,8 @@ exit "$rc"</code></pre>
   </aside>
 </section>
 
-<section>
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 05: Terraform in the pipeline</h2>
   <p>Open <code>labs/05-terraform-pipeline.md</code> in the course repository.</p>
   <ul>
@@ -925,7 +1005,18 @@ exit "$rc"</code></pre>
 
 <!-- ===================== L8: Credential management ===================== -->
 
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Credential Management</h1>
+  <h2>Secrets hygiene, injection boundaries, and role-based access</h2>
+  <aside class="notes">
+    Topic transition: Credential Management.
+    This divider slide has zero allocated teaching time.
+  </aside>
+</section>
+
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What counts as a credential</h2>
   <p>A credential is any value that proves an identity or grants access.</p>
   <ul>
@@ -948,6 +1039,7 @@ exit "$rc"</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Where secrets leak</h2>
   <table>
     <tr><th>Place</th><th>Example</th></tr>
@@ -970,6 +1062,7 @@ exit "$rc"</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>The secret-zero problem</h2>
   <svg class="diagram" viewBox="0 0 1136 210" role="img" aria-label="The pipeline step signs in to the secret store with credential A, the store returns password B, the step connects to the database with password B">
     <defs><marker id="arr-d2-zero" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker>
@@ -1005,6 +1098,7 @@ exit "$rc"</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Least privilege</h2>
   <p>"Every program and every user of the system should operate using the least set of privileges necessary to complete the job" (Saltzer and Schroeder, 1975).</p>
   <div class="cols-60-40">
@@ -1036,6 +1130,7 @@ rules:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Rotation and revocation</h2>
   <svg class="diagram" viewBox="0 0 1136 240" role="img" aria-label="Timeline: the old token is valid until it is revoked; the new token is created, consumers are updated and verified, then the old token is revoked">
     <defs><marker id="arr-d2-rot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1073,6 +1168,7 @@ rules:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Short-lived and dynamic credentials</h2>
   <table>
     <tr><th>Mechanism</th><th>Lifetime</th><th>Example</th></tr>
@@ -1094,6 +1190,7 @@ rules:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Encryption at rest and envelope encryption</h2>
   <svg class="diagram" viewBox="0 0 1136 285" role="img" aria-label="A data key encrypts the secret value; a KMS key, which never leaves the KMS, encrypts the data key; the encrypted value and encrypted data key are stored together">
     <defs><marker id="arr-d2-env" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1136,6 +1233,7 @@ rules:
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Kubernetes Secrets</h2>
 <pre><code>$ kubectl get secret db -n flightops-dev -o jsonpath='{.data.password}'
 UzNjcjN0LVZhbHVl
@@ -1158,6 +1256,7 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Secret stores and pipelines</h2>
   <svg class="diagram" viewBox="0 0 1136 275" role="img" aria-label="Pipeline YAML holds a reference; Harness reads the value from the secret store when the step starts and passes it to the step as an environment variable, which connects to the database or API">
     <defs><marker id="arr-d2-store" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5C6B7B"/></marker></defs>
@@ -1201,6 +1300,7 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section class="industry-example" data-industry="primary" data-concept="credential-delivery" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Delivering secrets (General DevOps)</h2>
   <div class="industry-badge">Real-world scenario</div>
   <p>GitLab: its documented HashiCorp Vault integration.</p>
@@ -1218,6 +1318,7 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section class="industry-example" data-industry="secondary" data-concept="credential-delivery" data-duration-minutes="2">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Delivering secrets (Retail)</h2>
   <div class="skip-badge">SKIP</div>
   <div class="industry-badge">Real-world scenario</div>
@@ -1236,6 +1337,7 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Secret scanning and log masking</h2>
   <div class="cols">
     <div>
@@ -1269,11 +1371,11 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section class="kahoot" data-duration-minutes="5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Section Quiz 2: Credentials</h2>
   <p>Four questions. Five minutes, including feedback.</p>
   <ul>
     <li>Use the Kahoot game PIN shared by your instructor.</li>
-    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
@@ -1284,7 +1386,8 @@ S3cr3t-Value</code></pre>
   </aside>
 </section>
 
-<section>
+<section class="lab">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Lab 06: Managing credentials</h2>
   <p>Open <code>labs/06-credentials.md</code> in the course repository.</p>
   <ul>
@@ -1304,6 +1407,7 @@ S3cr3t-Value</code></pre>
 <!-- ===================== Close ===================== -->
 
 <section class="discussion" data-duration-minutes="2.5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Credential boundaries: Discussion</h2>
   <p>Explain the dev deployer credential to a new teammate without showing any secret values.</p>
   <ol>
@@ -1320,6 +1424,7 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section class="discussion-answer" data-duration-minutes="1.5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Day 2 summary</h2>
   <ul>
     <li>Infrastructure as code describes the desired state in version-controlled files and applies it with automation.</li>
@@ -1341,6 +1446,7 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section>
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>References</h2>
   <div class="cols">
     <ul class="refs">
@@ -1371,6 +1477,7 @@ S3cr3t-Value</code></pre>
 </section>
 
 <section class="connect" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Let's Connect</h2>
   <p><a href="https://www.linkedin.com/in/kpassoubady">linkedin.com/in/kpassoubady</a></p>
   <img src="../../images/ConnectLinkedIn.jpg" alt="Kangeyan Passoubady's contact card with a LinkedIn QR code" style="display:block; margin:0 auto; max-height:420px; max-width:100%;">

@@ -22,6 +22,10 @@ class TimingTests(unittest.TestCase):
         slide = '<section data-duration-minutes="0"><h2>Connect</h2></section>'
         self.assertEqual(TIMING.classify(slide)[1:], ("Contact", 0, 0, 0))
 
+    def test_divider_slide_has_zero_timing(self):
+        slide = '<section class="divider" data-duration-minutes="0"><h1>Topic</h1><h2>Subtitle</h2></section>'
+        self.assertEqual(TIMING.classify(slide), ("Topic", "Divider", 0, 0, 0))
+
     def test_mapping_table_is_not_a_lab_launch(self):
         slide = "<section><h2>Lab 09 steps and the Harness platform</h2><table></table></section>"
         self.assertEqual(TIMING.classify(slide)[1], "Dense content")

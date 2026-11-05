@@ -20,12 +20,17 @@ INTRO = {
 
 def classify(slide):
     opening = slide.split(">", 1)[0]
-    heading = re.search(r"<h2>(.*?)</h2>", slide, re.S)
+    heading = re.search(r"<h1>(.*?)</h1>", slide, re.S) or re.search(r"<h2>(.*?)</h2>", slide, re.S)
     title = re.sub("<[^>]+>", "", heading[1]) if heading else "Opening title"
     allocated = re.search(r'data-duration-minutes="([^"]+)"', opening)
     if allocated:
         minutes = float(allocated[1])
-        kind = "Allocated activity" if minutes else "Contact"
+        if "divider" in opening:
+            kind = "Divider"
+        elif minutes:
+            kind = "Allocated activity"
+        else:
+            kind = "Contact"
         return title, kind, minutes, minutes, minutes
     if "title-slide" in opening:
         return title, "Title", .75, .5, 1
