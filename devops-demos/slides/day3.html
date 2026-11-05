@@ -163,7 +163,7 @@
   <h2>Linux namespaces isolate what a process can see</h2>
   <table class="full">
     <tr><th>Namespace</th><th>What the process gets its own copy of</th></tr>
-    <tr><td>PID</td><td>Process IDs. The container's first process is PID 1.</td></tr>
+    <tr><td>PID</td><td>Process identifier. The container's first process is PID 1.</td></tr>
     <tr><td>Network</td><td>Network interfaces, IP addresses, routes and ports</td></tr>
     <tr><td>Mount</td><td>The filesystem tree, built from the image</td></tr>
     <tr><td>UTS</td><td>The hostname</td></tr>
@@ -172,6 +172,7 @@
     <tr><td>Cgroup</td><td>The view of its own control group</td></tr>
   </table>
   <p>Docker creates a new set of namespaces for each container (namespaces(7), Linux manual pages).</p>
+  <p class="small">UTS: UNIX time-sharing. IPC: interprocess communication.</p>
   <aside class="notes">
     A namespace wraps a global system resource so that processes inside it see their own copy. The mount namespace
     arrived first, in Linux 2.4.19 (2002). User namespaces were completed in Linux 3.8 (2013), and a time namespace was
@@ -189,13 +190,14 @@
 <section>
   <h2>Control groups limit what a process can use</h2>
   <ul>
-    <li>A control group (cgroup) limits the CPU time, memory, disk I/O and number of processes of a group of processes.</li>
+    <li>A control group (cgroup) limits the CPU time, memory, disk I/O (input/output) and number of processes of a group of processes.</li>
     <li>The kernel also counts usage per cgroup. <code>docker stats</code> reads these counters.</li>
     <li>When a container uses more memory than its limit, the kernel kills a process in it (OOM kill).</li>
     <li>When a container reaches its CPU limit, the kernel slows it down (throttling). It keeps running.</li>
   </ul>
 <pre><code>docker run --memory 256m --cpus 0.5 flight-status:1.0.0</code></pre>
   <p>Kubernetes requests and limits, later today, are applied through the same cgroup settings.</p>
+  <p class="small">OOM: out of memory.</p>
   <aside class="notes">
     Namespaces control what a process can see. Control groups control how much it can use. Engineers at Google
     developed cgroups (first called "process containers"), and they were merged into Linux 2.6.24 in January 2008.
@@ -278,7 +280,7 @@
 k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
   <ul>
     <li>A tag is a name that points to an image. Anyone with push rights can point it at a different image.</li>
-    <li>A digest is the SHA-256 hash of the image manifest. It identifies one image and cannot change.</li>
+    <li>A digest is the SHA-256 (Secure Hash Algorithm, 256-bit) hash of the image manifest. It identifies one image and cannot change.</li>
     <li><code>latest</code> is the default tag name. It does not mean the newest image.</li>
     <li>Deploy by digest, or by a tag that your pipeline never reuses.</li>
   </ul>
@@ -534,7 +536,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <tr><td>Who manages the hosts</td><td>You, as a group of EC2 instances</td><td>AWS</td></tr>
     <tr><td>What you size</td><td>Instances, then the tasks placed on them</td><td>The CPU and memory of each task</td></tr>
     <tr><td>Network mode</td><td>bridge, host or awsvpc</td><td>awsvpc only, so each task gets its own network interface</td></tr>
-    <tr><td>Billing</td><td>Per instance</td><td>Per task, for vCPU and memory, per second</td></tr>
+    <tr><td>Billing</td><td>Per instance</td><td>Per task, for vCPU (virtual CPU) and memory, per second</td></tr>
     <tr><td>Access to the host</td><td>Possible</td><td>None</td></tr>
   </table>
   <p>At United, containers run on Amazon ECS with Fargate.</p>
@@ -1530,7 +1532,7 @@ return departures_board(flights)</code></pre>
       <li>Kubernetes documentation: Deployments, probes, resource management, RBAC. kubernetes.io/docs</li>
       <li>Amazon Web Services. Amazon ECS Developer Guide: task definitions and Fargate. docs.aws.amazon.com</li>
       <li>DORA (2024). Accelerate State of DevOps Report. dora.dev</li>
-      <li>Harness documentation: CI, CD, STO and failure strategies. developer.harness.io</li>
+      <li>Harness documentation: CI, CD, STO (Security Testing Orchestration) and failure strategies. developer.harness.io</li>
     </ul>
   </div>
   <aside class="notes">

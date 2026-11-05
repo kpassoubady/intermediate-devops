@@ -29,6 +29,15 @@
   .reveal table.compact th { padding-bottom: 6px; }
   .reveal ul.refs > li { font-size: 16px; line-height: 1.35; margin-bottom: 6px; padding-left: 20px; }
   .reveal ul.refs > li::before { top: 9px; width: 6px; height: 6px; }
+
+  .reveal .personal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 28px 0; }
+  .reveal .personal-card { border-radius: 16px; box-shadow: 0 8px 20px rgba(30, 41, 59, 0.12); min-height: 190px; padding: 24px; }
+  .reveal .personal-card:nth-child(1) { background: #e3f2fd; border-top: 8px solid var(--color-primary); }
+  .reveal .personal-card:nth-child(2) { background: #fff3e0; border-top: 8px solid var(--color-warning); }
+  .reveal .personal-card:nth-child(3) { background: #edf9f6; border-top: 8px solid var(--color-accent-ink); }
+  .reveal .personal-number { color: var(--color-text-light); font-size: 16px; font-weight: 700; letter-spacing: 0.08em; }
+  .reveal .personal-card h3 { font-size: 24px; margin: 8px 0 12px; }
+  .reveal .personal-card p { font-size: 20px; line-height: 1.4; margin: 0; }
 </style>
 </head>
 <body>
@@ -87,6 +96,35 @@
   </aside>
 </section>
 
+<section class="personal-icebreaker" data-duration-minutes="1">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>A Little Beyond Work</h2>
+  <p>Choose one prompt. Share only what feels comfortable.</p>
+  <div class="personal-grid">
+    <div class="personal-card">
+      <div class="personal-number">01</div>
+      <h3>Bucket List</h3>
+      <p>Name one to three experiences you hope to have.</p>
+    </div>
+    <div class="personal-card">
+      <div class="personal-number">02</div>
+      <h3>Recent Trip</h3>
+      <p>Share a place you visited and one detail that stayed with you.</p>
+    </div>
+    <div class="personal-card">
+      <div class="personal-number">03</div>
+      <h3>Memorable Moment</h3>
+      <p>Share a recent moment that made you proud, grateful, or happy.</p>
+    </div>
+  </div>
+  <blockquote><p><strong>60 seconds:</strong> Share in chat, speak when invited, keep a private note, or pass.</p></blockquote>
+  <aside class="notes">
+    Allow one minute. Invite each learner to choose one prompt, not all three. Sharing is optional.
+    Do not call on anyone who chooses a private note or passes, or ask for personal details.
+    Keep this within the welcome and course-overview time; do not reduce lab time.
+  </aside>
+</section>
+
 <section class="chat-waterfall">
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Your DevOps Experience</h2>
@@ -116,7 +154,7 @@
   <aside class="notes">
     Allow one minute. Connect two or three actual responses to the themes above; do not claim these themes summarize
     the group before reading its answers. Name questions outside the course scope and offer a follow-up route.
-    The two waterfalls plus prerequisites and synthesis have a six-minute budget.
+    The five intro slides, including the personal icebreaker, have a seven-minute budget.
   </aside>
 </section>
 
@@ -774,7 +812,7 @@ spec:
           container: python:3.12-slim
           script: pip install -r requirements-dev.txt &amp;&amp; pytest</code></pre>
     <ul>
-      <li>The pipeline is a YAML file in the repository: <code>.harness/ci.yaml</code>.</li>
+      <li>The pipeline is a YAML (YAML Ain't Markup Language) file in the repository: <code>.harness/ci.yaml</code>.</li>
       <li>A change to the pipeline is reviewed in a pull request, like a change to the code.</li>
       <li>The history shows who changed the pipeline, when, and why.</li>
     </ul>
@@ -1041,7 +1079,6 @@ spec:
   <p>Four questions. Five minutes, including feedback.</p>
   <ul>
     <li>Use the Kahoot game PIN shared by your instructor.</li>
-    <li>You may instead answer A/B/C/D in chat, keep a private note, or pass.</li>
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
@@ -1234,7 +1271,7 @@ def test_can_board():
     <li>Static analysis reads the code without running it.</li>
     <li>Linters find unused imports, undefined names, risky patterns and style problems. The labs use ruff for Python.</li>
     <li>Type checkers find values of the wrong type before the code runs.</li>
-    <li>Static application security testing (SAST) finds patterns such as SQL built from user input.</li>
+    <li>Static application security testing (SAST) finds patterns such as SQL (Structured Query Language) built from user input.</li>
     <li>These checks take seconds, so the pipeline runs them first.</li>
   </ul>
   <aside class="notes">
