@@ -54,3 +54,103 @@ Question: Base64 encoding encrypts the values in a Kubernetes Secret.
 Correct Answer: B (False)
 Explanation: Base64 is reversible encoding. Encryption at rest requires a separate API server setting.
 Grounding: `../../slides/day2.html`, "Kubernetes Secrets".
+
+## Q5 (MCQ)
+
+Question: What is the secret-zero problem in security architecture?
+
+- A: Creating an initial secret with an expiration of zero seconds
+- B: How an application securely authenticates to retrieve its secrets
+- C: Setting a database administrator password to an empty string
+- D: Granting full root permissions to all automated CI runners
+
+Correct Answer: B
+Explanation: Secret-zero describes the paradox of needing an initial secret/identity to authenticate to a secret vault.
+Grounding: `../../slides/day2.html`, "The secret-zero problem".
+
+## Q6 (MCQ)
+
+Question: What is the key advantage of dynamic, short-lived credentials over static secrets?
+
+- A: They eliminate the need for network connectivity
+- B: They automatically expire quickly, limiting damage if leaked
+- C: They can be safely committed into public Git repositories
+- D: They bypass all role-based access control policies
+
+Correct Answer: B
+Explanation: Short-lived credentials drastically reduce the window of vulnerability if a token is intercepted or leaked.
+Grounding: `../../slides/day2.html`, "Short-lived and dynamic credentials".
+
+## Q7 (MCQ)
+
+Question: Where is an unintentional secret leak most commonly found in DevOps workflows?
+
+- A: Pre-compiled binary headers
+- B: Git commit history and application log files
+- C: Physical network router memory
+- D: Encrypted SSL certificates
+
+Correct Answer: B
+Explanation: Credentials frequently leak when developers commit files containing tokens or when scripts echo values to logs.
+Grounding: `../../slides/day2.html`, "Where secrets leak".
+
+## Q8 (MCQ)
+
+Question: In envelope encryption, what protects the Data Encryption Key (DEK)?
+
+- A: A plaintext hash stored in the application repository
+- B: A Key Encryption Key (KEK) managed by a KMS
+- C: A reversible Base64 encoding algorithm
+- D: A public DNS text record
+
+Correct Answer: B
+Explanation: Envelope encryption encrypts data with a DEK, which is then encrypted by a master Key Encryption Key (KEK).
+Grounding: `../../slides/day2.html`, "Encryption at rest and envelope encryption".
+
+## Q9 (MCQ)
+
+Question: What is the primary function of a secret scanning tool like TruffleHog?
+
+- A: Encrypting production databases during deployment
+- B: Detecting credentials committed to source code or git history
+- C: Generating random passwords for new user accounts
+- D: Masking output logs during pipeline execution
+
+Correct Answer: B
+Explanation: Secret scanners inspect git history and file changes to flag high-entropy strings, API keys, and certificates.
+Grounding: `../../slides/day2.html`, "Secret scanning and log masking".
+
+## Q10 (True/False)
+
+Question: Rotating a credential automatically invalidates the previous credential immediately.
+
+- A: True
+- B: False
+
+Correct Answer: B (False)
+Explanation: Rotation creates a new credential; explicit revocation is required to invalidate the previous credential.
+Grounding: `../../slides/day2.html`, "Rotation and revocation".
+
+## Q11 (MCQ)
+
+Question: In Kubernetes, how should sensitive database passwords be provided to a Pod?
+
+- A: Hardcoded as plaintext in the container Dockerfile
+- B: Injected as environment variables or mounted files from a Secret
+- C: Committed as public comments in the deployment YAML
+- D: Printed to stdout during container initialization
+
+Correct Answer: B
+Explanation: Secrets decouple sensitive values from container images and pod manifests, injecting them at runtime.
+Grounding: `../../slides/day2.html`, "Kubernetes Secrets".
+
+## Q12 (True/False)
+
+Question: Centralized secret managers like HashiCorp Vault provide audit logs of secret access.
+
+- A: True
+- B: False
+
+Correct Answer: A (True)
+Explanation: Enterprise secret vaults log who requested which secret, when, and from what IP or identity.
+Grounding: `../../slides/day2.html`, "What is an Enterprise Secrets Manager?".

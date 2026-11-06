@@ -32,6 +32,864 @@
   .reveal table.agenda td { padding: 6px 28px 6px 0; }
   .reveal ul.refs > li { font-size: 18px; line-height: 1.32; margin-bottom: 8px; }
   .reveal ul.refs > li::before { top: 9px; }
+
+  /* Slide 8: Linux Namespaces */
+  .reveal .namespace-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .reveal .namespace-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-top: 4px solid var(--color-primary);
+    border-radius: 10px;
+    padding: 13px 15px;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(30, 41, 59, 0.04);
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .reveal .namespace-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .reveal .namespace-card h3 {
+    font-size: 16.5px;
+    margin: 0;
+    color: var(--color-primary-dark);
+    font-weight: 700;
+  }
+  .reveal .namespace-tag {
+    font-size: 10.5px;
+    font-weight: 800;
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .reveal .namespace-card p {
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .reveal .namespace-banner {
+    margin-top: 14px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 6px solid var(--color-primary);
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: var(--color-text);
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 9: Control Groups */
+  .reveal .cgroup-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .reveal .cgroup-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+  }
+  .reveal .cgroup-card.cpu {
+    border-top: 5px solid #d97706;
+  }
+  .reveal .cgroup-card.memory {
+    border-top: 5px solid #dc2626;
+  }
+  .reveal .cgroup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .reveal .cgroup-header h3 {
+    font-size: 19px;
+    margin: 0;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .reveal .cgroup-badge {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .reveal .cgroup-badge.cpu {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .reveal .cgroup-badge.memory {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .reveal .cgroup-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .reveal .cgroup-list li {
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+  .reveal .cgroup-flag-pill {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-family: monospace;
+    font-size: 13.5px;
+    color: #0f172a;
+    display: inline-block;
+  }
+  .reveal .cgroup-bottom-banner {
+    margin-top: 16px;
+    background: #e0f2fe;
+    border: 1px solid #7dd3fc;
+    border-left: 6px solid #0284c7;
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: #0c4a6e;
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 16: Dockerfile Practices */
+  .reveal .dockerfile-matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .reveal .dockerfile-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-left: 5px solid var(--color-primary);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(30, 41, 59, 0.04);
+  }
+  .reveal .dockerfile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .reveal .dockerfile-card h3 {
+    font-size: 17px;
+    margin: 0;
+    color: var(--color-primary-dark);
+    font-weight: 700;
+  }
+  .reveal .dockerfile-tag {
+    font-size: 10.5px;
+    font-weight: 800;
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .reveal .dockerfile-card p {
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .reveal .dockerfile-banner {
+    margin-top: 16px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 6px solid #f59e0b;
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: #92400e;
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 19: SBOM & Vulnerability Scanning */
+  .reveal .supply-funnel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .reveal .supply-tier-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-top: 5px solid var(--color-primary);
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px;
+  }
+  .reveal .supply-tier-num {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .reveal .supply-tier-card h3 {
+    font-size: 18px;
+    color: var(--color-primary-dark);
+    margin: 0 0 8px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .reveal .supply-tier-card p {
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0;
+    flex-grow: 1;
+  }
+  .reveal .supply-clock-banner {
+    margin-top: 16px;
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-left: 6px solid #e11d48;
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: #881337;
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 40: Probes Lifecycle */
+  .reveal .probes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .reveal .probe-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: left;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 260px;
+  }
+  .reveal .probe-card.startup {
+    border-top: 5px solid #0284c7;
+  }
+  .reveal .probe-card.liveness {
+    border-top: 5px solid #dc2626;
+  }
+  .reveal .probe-card.readiness {
+    border-top: 5px solid #16a34a;
+  }
+  .reveal .probe-badge {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 8px;
+  }
+  .reveal .probe-badge.startup {
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+  .reveal .probe-badge.liveness {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .reveal .probe-badge.readiness {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .reveal .probe-card h3 {
+    font-size: 18px;
+    margin: 0 0 8px;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .reveal .probe-question {
+    font-size: 13.5px;
+    font-style: italic;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .reveal .probe-details {
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0;
+    flex-grow: 1;
+  }
+  .reveal .probe-golden-rule {
+    margin-top: 16px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 6px solid var(--color-primary);
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 14px;
+    color: var(--color-text);
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Slide 41: Requests, Limits & QoS */
+  .reveal .qos-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .reveal .qos-top-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .reveal .qos-concept-box {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  .reveal .qos-concept-box.request {
+    border-left: 5px solid #0284c7;
+  }
+  .reveal .qos-concept-box.limit {
+    border-left: 5px solid #d97706;
+  }
+  .reveal .qos-concept-box h3 {
+    font-size: 16.5px;
+    margin: 0 0 4px;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .reveal .qos-concept-box p {
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .reveal .qos-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .reveal .qos-tier-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  .reveal .qos-tier-card.guaranteed {
+    border-top: 4px solid #16a34a;
+  }
+  .reveal .qos-tier-card.burstable {
+    border-top: 4px solid #d97706;
+  }
+  .reveal .qos-tier-card.besteffort {
+    border-top: 4px solid #dc2626;
+  }
+  .reveal .qos-tier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .reveal .qos-tier-header h4 {
+    font-size: 16px;
+    margin: 0;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .reveal .qos-tier-pill {
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .reveal .qos-tier-pill.guaranteed {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .reveal .qos-tier-pill.burstable {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .reveal .qos-tier-pill.besteffort {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .reveal .qos-tier-card p {
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .reveal .qos-banner {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 6px solid var(--color-primary);
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 13.5px;
+    color: var(--color-text);
+    text-align: left;
+    line-height: 1.35;
+    box-sizing: border-box;
+  }
+
+  /* Activity badge: RECAP */
+  .reveal section.recap {
+    --activity-label: "RECAP";
+    --activity-color: var(--color-primary);
+    --activity-fill: #e8f0fe;
+    border-left: 8px solid var(--activity-color);
+    padding-top: 94px;
+    background:
+      radial-gradient(120% 100% at 0% 0%, var(--activity-fill) 0%, rgba(255, 255, 255, 0.45) 52%, transparent 76%),
+      linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
+  }
+  .reveal section.recap::before {
+    content: var(--activity-label);
+    position: absolute;
+    top: 36px;
+    left: 64px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    background: var(--activity-color);
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+  .reveal section.recap > :is(h1, h2):first-of-type::after {
+    display: block;
+    content: "";
+    width: 54px;
+    height: 4px;
+    margin-top: 14px;
+    border-radius: 2px;
+    background: var(--activity-color, var(--color-primary));
+  }
+  html.reveal-print .reveal .slides section.recap {
+    padding-top: 94px !important;
+  }
+
+  /* Day 3 Summary */
+  .reveal .summary-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .reveal .summary-pillar-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-top: 5px solid var(--color-primary);
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 285px;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+    box-sizing: border-box;
+  }
+  .reveal .pillar-badge {
+    font-size: 11px;
+    font-weight: 800;
+    background: #e3f2fd;
+    color: var(--color-primary-dark);
+    padding: 3px 8px;
+    border-radius: 4px;
+    width: fit-content;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .reveal .summary-pillar-card h3 {
+    font-size: 17px;
+    margin: 0 0 8px;
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .reveal .summary-pillar-card ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    flex-grow: 1;
+  }
+  .reveal .summary-pillar-card ul li {
+    margin-bottom: 6px;
+  }
+  .reveal .summary-next-banner {
+    margin-top: 16px;
+    background: linear-gradient(90deg, #1e3a8a, #0284c7);
+    border-radius: 10px;
+    padding: 13px 20px;
+    color: #ffffff;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14.5px;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+    box-sizing: border-box;
+  }
+  .reveal .summary-next-banner strong {
+    color: #ffffff;
+  }
+  .reveal .next-day-pill {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-right: 12px;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    display: inline-block;
+  }
+
+  /* Slide 59: Course Journey Capstone */
+  .reveal .course-journey-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .reveal .course-journey-card {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-top: 5px solid var(--color-primary);
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 285px;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.05);
+    box-sizing: border-box;
+  }
+  .reveal .course-journey-badge {
+    font-size: 11px;
+    font-weight: 800;
+    background: #e3f2fd;
+    color: var(--color-primary-dark);
+    padding: 3px 8px;
+    border-radius: 4px;
+    width: fit-content;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .reveal .course-journey-card h3 {
+    font-size: 17px;
+    margin: 0 0 8px;
+    color: var(--color-primary-dark);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .reveal .course-journey-card ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--color-text);
+    flex-grow: 1;
+  }
+  .reveal .course-journey-card ul li {
+    margin-bottom: 6px;
+  }
+  .reveal .course-capstone-banner {
+    margin-top: 16px;
+    background: linear-gradient(90deg, #1e3a8a, #0284c7);
+    border-radius: 10px;
+    padding: 13px 20px;
+    color: #ffffff;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14.5px;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+    box-sizing: border-box;
+  }
+  .reveal .course-capstone-banner strong {
+    color: #ffffff;
+  }
+  .reveal .capstone-pill {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-right: 12px;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    display: inline-block;
+  }
+
+  /* Two-column Interactive Agenda */
+  .reveal .agenda-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 14px;
+    align-items: stretch;
+  }
+  .reveal .agenda-col {
+    background: var(--color-bg-code);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.04);
+    display: flex;
+    flex-direction: column;
+  }
+  .reveal .agenda-col-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .reveal .agenda-col-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .reveal .agenda-session-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: #475569;
+    background: #e2e8f0;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+  }
+  .reveal .agenda-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .reveal .agenda-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .reveal .agenda-item:hover {
+    border-color: var(--color-primary);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(3, 105, 161, 0.08);
+  }
+  .reveal .agenda-num {
+    font-size: 13px;
+    font-weight: 800;
+    color: #94a3b8;
+    min-width: 18px;
+    text-align: center;
+  }
+  .reveal .agenda-badge {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    padding: 2.5px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    min-width: 52px;
+    text-align: center;
+    display: inline-block;
+  }
+  .reveal .agenda-badge.lecture {
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+  }
+  .reveal .agenda-badge.lab {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #86efac;
+  }
+  .reveal .agenda-badge.milestone {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+  }
+  .reveal .agenda-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.3;
+    margin: 0;
+    flex: 1;
+    text-align: left;
+  }
+
+  /* Closing "Let's Connect" contact slide */
+  .reveal .slides section.connect {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 44px;
+    background:
+      radial-gradient(circle at 50% 40%, rgba(26, 115, 232, 0.07) 0%, transparent 65%),
+      radial-gradient(ellipse at 100% 0, #eaf3fc 0, transparent 48%),
+      #ffffff;
+  }
+  .reveal section.connect > h2:first-of-type {
+    text-align: center;
+    margin: 0 0 6px 0;
+    padding-bottom: 12px;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    border-bottom: none;
+  }
+  .reveal section.connect > h2:first-of-type::after {
+    margin: 10px auto 0 auto;
+    width: 64px;
+    height: 4px;
+    border-radius: 2px;
+  }
+  .reveal .connect-subtitle {
+    font-size: 17px;
+    color: var(--color-text-light);
+    margin: 0 0 16px 0;
+    font-weight: 500;
+  }
+  .reveal .connect-card {
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid rgba(215, 227, 238, 0.9);
+    border-top: 4px solid #0a66c2;
+    border-radius: 22px;
+    padding: 14px 28px 22px;
+    box-shadow:
+      0 20px 48px -12px rgba(13, 71, 161, 0.12),
+      0 4px 16px -4px rgba(30, 41, 59, 0.04);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .reveal .connect-card img {
+    display: block;
+    margin: 0 auto;
+    max-height: 340px;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  .reveal .connect-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 10px 26px;
+    background: #0a66c2;
+    color: #ffffff !important;
+    font-size: 18.5px;
+    font-weight: 600;
+    text-decoration: none !important;
+    border-radius: 50px;
+    box-shadow: 0 4px 14px rgba(10, 102, 194, 0.28);
+    transition: all 0.2s ease;
+    letter-spacing: 0.01em;
+  }
+  .reveal .connect-btn:hover {
+    background: #004182;
+    box-shadow: 0 6px 20px rgba(10, 102, 194, 0.4);
+    transform: translateY(-1px);
+  }
+  .reveal .connect-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+  .reveal .connect-hint {
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--color-text-light);
+    letter-spacing: 0.02em;
+  }
 </style>
 </head>
 <body>
@@ -100,18 +958,70 @@
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Day 3 agenda</h2>
-  <ol>
-    <li>Day 2 recap</li>
-    <li>Lecture: Containers</li>
-    <li>Lecture: Docker Compose, Amazon Elastic Container Service (ECS) and Fargate</li>
-    <li>Lab 07: Build, scan and describe a container</li>
-    <li>Lecture: Kubernetes</li>
-    <li>Lab 08: Kubernetes deployments, rollouts and rollbacks</li>
-    <li>Lecture: Continuous delivery</li>
-    <li>Lab 09: End-to-end delivery pipeline</li>
-    <li>Course summary and feedback</li>
-  </ol>
-  <p class="small">AWS: Amazon Web Services. EKS: Elastic Kubernetes Service.</p>
+  <div class="agenda-grid">
+    <div class="agenda-col">
+      <div class="agenda-col-header">
+        <h3>Morning Sessions</h3>
+        <span class="agenda-session-tag">AM</span>
+      </div>
+      <ul class="agenda-list">
+        <li class="agenda-item">
+          <span class="agenda-num">1</span>
+          <span class="agenda-badge milestone">Recap</span>
+          <span class="agenda-text">Day 2 recap</span>
+        </li>
+        <li class="agenda-item">
+          <span class="agenda-num">2</span>
+          <span class="agenda-badge lecture">Lecture</span>
+          <span class="agenda-text">Containers</span>
+        </li>
+        <li class="agenda-item">
+          <span class="agenda-num">3</span>
+          <span class="agenda-badge lecture">Lecture</span>
+          <span class="agenda-text">Docker Compose, Amazon ECS and Fargate</span>
+        </li>
+        <li class="agenda-item">
+          <span class="agenda-num">4</span>
+          <span class="agenda-badge lab">Lab 07</span>
+          <span class="agenda-text">Build, scan and describe a container</span>
+        </li>
+        <li class="agenda-item">
+          <span class="agenda-num">5</span>
+          <span class="agenda-badge lecture">Lecture</span>
+          <span class="agenda-text">Kubernetes</span>
+        </li>
+      </ul>
+    </div>
+    <div class="agenda-col fragment fade-up" data-fragment-index="1">
+      <div class="agenda-col-header">
+        <h3>Afternoon Sessions</h3>
+        <span class="agenda-session-tag">PM</span>
+      </div>
+      <ul class="agenda-list">
+        <li class="agenda-item">
+          <span class="agenda-num">6</span>
+          <span class="agenda-badge lab">Lab 08</span>
+          <span class="agenda-text">Kubernetes deployments, rollouts and rollbacks</span>
+        </li>
+        <li class="agenda-item">
+          <span class="agenda-num">7</span>
+          <span class="agenda-badge lecture">Lecture</span>
+          <span class="agenda-text">Continuous delivery</span>
+        </li>
+        <li class="agenda-item">
+          <span class="agenda-num">8</span>
+          <span class="agenda-badge lab">Lab 09</span>
+          <span class="agenda-text">End-to-end delivery pipeline</span>
+        </li>
+        <li class="agenda-item">
+          <span class="agenda-num">9</span>
+          <span class="agenda-badge milestone">Wrap-Up</span>
+          <span class="agenda-text">Course summary and feedback</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <p class="small">AWS: Amazon Web Services. ECS: Elastic Container Service.</p>
   <aside class="notes">
     Today has four lectures and three labs. The two morning lectures are about the artifact: what a container image
     is and how the same image runs on your laptop, in Docker Compose and in Amazon ECS. The afternoon lectures are about
@@ -224,18 +1134,53 @@
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Linux namespaces isolate what a process can see</h2>
-  <table class="full footer-clear">
-    <tr><th>Namespace</th><th>What the process gets its own copy of</th></tr>
-    <tr><td>PID</td><td>Process identifier. The container's first process is PID 1.</td></tr>
-    <tr><td>Network</td><td>Network interfaces, IP addresses, routes and ports</td></tr>
-    <tr><td>Mount</td><td>The filesystem tree, built from the image</td></tr>
-    <tr><td>UTS</td><td>The hostname</td></tr>
-    <tr><td>IPC</td><td>Shared memory and message queues</td></tr>
-    <tr><td>User</td><td>User and group IDs, so root in a container can map to an unprivileged host user</td></tr>
-    <tr><td>Cgroup</td><td>The view of its own control group</td></tr>
-  </table>
-  <p>Docker creates a new set of namespaces for each container (namespaces(7), Linux manual pages).</p>
-  <p class="small">UTS: UNIX time-sharing. IPC: interprocess communication.</p>
+  <div class="namespace-grid">
+    <div class="namespace-card fragment fade-up" data-fragment-index="1">
+      <div class="namespace-header">
+        <h3>PID Namespace</h3>
+        <span class="namespace-tag">Processes</span>
+      </div>
+      <p>Own process hierarchy. The container's primary process runs as PID 1, receiving signals like SIGTERM.</p>
+    </div>
+    <div class="namespace-card fragment fade-up" data-fragment-index="1">
+      <div class="namespace-header">
+        <h3>Net Namespace</h3>
+        <span class="namespace-tag">Network</span>
+      </div>
+      <p>Private virtual interfaces, IP routing tables, firewall rules, and container-specific port allocations.</p>
+    </div>
+    <div class="namespace-card fragment fade-up" data-fragment-index="1">
+      <div class="namespace-header">
+        <h3>Mount Namespace</h3>
+        <span class="namespace-tag">Filesystem</span>
+      </div>
+      <p>Isolated filesystem root constructed from container image layers, private from host disk paths.</p>
+    </div>
+    <div class="namespace-card fragment fade-up" data-fragment-index="2">
+      <div class="namespace-header">
+        <h3>UTS Namespace</h3>
+        <span class="namespace-tag">Hostname</span>
+      </div>
+      <p>Independent system hostname and domain name, preventing conflicts across shared node hosts.</p>
+    </div>
+    <div class="namespace-card fragment fade-up" data-fragment-index="2">
+      <div class="namespace-header">
+        <h3>IPC Namespace</h3>
+        <span class="namespace-tag">Inter-Process</span>
+      </div>
+      <p>Private POSIX/System V message queues, semaphores, and shared memory segments.</p>
+    </div>
+    <div class="namespace-card fragment fade-up" data-fragment-index="2">
+      <div class="namespace-header">
+        <h3>User Namespace</h3>
+        <span class="namespace-tag">Privilege</span>
+      </div>
+      <p>Maps container root (UID 0) to an unprivileged host UID, mitigating kernel breakout risks.</p>
+    </div>
+  </div>
+  <div class="namespace-banner fragment fade-up" data-fragment-index="3">
+    <strong>Operating System Reality:</strong> Containers are not lightweight virtual machines &mdash; they are standard host processes partitioned by Linux kernel namespaces.
+  </div>
   <aside class="notes">
     A namespace wraps a global system resource so that processes inside it see their own copy. The mount namespace
     arrived first, in Linux 2.4.19 (2002). User namespaces were completed in Linux 3.8 (2013), and a time namespace was
@@ -253,15 +1198,35 @@
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Control groups limit what a process can use</h2>
-  <ul>
-    <li>A control group (cgroup) limits the CPU time, memory, disk I/O (input/output) and number of processes of a group of processes.</li>
-    <li>The kernel also counts usage per cgroup. <code>docker stats</code> reads these counters.</li>
-    <li>When a container uses more memory than its limit, the kernel kills a process in it (OOM kill).</li>
-    <li>When a container reaches its CPU limit, the kernel slows it down (throttling). It keeps running.</li>
-  </ul>
-<pre><code>docker run --memory 256m --cpus 0.5 flight-status:1.0.0</code></pre>
-  <p>Kubernetes requests and limits, later today, are applied through the same cgroup settings.</p>
-  <p class="small">OOM: out of memory.</p>
+  <div class="cgroup-split-grid">
+    <div class="cgroup-card cpu fragment fade-up" data-fragment-index="1">
+      <div class="cgroup-header">
+        <h3>CPU Enforcement</h3>
+        <span class="cgroup-badge cpu">Compressible</span>
+      </div>
+      <ul class="cgroup-list">
+        <li>&bull; When a container reaches its limit, the Linux kernel throttles it.</li>
+        <li>&bull; Process remains running; latency increases without crashing.</li>
+        <li>&bull; Slow responses without restarts often indicate CPU throttling.</li>
+      </ul>
+      <div class="cgroup-flag-pill">docker run --cpus 0.5 ...</div>
+    </div>
+    <div class="cgroup-card memory fragment fade-up" data-fragment-index="2">
+      <div class="cgroup-header">
+        <h3>Memory Enforcement</h3>
+        <span class="cgroup-badge memory">Incompressible</span>
+      </div>
+      <ul class="cgroup-list">
+        <li>&bull; When a container exceeds its limit, the kernel OOM killer terminates it.</li>
+        <li>&bull; Process dies immediately with exit code 137 (<code>OOMKilled</code>).</li>
+        <li>&bull; Memory leaks in applications trigger repeated container crash loops.</li>
+      </ul>
+      <div class="cgroup-flag-pill">docker run --memory 256m ...</div>
+    </div>
+  </div>
+  <div class="cgroup-bottom-banner fragment fade-up" data-fragment-index="3">
+    <strong>Monitoring &amp; Kubernetes Translation:</strong> Inspect real-time cgroup counters with <code>docker stats</code>. Kubernetes requests and limits configure these exact same Linux cgroup settings.
+  </div>
   <aside class="notes">
     Namespaces control what a process can see. Control groups control how much it can use. Engineers at Google
     developed cgroups (first called "process containers"), and they were merged into Linux 2.6.24 in January 2008.
@@ -403,13 +1368,39 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Dockerfile practices</h2>
-  <ul>
-    <li>Start from a small, maintained base image, for example <code>python:3.12-slim</code> instead of <code>python:3.12</code>.</li>
-    <li>Copy the dependency list and install it before you copy the source code.</li>
-    <li>Run the process as a non-root user.</li>
-    <li>Keep the build context small with <code>.dockerignore</code>, and exclude <code>.git</code>, caches and local secrets.</li>
-    <li>Run one main process per container and write logs to standard output.</li>
-  </ul>
+  <div class="dockerfile-matrix">
+    <div class="dockerfile-card fragment fade-up" data-fragment-index="1">
+      <div class="dockerfile-header">
+        <h3>Minimal Base Image</h3>
+        <span class="dockerfile-tag">Attack Surface</span>
+      </div>
+      <p>Start with <code>python:3.12-slim</code> over full OS images. Fewer preinstalled packages means faster pulls and a drastically smaller CVE footprint.</p>
+    </div>
+    <div class="dockerfile-card fragment fade-up" data-fragment-index="1">
+      <div class="dockerfile-header">
+        <h3>Smart Layer Caching</h3>
+        <span class="dockerfile-tag">Build Speed</span>
+      </div>
+      <p><code>COPY requirements.txt</code> and run <code>pip install</code> before copying source code. Prevents re-installing all dependencies on every commit.</p>
+    </div>
+    <div class="dockerfile-card fragment fade-up" data-fragment-index="2">
+      <div class="dockerfile-header">
+        <h3>Least Privilege User</h3>
+        <span class="dockerfile-tag">Runtime Security</span>
+      </div>
+      <p>Explicitly run as non-root <code>USER 10001</code>. Prevents container breakout vulnerabilities from executing with root privileges on the host kernel.</p>
+    </div>
+    <div class="dockerfile-card fragment fade-up" data-fragment-index="2">
+      <div class="dockerfile-header">
+        <h3>Build Context Hygiene</h3>
+        <span class="dockerfile-tag">Hygiene</span>
+      </div>
+      <p>Maintain strict <code>.dockerignore</code> rules excluding <code>.git</code>, test artifacts, virtual environments, and local <code>.env</code> credential files.</p>
+    </div>
+  </div>
+  <div class="dockerfile-banner fragment fade-up" data-fragment-index="3">
+    <strong>Twelve-Factor Operational Rule:</strong> Run a single main process per container and stream all application logs directly to <code>stdout</code> and <code>stderr</code>.
+  </div>
   <aside class="notes">
     Each practice has a reason.
     A small base has fewer packages, so fewer vulnerabilities and a faster pull. The full python image is several times
@@ -481,12 +1472,32 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Software bills of materials and vulnerability scanning</h2>
-  <ul>
-    <li>A software bill of materials (SBOM) lists every package in an image, with its version. CycloneDX and Software Package Data Exchange (SPDX) are the common formats.</li>
-    <li>A scanner such as Trivy matches those packages against vulnerability databases.</li>
-    <li>Each finding has a severity. A pipeline can fail when it finds a CRITICAL vulnerability that has a fix.</li>
-    <li>New vulnerabilities are published every day, so an image that passed last month can fail today.</li>
-  </ul>
+  <div class="supply-funnel-grid">
+    <div class="supply-tier-card fragment fade-up" data-fragment-index="1">
+      <div>
+        <span class="supply-tier-num">Tier 1 &middot; Catalog</span>
+        <h3>The Ingredient List (SBOM)</h3>
+        <p>A machine-readable catalog (<strong>CycloneDX</strong> or <strong>SPDX</strong>) documenting every OS package and language dependency version in the image without rebuilding.</p>
+      </div>
+    </div>
+    <div class="supply-tier-card fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="supply-tier-num">Tier 2 &middot; Scan</span>
+        <h3>Automated CVE Matching</h3>
+        <p>Scanners like <strong>Trivy</strong> cross-reference SBOM packages against CVE databases (NVD, GitHub Advisories) to identify vulnerabilities with assigned severities.</p>
+      </div>
+    </div>
+    <div class="supply-tier-card fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="supply-tier-num">Tier 3 &middot; Gate</span>
+        <h3>Actionable Policy Enforcement</h3>
+        <p>Enforce pipeline gates on actionable findings: fail CI builds on <code>CRITICAL</code> issues with available upstream patches (using <code>--ignore-unfixed</code>).</p>
+      </div>
+    </div>
+  </div>
+  <div class="supply-clock-banner fragment fade-up" data-fragment-index="3">
+    <strong>The Continuous Vulnerability Clock:</strong> An image with zero CVEs today will develop CVEs tomorrow as new exploits are published &mdash; continuous re-scanning of deployed images is mandatory.
+  </div>
   <aside class="notes">
     An SBOM is an ingredient list. It answers the question "do we run the vulnerable version of library X anywhere?"
     without rebuilding anything. US Executive Order 14028 (May 2021) made SBOMs a requirement for software sold to the
@@ -1028,13 +2039,35 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Liveness, readiness and startup probes</h2>
-  <table class="full">
-    <tr><th>Probe</th><th>Question it answers</th><th>What happens when it fails</th></tr>
-    <tr><td>Startup</td><td>Has the application finished starting?</td><td>The other probes wait. After too many failures, the container restarts.</td></tr>
-    <tr><td>Liveness</td><td>Is the process still able to work?</td><td>The kubelet restarts the container.</td></tr>
-    <tr><td>Readiness</td><td>Can this Pod take requests now?</td><td>The Pod is removed from the Service. It is not restarted.</td></tr>
-  </table>
-  <p>The flight-status API answers liveness checks on <code>/health</code> and readiness checks on <code>/ready</code>, which also tests the database connection.</p>
+  <div class="probes-grid">
+    <div class="probe-card startup fragment fade-up" data-fragment-index="1">
+      <div>
+        <span class="probe-badge startup">Startup Probe</span>
+        <h3>Initialization Guard</h3>
+        <p class="probe-question">&ldquo;Has the application finished starting up?&rdquo;</p>
+        <p class="probe-details">Pauses liveness and readiness checks until passing. If it fails past threshold, kubelet restarts the container. Protects slow-starting services from premature termination.</p>
+      </div>
+    </div>
+    <div class="probe-card liveness fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="probe-badge liveness">Liveness Probe</span>
+        <h3>Deadlock Recovery</h3>
+        <p class="probe-question">&ldquo;Is the process deadlocked, crashed, or hung?&rdquo;</p>
+        <p class="probe-details">Kubelet terminates and restarts the container immediately. <em>Keep checks strictly internal (<code>/health</code>) &mdash; never check external databases here!</em></p>
+      </div>
+    </div>
+    <div class="probe-card readiness fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="probe-badge readiness">Readiness Probe</span>
+        <h3>Traffic Gatekeeper</h3>
+        <p class="probe-question">&ldquo;Can this Pod safely accept incoming traffic right now?&rdquo;</p>
+        <p class="probe-details">Removes Pod from Service endpoints without restarting. Enables zero-downtime rolling updates (<code>/ready</code> tests internal readiness and database connectivity).</p>
+      </div>
+    </div>
+  </div>
+  <div class="probe-golden-rule fragment fade-up" data-fragment-index="3">
+    <strong>Core Architectural Rule:</strong> <em>Liveness restarts the process; Readiness controls traffic routing.</em>
+  </div>
   <aside class="notes">
     Probes are how Kubernetes learns about the application's health. The kubelet runs them on each node, usually as an
     HTTP GET.
@@ -1053,16 +2086,44 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Requests, limits and quality of service</h2>
-  <ul>
-    <li>A request is the amount the scheduler reserves on a node. A Pod only goes to a node with enough unreserved capacity.</li>
-    <li>A limit is the most a container may use. Over its memory limit it is killed. At its CPU limit it is throttled.</li>
-  </ul>
-  <table class="full" style="margin-top:22px">
-    <tr><th>Quality of service (QoS) class</th><th>Rule</th><th>Under memory pressure on the node</th></tr>
-    <tr><td>Guaranteed</td><td>Every container has CPU and memory requests equal to its limits</td><td>Evicted last</td></tr>
-    <tr><td>Burstable</td><td>At least one request or limit, but not Guaranteed</td><td>Evicted by how far use exceeds requests</td></tr>
-    <tr><td>BestEffort</td><td>No requests or limits</td><td>Evicted first</td></tr>
-  </table>
+  <div class="qos-layout">
+    <div class="qos-top-grid fragment fade-up" data-fragment-index="1">
+      <div class="qos-concept-box request">
+        <h3>Requests &middot; Scheduling Floor</h3>
+        <p>Minimum CPU and memory reserved for the container. <code>kube-scheduler</code> sums requests to place Pods only on nodes with verified unreserved capacity.</p>
+      </div>
+      <div class="qos-concept-box limit">
+        <h3>Limits &middot; Runtime Ceiling</h3>
+        <p>Hard maximum capacity enforced via Linux cgroups. CPU usage is throttled; memory spikes beyond limits trigger immediate kernel <code>OOMKilled</code> termination.</p>
+      </div>
+    </div>
+    <div class="qos-cards-grid fragment fade-up" data-fragment-index="2">
+      <div class="qos-tier-card guaranteed">
+        <div class="qos-tier-header">
+          <h4>Guaranteed</h4>
+          <span class="qos-tier-pill guaranteed">Top Priority</span>
+        </div>
+        <p><code>requests == limits</code> for all containers. Highest stability; evicted last under node memory pressure.</p>
+      </div>
+      <div class="qos-tier-card burstable">
+        <div class="qos-tier-header">
+          <h4>Burstable</h4>
+          <span class="qos-tier-pill burstable">Standard</span>
+        </div>
+        <p><code>requests &lt; limits</code>. Allowed to burst above floor; evicted based on memory over-subscription.</p>
+      </div>
+      <div class="qos-tier-card besteffort">
+        <div class="qos-tier-header">
+          <h4>BestEffort</h4>
+          <span class="qos-tier-pill besteffort">Lowest</span>
+        </div>
+        <p>No requests or limits specified. High eviction risk; first to be terminated when node memory runs low.</p>
+      </div>
+    </div>
+    <div class="qos-banner fragment fade-up" data-fragment-index="3">
+      <strong>Resource Sizing Discipline:</strong> Always specify both requests and limits &mdash; prevents noisy-neighbor CPU starvation and satisfies cluster ResourceQuotas.
+    </div>
+  </div>
   <aside class="notes">
     Requests and limits are the Kubernetes interface to the cgroups from this morning.
     Requests are for scheduling. The scheduler adds up the requests of the Pods on a node and places a new Pod only where
@@ -1239,7 +2300,7 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
 <section class="kahoot" data-duration-minutes="5">
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Section Quiz 1: Kubernetes</h2>
-  <p>Four questions. Five minutes, including feedback.</p>
+  <p>Twelve questions. Five minutes, including feedback.</p>
   <ul>
     <li>Use the Kahoot game PIN shared by your instructor.</li>
     <li>After each answer, compare the reasoning with your own.</li>
@@ -1657,7 +2718,7 @@ return departures_board(flights)</code></pre>
 <section class="kahoot" data-duration-minutes="5">
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Section Quiz 2: Continuous Delivery</h2>
-  <p>Four questions. Five minutes, including feedback.</p>
+  <p>Twelve questions. Five minutes, including feedback.</p>
   <ul>
     <li>Use the Kahoot game PIN shared by your instructor.</li>
     <li>After each answer, compare the reasoning with your own.</li>
@@ -1695,16 +2756,117 @@ return departures_board(flights)</code></pre>
 
 <!-- ============================== Close ============================== -->
 
+<section class="recap" data-duration-minutes="1.5">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h2>Day 3 summary</h2>
+  <div class="summary-pillars-grid">
+    <div class="summary-pillar-card fragment fade-up" data-fragment-index="1">
+      <div>
+        <span class="pillar-badge">Module 1</span>
+        <h3>Containers &amp; Images</h3>
+        <ul>
+          <li>Multi-stage Docker builds for minimal attack surface</li>
+          <li>Non-root user execution &amp; layer caching</li>
+          <li>OCI specifications: tags, digests &amp; immutability</li>
+          <li>Compose definitions to ECS/Fargate tasks</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-pillar-card fragment fade-up" data-fragment-index="1">
+      <div>
+        <span class="pillar-badge">Module 2</span>
+        <h3>Supply Chain Security</h3>
+        <ul>
+          <li>Automated vulnerability scanning with Trivy</li>
+          <li>Software Bill of Materials (CycloneDX SBOM)</li>
+          <li>NIST SP 800-190 container security risks</li>
+          <li>Shift-left security quality gates in CI/CD</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-pillar-card fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="pillar-badge">Module 3</span>
+        <h3>Kubernetes Orchestration</h3>
+        <ul>
+          <li>Declarative Deployments, ReplicaSets &amp; Pods</li>
+          <li>Cluster networking via Services &amp; Ingress</li>
+          <li>Liveness, readiness &amp; startup health probes</li>
+          <li>Zero-downtime rolling updates &amp; rollback safety</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-pillar-card fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="pillar-badge">Module 4</span>
+        <h3>Continuous Delivery</h3>
+        <ul>
+          <li>Build once: promote identical artifact across environments</li>
+          <li>Deployment vs. delivery: feature flags &amp; approvals</li>
+          <li>Progressive strategies: rolling, blue-green &amp; canary</li>
+          <li>Automated verification &amp; instant rollback on failure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="summary-next-banner fragment fade-up" data-fragment-index="3">
+    <div>
+      <span class="next-day-pill">Course Milestone</span>
+      <strong>Complete CI/CD Pipeline: Automated, Secure &amp; Production-Ready Delivery</strong>
+    </div>
+  </div>
+  <aside class="notes">
+    Debrief Day 3 in four modules: packaging applications into secure container images, scanning dependencies and building SBOMs, orchestrating resilient Kubernetes deployments, and tying everything into an automated end-to-end continuous delivery pipeline with verification gates and rollback.
+  </aside>
+</section>
+
 <section>
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>What the three days covered</h2>
-  <table class="full">
-    <tr><th>Day</th><th>Concepts</th><th>Labs</th></tr>
-    <tr><td>1</td><td>DevOps foundations, continuous integration, pipelines in Harness, testing and quality gates</td><td>01-03</td></tr>
-    <tr><td>2</td><td>Infrastructure as code, Terraform, infrastructure in pipelines, credential management</td><td>04-06</td></tr>
-    <tr><td>3</td><td>Containers, Compose, ECS and Fargate, Kubernetes, continuous delivery</td><td>07-09</td></tr>
-  </table>
-  <p>Your Harness project now tests, builds, scans and deploys the flight-status API to two environments that you defined as code.</p>
+  <div class="course-journey-grid">
+    <div class="course-journey-card fragment fade-up" data-fragment-index="1">
+      <div>
+        <span class="course-journey-badge">Day 1 &middot; Labs 01-03</span>
+        <h3>Continuous Integration</h3>
+        <ul>
+          <li>Trunk-based Git development &amp; small pull requests</li>
+          <li>Automated unit, integration &amp; API test pyramid</li>
+          <li>Shift-left static analysis &amp; linting with Ruff</li>
+          <li>Harness CI pipeline validation on every change</li>
+        </ul>
+      </div>
+    </div>
+    <div class="course-journey-card fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="course-journey-badge">Day 2 &middot; Labs 04-06</span>
+        <h3>Infrastructure as Code</h3>
+        <ul>
+          <li>Declarative Terraform &amp; dependency graphs</li>
+          <li>Remote state backends &amp; distributed locking</li>
+          <li>PR plan / merge apply automated delivery engine</li>
+          <li>Secret-zero elimination via OIDC workload identity</li>
+        </ul>
+      </div>
+    </div>
+    <div class="course-journey-card fragment fade-up" data-fragment-index="2">
+      <div>
+        <span class="course-journey-badge">Day 3 &middot; Labs 07-09</span>
+        <h3>Containers &amp; Delivery</h3>
+        <ul>
+          <li>Optimized multi-stage Docker packaging &amp; non-root</li>
+          <li>Vulnerability scanning with Trivy &amp; CycloneDX SBOMs</li>
+          <li>Kubernetes Deployments, Services, and Ingress</li>
+          <li>Zero-downtime rolling updates &amp; automated rollback</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="course-capstone-banner fragment fade-up" data-fragment-index="3">
+    <div>
+      <span class="capstone-pill">Capstone Outcome</span>
+      <strong>Production-Ready Delivery:</strong> The <code>flight-status</code> API is continuously tested, built, scanned, and safely deployed to declarative cloud environments.
+    </div>
+  </div>
   <aside class="notes">
     Summarise the course as one path. On Day 1 a change became a pull request with automated checks. On Day 2 the
     environments became code with a reviewed plan and a least-privilege identity. On Day 3 the application became an
@@ -1789,11 +2951,28 @@ return departures_board(flights)</code></pre>
 <section class="connect" data-duration-minutes="0">
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>Let's Connect</h2>
-  <p><a href="https://www.linkedin.com/in/kpassoubady">linkedin.com/in/kpassoubady</a></p>
-  <img src="../../images/ConnectLinkedIn.jpg" alt="Kangeyan Passoubady's contact card with a LinkedIn QR code" style="display:block; margin:0 auto; max-height:420px; max-width:100%;">
+  <p class="connect-subtitle">Scan the QR code or click the link below to stay in touch</p>
+  <div class="connect-card">
+    <img src="images/ConnectLinkedIn.jpg" alt="Kangeyan Passoubady's LinkedIn contact card and QR code">
+    <a class="connect-btn" href="https://www.linkedin.com/in/kpassoubady" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+      <span>linkedin.com/in/kpassoubady</span>
+    </a>
+    <span class="connect-hint">Point your phone camera at the QR code</span>
+  </div>
   <aside class="notes">
     Leave this slide visible at wrap-up. The written link is an alternative to scanning the QR code.
     This closing contact slide has zero allocated teaching time.
+  </aside>
+</section>
+
+<section class="divider" data-duration-minutes="0">
+  <span class="slide-logo" role="img" aria-label="Kavin School"></span>
+  <h1>Thank You</h1>
+  <h2>Intermediate DevOps &middot; Day 3: Containers, Kubernetes and Continuous Delivery</h2>
+  <aside class="notes">
+    Thank you and wrap-up.
+    This closing slide has zero allocated teaching time.
   </aside>
 </section>
 
