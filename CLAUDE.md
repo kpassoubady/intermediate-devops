@@ -2,12 +2,27 @@
 Internal primary repo for the Intermediate DevOps course (Harness CI/CD, IaC, credentials, Docker, Kubernetes). Scaffolded with the `repo-init` skill. Course outline: `devops-demos/catalog/Intermediate-DevOps-Outline.md`.
 
 ## Directory Layout
-- `devops-demos/`: existing demos, labs, slides, catalog, and app code (flattened from the former nicklotz/devops-demos clone).
+- `devops-demos/catalog/`: course catalog and outline.
+- `devops-demos/slides/`: Reveal.js decks `day1.html` to `day3.html` (source of truth for slides).
+- `devops-demos/quizzes/`: quizzes per day.
+- `docs/`: instructor guides.
 - `llm-context/`: Stores context for LLM agents.
 - `scripts/`: Build and export helpers.
 
+## Repository Split
+- This repo maintains only slides, quizzes, catalog, and instructor docs.
+- Labs, the flight-status app, solutions, catch-up scripts, lab test runner, and released slide PDFs live in the companion repo [intermediate-devops-companion](https://github.com/kpassoubady/intermediate-devops-companion). Edit labs there, not here.
+- Releasing slides: export `day1.html` to `day3.html` to PDF (`decktape reveal --size 1280x720 file://$PWD/dayN.html dayN.pdf`) and commit them to the companion's `slides/`.
+
+## Course Setup
+- Students are given a provided Linux VM. There is no setup repo and no pre-class installation for this course; tools are installed inside the labs.
+
+## Related Repositories
+- [Course companion](https://github.com/kpassoubady/intermediate-devops-companion)
+
 ## Verification Steps
-TBD
+- `python3 -m pytest scripts/test_audit_course_timing.py`
+- `python3 scripts/audit-course-timing.py` to check slide timing against the catalog.
 
 ## Content Guidelines
-TBD
+Keep instructor-only materials here. Student-facing artifacts belong in the companion repo.
