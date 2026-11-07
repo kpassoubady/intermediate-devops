@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "primary"
+		},
+		{
+			"path": "../intermediate-devops-companion",
+			"name": "companion"
+		}
+	],
+	"settings": {
+		"markdown.marp.themes": [
+			"./assets/theme.css"
+		],
+		"markdown.marp.html": "all",
+		"markdown-pdf.scale": 1,
+		"markdown-pdf.styles": [
+			"./.vscode/markdown-pdf.css"
+		]
+	}
+}
