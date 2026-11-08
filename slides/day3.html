@@ -904,14 +904,9 @@
   <div class="t-sub" style="top:392px">United Airlines · Pluralsight instructor-led training</div>
   <div class="t-meta">Kangeyan Passoubady<br>9-11 November 2026</div>
   <aside class="notes">
-    Welcome back to day 3. Today follows the flight-status application from source code to a running service.
-    This morning we package it as a container image, look at what a container is at the operating-system level,
-    and compare Docker Compose with Amazon ECS and Fargate. Then we deploy to Kubernetes and practise
-    rollouts, failures and rollbacks. The last lab joins the work of all three days into one delivery pipeline:
-    test, build, scan, deploy to dev, verify, promote to prod, and roll back when verification fails.
-    Before we start, ask everyone to run "docker ps" on their lab machine. It should list the harness container,
-    the k3d server and load balancer containers, and the registry. If any are missing, help them now, because
-    every lab today depends on them.
+    <p><strong>What to Say:</strong> Welcome back everyone to Day 3 of Intermediate DevOps: Containers, Kubernetes, and Continuous Delivery. Over the last two days, you built an automated CI pipeline and declared multi-environment cloud infrastructure with Terraform and least-privilege credentials. Today brings the entire delivery journey together as we take our flight-status service from raw source code into containerized production.</p>
+    <p><strong>Environment Check:</strong> Before we begin our recap, please check your lab VM terminal and run a quick docker ps. You should see your running harness container, the k3d cluster nodes, the load balancer, and the local container registry. If any container is stopped or missing, let us know right now so we can get your environment healthy before we start packaging images.</p>
+    <p><strong>Teaching Focus:</strong> Welcome learners to the capstone day, frame the end-to-end delivery milestone, and verify baseline environment health.</p>
   </aside>
 </section>
 
@@ -926,9 +921,9 @@
   </ol>
   <p>Think privately for 60 seconds. Share a sentence only if you wish, then correct it using the next slide.</p>
   <aside class="notes">
-    Allow two minutes here and one on the recap feedback slide, three minutes total.
-    Retrieve Day 2 concepts, not Kubernetes mechanics that have yet to be taught.
-    Private notes, chat, optional spoken responses and passing are valid. Collect one point needing clarification.
+    <p><strong>What to Say:</strong> Let's kick off with a two-minute active retrieval exercise to reactivate yesterday's mental models. Take 60 seconds of quiet reflection to think through three key mechanisms: how did our peer-reviewed Terraform code actually trigger infrastructure provisioning, what stopped two engineers or pipelines from clobbering remote state at the same time, and how would you prove at the terminal that a deployment identity is locked down to its intended boundaries?</p>
+    <p><strong>Facilitation Mechanic:</strong> Spend 60 seconds reflecting silently, then feel free to share one short sentence in chat or over voice. Private notes and passing are completely welcome. I will collect one or two areas needing clarification before we move to the recap.</p>
+    <p><strong>Teaching Focus:</strong> Reactivate Day 2 concepts (automated pipeline apply, backend state locking, and RBAC authorization verification) before introducing container workloads.</p>
   </aside>
 </section>
 
@@ -944,14 +939,9 @@
   </ul>
   <p>Your cluster now has a dev and a prod namespace, each with a quota and a Postgres database.</p>
   <aside class="notes">
-    Debrief for one minute. A reviewed merge starts the infrastructure apply pipeline; the backend's lock coordinates
-    state writers. Check allowed and denied operations for the deployment identity rather than assuming its name
-    guarantees its scope. Ask everyone to correct one detail. Clarify the collected misconception now.
-    The link to today: yesterday the platform repository created the environments. Today the application pipeline
-    deploys into them. The deploy ServiceAccount from Lab 06 is the identity the Lab 09 pipeline uses, so its
-    permissions decide what the pipeline can and cannot change.
-    If someone needs a replacement environment, scripts/catch-up.sh 07 replays earlier labs on a fresh machine.
-    It is not a general repair script for an arbitrary partial run. Arrange help early without running it blindly.
+    <p><strong>What to Say:</strong> Look at the solid foundation you created yesterday: version-controlled declarative infrastructure, distributed state locking with Kubernetes Secrets and Leases, and a dedicated deployer ServiceAccount with least-privilege RBAC.</p>
+    <p><strong>Connecting to Day 3:</strong> Yesterday the platform repository built the environments. Today, our application delivery pipeline deploys into them. That exact deploy ServiceAccount from Lab 06 is the identity Harness uses in Lab 09 to deploy the flight-status container into the dev and prod namespaces. If anyone encountered environment corruption overnight, catch-up script 07 is available to restore a fresh machine to this morning's baseline.</p>
+    <p><strong>Teaching Focus:</strong> Bridge Day 2 platform provisioning to Day 3 workload delivery, highlighting that the deploy ServiceAccount is the exact identity Harness uses today.</p>
   </aside>
 </section>
 
@@ -1023,12 +1013,10 @@
   </div>
   <p class="small">AWS: Amazon Web Services. ECS: Elastic Container Service.</p>
   <aside class="notes">
-    Today has four lectures and three labs. The two morning lectures are about the artifact: what a container image
-    is and how the same image runs on your laptop, in Docker Compose and in Amazon ECS. The afternoon lectures are about
-    running that artifact: Kubernetes, then continuous delivery practices such as promotion, canary releases and
-    automated rollback.
-    Lab 09 is the longest lab of the course. It needs Labs 04 to 08 to be complete, so keep an eye on time during the
-    morning labs and use the "Going further" tasks only once the main steps are done.
+    <p><strong>What to Say:</strong> Here is our flight plan for Day 3. Our morning is focused on the deployable artifact: understanding Linux container isolation, packaging our Python service with Dockerfile best practices, vulnerability scanning with Trivy, and orchestrating multi-container setups with Docker Compose and AWS Fargate.</p>
+    <p><strong>Afternoon Progression:</strong> After lunch, we transition from artifact to orchestration: deep-diving into Kubernetes architecture, executing zero-downtime rolling updates in Lab 08, and culminating in Lab 09 where we assemble an end-to-end continuous delivery pipeline in Harness featuring automated verification and rollback.</p>
+    <p><strong>Ask the Room:</strong> How many of you currently run container workloads on Amazon ECS or Fargate versus Amazon EKS in your daily work at United?</p>
+    <p><strong>Teaching Focus:</strong> Walk through the Day 3 morning-to-afternoon trajectory and set expectations for the cumulative Lab 09 delivery pipeline.</p>
   </aside>
 </section>
 
@@ -1039,8 +1027,8 @@
   <h1>Containers and Docker</h1>
   <h2>Images, layers, isolation, and registries</h2>
   <aside class="notes">
-    Topic transition: Containers and Docker.
-    This divider slide has zero allocated teaching time.
+    <p><strong>What to Say:</strong> We begin our first major topic of the day: Containers and Docker. We will demystify what a container actually is at the Linux kernel level, understand why image layers make builds fast and immutable, and explore how to secure the container software supply chain.</p>
+    <p><strong>Teaching Focus:</strong> Transition smoothly into foundational container theory, framing containers as kernel-level process isolation rather than mini-VMs.</p>
   </aside>
 </section>
 
@@ -1091,15 +1079,11 @@
     <p>A virtual machine runs its own kernel on virtual hardware. A container is a group of ordinary processes on the host kernel, with an isolated view of the system.</p>
     <p class="small muted">Press &darr; for supporting detail: Containers vs. Virtual Machines</p>
     <aside class="notes">
-      Start with history. Unix chroot (1979) gave a process its own view of the filesystem. FreeBSD jails (2000) and
-      Solaris Zones (2004) isolated more of the system. Linux gained the needed kernel features between 2002 and 2013,
-      LXC (2008) combined them, and Docker (2013) made them easy to use with images and a simple command line.
-      Consequences of sharing the kernel: a container starts in milliseconds because no operating system boots; images are
-      small because they contain no kernel; and a kernel vulnerability affects every container on the host, which is why
-      host patching still matters.
-      On a Mac or Windows laptop, Docker Desktop runs a small Linux virtual machine, and the containers run inside it.
-      On your lab machine they run on the Ubuntu kernel itself.
-    </aside>
+    <p><strong>What to Say:</strong> When engineers first encounter containers, they often think of them as tiny, lightweight virtual machines. But architecturally, they are completely different. A virtual machine uses a hypervisor to emulate physical hardware and boots an entire independent guest kernel with its own system daemons, taking minutes to start and gigabytes of memory.</p>
+    <p><strong>Linux Architecture:</strong> A container is simply an ordinary group of Linux processes running directly on the shared host kernel. The container engine sets boundaries using kernel namespaces and control groups. Because there is no guest operating system booting, a container launches in milliseconds and consumes almost zero overhead.</p>
+    <p><strong>Ask the Room:</strong> When an application running in a container crashes or experiences high CPU, what tools do you reach for to inspect it—host-level tools like top and ps, or container engine commands?</p>
+    <p><strong>Teaching Focus:</strong> Demystify the architectural difference between hardware emulation via hypervisors and process isolation on a shared Linux kernel.</p>
+  </aside>
   </section>
 
   <section>
@@ -1124,10 +1108,10 @@
       <p>Because containers share the host kernel, they start in milliseconds and consume megabytes rather than gigabytes. The exact same image runs identically on a developer laptop, CI server, or Kubernetes cluster.</p>
     </div>
     <aside class="notes">
-      For BAs, QEs, and mainframe/ops engineers:
-      Think of VMs like standalone houses (separate foundation, plumbing, and heating). Think of containers like apartments in a high-rise (private rooms and keycards, but sharing the building infrastructure and utilities).
-      Sharing the Linux kernel makes containers fast and lightweight, which is why CI pipelines can spin up dozens of them per build.
-    </aside>
+    <p><strong>What to Say:</strong> For everyone joining us from quality engineering, analysis, or mainframe backgrounds, here is a practical mental model: think of a virtual machine like a standalone single-family house with its own separate foundation, plumbing, furnace, and electrical wiring. Think of a container like an individual apartment in a modern high-rise.</p>
+    <p><strong>Security &amp; Trade-offs:</strong> Each apartment has its own locked front door and private rooms, but everyone shares the building's central water mains, foundation, and heating plant. That shared foundation is the Linux kernel. It gives us incredible speed and density, which is why CI pipelines can spin up dozens of test environments per minute, but it also means host kernel security and patching remain critical.</p>
+    <p><strong>Teaching Focus:</strong> Provide an intuitive housing analogy to ground the security and density trade-offs of kernel sharing for cross-functional learners.</p>
+  </aside>
   </section>
 </section>
 
@@ -1182,16 +1166,10 @@
     <strong>Operating System Reality:</strong> Containers are not lightweight virtual machines &mdash; they are standard host processes partitioned by Linux kernel namespaces.
   </div>
   <aside class="notes">
-    A namespace wraps a global system resource so that processes inside it see their own copy. The mount namespace
-    arrived first, in Linux 2.4.19 (2002). User namespaces were completed in Linux 3.8 (2013), and a time namespace was
-    added in 5.6 (2020).
-    A demonstration you can run on the lab machine: start a container and run "ps aux" inside it. You see only the
-    container's processes, starting at PID 1. Run "ps aux" on the host and the same process appears with a different,
-    higher PID.
-    PID 1 has a special job: it receives signals such as SIGTERM when the container stops. A process that ignores
-    SIGTERM is killed after a grace period, 10 seconds in Docker and 30 seconds in Kubernetes by default.
-    Docker does not enable user namespace remapping by default, so root in a container is root on the host kernel.
-    This is one reason the Dockerfile in Lab 07 switches to a non-root user.
+    <p><strong>What to Say:</strong> The magic of container isolation rests on Linux namespaces. If you remember one principle today, let it be this: namespaces control what a process can see. When a process starts inside a container, the kernel assigns it private namespaces that act like blinders.</p>
+    <p><strong>Namespace Reality:</strong> In the PID namespace, the container process thinks it is PID 1, the root of the universe, even though on the host it might be PID 48291. In the network namespace, it sees only its own virtual eth0 and private port bindings. And critically, in standard Docker setups, root inside the container is root on the host kernel unless user namespace remapping or a dedicated non-root user is configured.</p>
+    <p><strong>Ask the Room:</strong> Why is running container processes as root (UID 0) considered such a severe vulnerability in enterprise Kubernetes clusters?</p>
+    <p><strong>Teaching Focus:</strong> Detail the six fundamental Linux namespaces and explain why unprivileged user execution is necessary to prevent kernel breakouts.</p>
   </aside>
 </section>
 
@@ -1228,15 +1206,10 @@
     <strong>Monitoring &amp; Kubernetes Translation:</strong> Inspect real-time cgroup counters with <code>docker stats</code>. Kubernetes requests and limits configure these exact same Linux cgroup settings.
   </div>
   <aside class="notes">
-    Namespaces control what a process can see. Control groups control how much it can use. Engineers at Google
-    developed cgroups (first called "process containers"), and they were merged into Linux 2.6.24 in January 2008.
-    Ubuntu 24.04 uses cgroup version 2, the single unified hierarchy.
-    The two failure modes matter for operations. Memory is not compressible: over the limit, the kernel's
-    out-of-memory killer ends a process, and Docker or Kubernetes reports the container as OOMKilled with exit code 137.
-    CPU is compressible: over the limit, the process waits for the next scheduling period, so requests become slower but
-    nothing restarts. Slow responses with no restarts can be a sign of CPU throttling.
-    Ask the class: if a Java or Python service has a memory leak, which of the two do you expect to see? (Restarts with
-    OOMKilled.)
+    <p><strong>What to Say:</strong> If namespaces govern what a process can see, control groups, or cgroups, govern how much of the system it is allowed to consume. Developed originally at Google under the name process containers, cgroups prevent any single workload from starving its neighbors of CPU or memory.</p>
+    <p><strong>Compressible vs Incompressible:</strong> Notice the crucial operational distinction between the two resources. CPU is compressible: if a process tries to use more CPU than its limit, the kernel throttles it. It runs slower and latency spikes, but it doesn't crash. Memory is incompressible: if an application exceeds its memory limit, the Linux kernel out-of-memory killer steps in and terminates it instantly with exit code 137.</p>
+    <p><strong>Ask the Room:</strong> If a backend service has a slow memory leak, what will you see in production—increased request latency, or repeated OOMKilled restarts?</p>
+    <p><strong>Teaching Focus:</strong> Contrast compressible CPU throttling with incompressible memory termination (OOMKilled exit code 137) to prepare for Kubernetes QoS.</p>
   </aside>
 </section>
 
@@ -1268,16 +1241,10 @@
   </svg>
   <p>Each Dockerfile instruction that changes files adds a read-only layer. OverlayFS stacks the layers into one filesystem and adds a writable layer for each container.</p>
   <aside class="notes">
-    The four lower layers are the image. They are read-only, and each one is stored and transferred as a compressed
-    archive identified by its SHA-256 digest. Two images built on the same base share the base layers on disk and in the
-    registry, so the base is pulled only once.
-    The top layer belongs to one running container. When the application changes a file that came from a lower layer,
-    OverlayFS first copies the file up into the writable layer (copy-on-write). Deleting a file adds a marker that hides
-    it; the bytes stay in the lower layer. This is why deleting a secret in a later Dockerfile step does not remove it
-    from the image.
-    Because the writable layer disappears with the container, anything that must survive a restart, such as database
-    files, goes in a volume.
-    In Lab 07 you will run "docker history" to see these layers and their sizes.
+    <p><strong>What to Say:</strong> Let's look at how container images are stored and assembled. An image is not a single monolithic virtual hard drive. It is a stack of immutable, read-only tar archives called layers, each identified by a SHA-256 cryptographic digest.</p>
+    <p><strong>Copy-on-Write:</strong> When a container starts, the storage driver creates a thin, writable layer on top. If the running process modifies a file from a lower layer, OverlayFS uses copy-on-write to copy that file up into the writable layer before editing. If you delete a file in a later Dockerfile step, it only places a whiteout marker in the top layer—the bytes remain permanently trapped in the underlying layer.</p>
+    <p><strong>Key Insight:</strong> This is why you must never put secrets into an image and try to delete them in a subsequent RUN instruction. In Lab 07, you will use docker history to inspect each layer and see exactly what was cached.</p>
+    <p><strong>Teaching Focus:</strong> Explain layer stacking, copy-on-write mechanics, and why deleted files or secrets persist in lower immutable layers.</p>
   </aside>
 </section>
 
@@ -1293,15 +1260,9 @@
   <p>The Open Container Initiative (OCI) was founded in 2015 to standardise these formats. Because of them, an image built with Docker on your lab machine runs on containerd in k3d, on Amazon EKS and on Amazon ECS.</p>
   <p class="small">ECR: Elastic Container Registry.</p>
   <aside class="notes">
-    The Open Container Initiative was founded in June 2015 under the Linux Foundation by Docker, CoreOS and other
-    companies. Docker donated its image format and its runtime, runc. The image and runtime specifications reached
-    version 1.0 in July 2017, and the distribution specification in 2021.
-    Why it matters to United: the build tool and the run platform can change independently. A pipeline can build with
-    Docker or with Kaniko, push to Amazon ECR, and the same image runs in EKS or ECS. Nothing in the image is specific to
-    Docker.
-    One detail students meet in Lab 07: "docker build" produces an image manifest that points to a configuration
-    object and an ordered list of layer digests. The image digest is the hash of that manifest, which is the subject of
-    the next slide.
+    <p><strong>What to Say:</strong> Back in 2015, the industry recognized that container formats could not remain proprietary to Docker. The Linux Foundation established the Open Container Initiative, or OCI, to define open standards for image formats, container runtimes, and distribution registries.</p>
+    <p><strong>United Context:</strong> This standardization is why modern cloud delivery is so flexible at United. You can build an image using Docker BuildKit on your workstation, push it to Amazon ECR using standard OCI registry APIs, and run it seamlessly on containerd inside Amazon EKS or on Amazon ECS Fargate. The image format is completely decoupled from any specific tool vendor.</p>
+    <p><strong>Teaching Focus:</strong> Highlight how OCI standards decouple image building, registry storage, and runtime orchestration across enterprise toolchains.</p>
   </aside>
 </section>
 
@@ -1317,15 +1278,10 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
     <li>Deploy by digest, or by a tag that your pipeline never reuses.</li>
   </ul>
   <aside class="notes">
-    Walk through the two references. The first is registry host, repository and tag. The second replaces the tag with
-    the digest.
-    The danger with tags: if a pipeline pushes "flight-status:1.4.0" twice with different content, two nodes can run two
-    different programs under the same name, and a rollback to "1.4.0" may not return the code you tested. Amazon ECR has
-    a repository setting called tag immutability that rejects a push to an existing tag.
-    The Lab 09 pipeline tags each image with the commit SHA. A commit SHA names one version of the code, so the tag is
-    never reused for different code. The push step prints the digest, so you can see which exact image went to dev and prod.
-    Ask the class: what does "image: postgres" in a manifest resolve to? (postgres:latest on Docker Hub, which changes
-    whenever a new release is published.)
+    <p><strong>What to Say:</strong> Here is one of the most critical operational lessons for production delivery: the difference between an image tag and an image digest. A tag is merely a mutable human-readable pointer. Anyone with push privileges to a registry can overwrite tag 1.4.0 with completely different code.</p>
+    <p><strong>The Danger of Tags:</strong> If a tag is overwritten, two servers in the same cluster could pull different code under the identical tag name, making debugging an absolute nightmare and rendering rollbacks unreliable. A digest, on the other hand, is the immutable SHA-256 hash of the image manifest. It is mathematically impossible to change the image contents without changing the digest.</p>
+    <p><strong>Ask the Room:</strong> If you specify image: python:latest in your Dockerfile or deployment manifest, what risks does that introduce into your build pipeline?</p>
+    <p><strong>Teaching Focus:</strong> Emphasize artifact immutability, contrasting mutable tags with cryptographic digests, and introduce ECR tag immutability.</p>
   </aside>
 </section>
 
@@ -1341,9 +1297,10 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
   </ul>
   <p class="small">Source: <a href="https://netflix.github.io/titus/overview/">Netflix, Titus overview</a>.</p>
   <aside class="notes">
-    Allow two minutes. This is the published Titus design, not a claim about its current release or orchestration backend.
-    The digest advice is our course connection to the preceding slide, not a claim that the source documents a
-    particular Netflix image-promotion policy. We do not install Titus in the labs.
+    <p><strong>What to Say:</strong> Let's examine how top-tier engineering organizations manage container deployment artifacts at massive scale, drawing from the published architecture of Netflix's Titus container platform.</p>
+    <p><strong>Architecture Link:</strong> Titus was designed to execute thousands of containerized microservices and batch jobs. Instead of relying on mutable tags or loose environment pointers, every Titus job specification binds to an exact, immutable image digest and explicit resource allocation before scheduling.</p>
+    <p><strong>Course Connection:</strong> That directly reinforces our core lesson: treat the container image as a sealed, immutable deployment input. When deploying to production, record and promote the exact artifact identity rather than trusting floating tags.</p>
+    <p><strong>Teaching Focus:</strong> Connect Netflix Titus design principles to the immutable artifact paradigm practiced across modern container platforms.</p>
   </aside>
 </section>
 
@@ -1360,8 +1317,9 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
   </ul>
   <p class="small">Source: <a href="https://shopify.engineering/shopify-infrastructure-collaboration-with-google">Shopify's Infrastructure Collaboration with Google</a>.</p>
   <aside class="notes">
-    Allow two minutes if selected for delivery. Keep the historical framing. Immutable application images do not
-    make databases immutable or remove the need for migrations and persistent-data protection.
+    <p><strong>What to Say:</strong> For additional perspective, consider Shopify's documented journey into container infrastructure. Back in 2014, Shopify adopted Docker to eliminate configuration drift across their massive e-commerce fleet and achieve predictable, repeatable deployments.</p>
+    <p><strong>Enterprise Takeaway:</strong> Notice that packaging applications into immutable container images dramatically simplifies rollbacks and environment parity. However, remember the architectural boundary: container immutability protects application binaries, but stateful databases still require careful schema migration planning and persistent volume management.</p>
+    <p><strong>Teaching Focus:</strong> Review Shopify's container adoption case study, emphasizing drift reduction while noting that databases require dedicated migration strategies.</p>
   </aside>
 </section>
 
@@ -1402,16 +1360,10 @@ k3d-registry.localhost:5000/flight-status@sha256:9b1e5c0d…</code></pre>
     <strong>Twelve-Factor Operational Rule:</strong> Run a single main process per container and stream all application logs directly to <code>stdout</code> and <code>stderr</code>.
   </div>
   <aside class="notes">
-    Each practice has a reason.
-    A small base has fewer packages, so fewer vulnerabilities and a faster pull. The full python image is several times
-    larger than the slim image; Lab 07 compares their scan results.
-    Order matters because Docker reuses a cached layer only if that instruction and every instruction before it are
-    unchanged. Copying all source code first means every code change reinstalls all dependencies.
-    A non-root user limits the damage if the application is compromised.
-    The build context is everything Docker sends to the builder. Without .dockerignore, a "COPY . ." can put your .git
-    history or a local .env file with credentials into the image.
-    One process per container lets the platform restart, scale and log each part separately. Writing logs to standard
-    output is a Twelve-Factor practice (Wiggins, 2011); the platform collects them, for example into CloudWatch Logs on ECS.
+    <p><strong>What to Say:</strong> Writing a Dockerfile is easy, but writing a production-grade, secure, high-performance Dockerfile requires strict discipline. Every line in this matrix addresses a real-world production incident.</p>
+    <p><strong>Best Practices Breakdown:</strong> We start with a minimal base image like python:3.12-slim to slash CVE vulnerabilities and reduce image size. We leverage layer caching by copying requirements.txt and running pip install before copying source code, ensuring dependency builds are cached. We drop privileges to a non-root UID 10001, and we maintain an aggressive .dockerignore file to prevent accidental leaks of .git history or local .env secrets.</p>
+    <p><strong>Twelve-Factor Rule:</strong> Finally, always design containers to run a single foreground process and stream logs to stdout and stderr so the platform can aggregate them cleanly.</p>
+    <p><strong>Teaching Focus:</strong> Walk through the four pillars of Dockerfile engineering: minimal base images, cache ordering, least-privilege users, and build context hygiene.</p>
   </aside>
 </section>
 
@@ -1432,15 +1384,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>The server runs as user 10001, which has no special rights on the host.</li>
   </ul>
   <aside class="notes">
-    Read the file top to bottom with the class.
-    FROM picks the base image. WORKDIR sets the directory for the following instructions. The first COPY brings in only
-    requirements.txt, and RUN installs the packages; "--no-cache-dir" keeps pip's download cache out of the layer.
-    The second COPY brings in the application package. useradd and USER switch to an unprivileged user for everything that
-    runs afterwards, including the container's main process.
-    EXPOSE documents the port. It does not publish it; "docker run -p" or a Kubernetes Service does that.
-    CMD uses the JSON list form, so uvicorn runs as PID 1 and receives SIGTERM itself. The shell form would start a shell
-    as PID 1 that may not pass the signal on.
-    In Lab 07 you write this file yourself and then change one line of code to see which layers Docker rebuilds.
+    <p><strong>What to Say:</strong> Let's walk through the actual Dockerfile you will author for our flight-status service in Lab 07. Notice the deliberate structure: we set the working directory, copy requirements.txt, and run pip install with --no-cache-dir so wheel cache files don't bloat the image layer.</p>
+    <p><strong>Code Walkthrough:</strong> Only after dependencies are installed do we copy our application code. Then we create an unprivileged user named app with UID 10001 and switch to it using the USER instruction. Notice also the JSON array syntax for CMD: ["uvicorn", ...]. Using the JSON syntax ensures uvicorn runs directly as PID 1, allowing it to receive SIGTERM signals immediately when the container is stopped.</p>
+    <p><strong>Ask the Room:</strong> What happens during a rolling update if your container runs a shell wrapper that swallows SIGTERM instead of passing it to your web server?</p>
+    <p><strong>Teaching Focus:</strong> Deconstruct the lab's Python Dockerfile line by line, emphasizing cache optimization, non-root user creation, and graceful SIGTERM signal handling.</p>
   </aside>
 </section>
 
@@ -1458,14 +1405,9 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   <p>NIST SP 800-190 groups container risks into these five areas and gives countermeasures for each (Souppaya et al., 2017).</p>
   <p class="small">NIST: National Institute of Standards and Technology. SP: Special Publication. TLS: Transport Layer Security. RBAC: role-based access control.</p>
   <aside class="notes">
-    NIST Special Publication 800-190, the Application Container Security Guide, was published in September 2017. Section 3
-    lists the major risks in five groups: image, registry, orchestrator, container and host operating system. Section 4
-    gives countermeasures for each.
-    Use the table as a map of the course. Most rows connect to a lab: the scan to Lab 07 and Lab 09, secret scanning to
-    Lab 06, the ServiceAccount to Lab 06 and Lab 09, the non-root user to Lab 07, and requests and limits to Lab 08.
-    One registry point to stress: the lab registry uses plain HTTP because it only listens on your machine. A real
-    registry such as Amazon ECR uses TLS and IAM authentication.
-    The guide is free to download from nist.gov and is short enough to read in an afternoon.
+    <p><strong>What to Say:</strong> In enterprise environments like United Airlines, security compliance is paramount. The National Institute of Standards and Technology published Special Publication 800-190 specifically to categorize container security risks and define mandatory countermeasures across five distinct layers.</p>
+    <p><strong>Course Mapping:</strong> Look at how our course roadmap directly aligns with NIST guidelines: we counter image risks with automated Trivy scanning, registry risks with immutable digests and TLS, orchestrator risks with scoped RBAC and ServiceAccounts, container risks with non-root users and resource limits, and host risks with managed infrastructure.</p>
+    <p><strong>Teaching Focus:</strong> Map NIST SP 800-190 risk categories directly to the security controls and hands-on labs practiced throughout the course.</p>
   </aside>
 </section>
 
@@ -1499,14 +1441,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <strong>The Continuous Vulnerability Clock:</strong> An image with zero CVEs today will develop CVEs tomorrow as new exploits are published &mdash; continuous re-scanning of deployed images is mandatory.
   </div>
   <aside class="notes">
-    An SBOM is an ingredient list. It answers the question "do we run the vulnerable version of library X anywhere?"
-    without rebuilding anything. US Executive Order 14028 (May 2021) made SBOMs a requirement for software sold to the
-    federal government, and since then many companies expect them from suppliers.
-    Trivy, from Aqua Security, reads the operating-system package database and the language dependency files in the image,
-    then compares the versions with vulnerability records. It can also write the SBOM in CycloneDX or SPDX format.
-    Two practical points for the lab. Fail on findings you can act on: "--ignore-unfixed" skips vulnerabilities that have
-    no fixed version yet. Also rescan images that are already running, because the database changes after the image is
-    built.
+    <p><strong>What to Say:</strong> Software supply chain security is no longer optional. A Software Bill of Materials, or SBOM, is essentially a detailed ingredient list of every operating system package and third-party library bundled inside your container.</p>
+    <p><strong>Funnel Strategy:</strong> In Lab 07, you will use Trivy to generate a CycloneDX SBOM and perform automated vulnerability scanning. But here is the golden rule for pipeline gates: fail builds only on actionable findings using the --ignore-unfixed flag. If an advisory has no available upstream patch, failing the pipeline just frustrates developers without improving security.</p>
+    <p><strong>Key Insight:</strong> Also remember that an image with zero vulnerabilities today will inevitably have CVEs discovered next month—continuous scanning of deployed images in your registry is essential.</p>
+    <p><strong>Teaching Focus:</strong> Detail the SBOM supply chain funnel (catalog, scan, gate) and teach actionable vulnerability gating using --ignore-unfixed.</p>
   </aside>
 </section>
 
@@ -1521,15 +1459,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>A cluster admission policy can refuse images that are not signed by a trusted key.</li>
   </ul>
   <aside class="notes">
-    Scanning tells you what is inside an image. Signing tells you where it came from.
-    Sigstore started in 2021 as a Linux Foundation project. With cosign, a pipeline signs the image digest, either with a
-    key it holds or with a short-lived certificate tied to the pipeline's identity (keyless signing). The signature is
-    stored in the same registry.
-    SLSA, Supply-chain Levels for Software Artifacts, version 1.0 (2023), defines Build levels. Level 1: provenance
-    exists. Level 2: the provenance is generated and signed by a hosted build platform. Level 3: the build platform
-    prevents one build from tampering with another or with the signing material.
-    We do not sign images in the labs, because the lab has no trusted key infrastructure. In a production pipeline the
-    signing step comes right after the push, and an admission controller in EKS verifies the signature before a Pod starts.
+    <p><strong>What to Say:</strong> Vulnerability scanning answers what is inside an image. Signing and provenance answer where it came from and who authorized it.</p>
+    <p><strong>Cryptographic Trust:</strong> Using tools like Sigstore cosign, a CI/CD pipeline cryptographically signs the image digest immediately after pushing it to the registry. The SLSA framework—Supply-chain Levels for Software Artifacts—defines verifiable standards for proving that an image was built on an authentic, tamper-resistant platform from a verified Git commit.</p>
+    <p><strong>Production Guardrail:</strong> In advanced enterprise clusters, Kubernetes admission controllers reject any pod whose container image lacks a valid cryptographic signature from an approved internal key.</p>
+    <p><strong>Teaching Focus:</strong> Introduce cryptographic artifact signing with Cosign, SLSA provenance levels, and cluster admission gate enforcement.</p>
   </aside>
 </section>
 
@@ -1540,8 +1473,8 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   <h1>Docker Compose and AWS Fargate</h1>
   <h2>Multi-container orchestration and serverless containers</h2>
   <aside class="notes">
-    Topic transition: Docker Compose and AWS Fargate.
-    This divider slide has zero allocated teaching time.
+    <p><strong>What to Say:</strong> We now transition to Lecture 10: Docker Compose and AWS Fargate. We will examine how multi-container services are defined locally using Compose, and how those concepts map directly to serverless container execution on Amazon ECS and Fargate.</p>
+    <p><strong>Teaching Focus:</strong> Transition from single container artifacts to multi-container application orchestration on local and cloud platforms.</p>
   </aside>
 </section>
 
@@ -1562,14 +1495,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     environment: {POSTGRES_USER: flights, POSTGRES_PASSWORD: flights, POSTGRES_DB: flights}</code></pre>
   <p>Compose creates one network for the project, and each service is reachable by its name. The API reaches the database at the host name <code>db</code>.</p>
   <aside class="notes">
-    Compose started in 2013 as a tool called Fig, which Docker acquired in 2014. The file format is now the open Compose
-    Specification, and Compose v2 runs as "docker compose".
-    The file declares services, and optionally networks and volumes. "docker compose up" creates a network, starts the
-    database container, then the API container, and gives each a DNS name equal to its service name.
-    Point out what depends_on does and does not do: it controls start order, but by default it does not wait until
-    Postgres accepts connections. Lab 07 adds a healthcheck so the API starts only when the database is ready.
-    The password is in plain text here. That is acceptable for a file that only runs on a developer's machine. The next
-    slides show how the same setting is handled in an ECS task definition.
+    <p><strong>What to Say:</strong> Rarely does an application run completely alone. Our flight-status service requires a PostgreSQL database to store flight schedules and updates. Docker Compose allows us to declare both containers, their shared network, and environment variables in a single compose.yaml file.</p>
+    <p><strong>Networking &amp; Health:</strong> When you run docker compose up, Compose automatically provisions a private bridge network and registers DNS names matching the service keys. The app reaches the database simply by querying the hostname db.</p>
+    <p><strong>Common Pitfall:</strong> Notice depends_on: db. By default, depends_on only waits for the database container to start, not for PostgreSQL to actually accept connections! In Lab 07, you will add a healthcheck condition so the app doesn't crash on startup.</p>
+    <p><strong>Teaching Focus:</strong> Explain local multi-container orchestration with Docker Compose, internal DNS service discovery, and healthcheck-dependent startup.</p>
   </aside>
 </section>
 
@@ -1614,15 +1543,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>A task definition is a versioned JSON document. A task is one running copy of it, and a service keeps the desired number of tasks running.</p>
   <aside class="notes">
-    Amazon ECS was announced in 2014. Four terms cover most of it.
-    A task definition describes one or more containers: image, CPU and memory, ports, environment variables, secrets,
-    health check and logging. Every change creates a new revision; you never edit a revision in place.
-    A task is a running instance of a task definition revision.
-    A service keeps a desired count of tasks running, replaces tasks that stop or fail their health check, registers them
-    with a load balancer, and rolls out a new revision when you update it.
-    A cluster is a logical group of services and tasks. With Fargate it contains no servers you manage.
-    Map to Kubernetes for the class: a task definition is close to a Pod template, a task to a Pod, and a service to a
-    Deployment plus a Service. We use that mapping again later today.
+    <p><strong>What to Say:</strong> Now let's see how these same multi-container concepts translate to AWS through Amazon Elastic Container Service. Four fundamental concepts govern ECS architecture.</p>
+    <p><strong>Concept Breakdown:</strong> A task definition is an immutable, versioned JSON document specifying your containers, memory, CPU, environment variables, and secrets. A task is a running instantiation of that definition. An ECS service maintains the desired task count, manages health checks, and registers tasks with a load balancer. And an ECS cluster is the logical administrative boundary grouping them together.</p>
+    <p><strong>Kubernetes Analogy:</strong> For those familiar with Kubernetes, an ECS task definition maps to a Pod template, a task maps to a Pod, and an ECS service combines the roles of a Deployment and a Service.</p>
+    <p><strong>Teaching Focus:</strong> Walk through the four core Amazon ECS concepts (task definition, task, service, cluster) and provide the direct Kubernetes analogy.</p>
   </aside>
 </section>
 
@@ -1639,13 +1563,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </table>
   <p>At United, containers run on Amazon ECS with Fargate.</p>
   <aside class="notes">
-    AWS announced Fargate in 2017. It removes the instance layer: you do not patch, scale or log in to servers.
-    The trade-offs follow from the table. You choose task CPU and memory from a fixed list of combinations, for example
-    0.25 vCPU with 0.5 to 2 GB of memory. You cannot run privileged containers or host-level agents. Each task has its
-    own elastic network interface, so security groups apply per task.
-    Billing is per second with a one-minute minimum, which suits services that scale up and down during the day.
-    Ask anyone in the room who runs services on ECS today: do they choose task sizes themselves, or does the shared CDK
-    library set them? This tells you which parts of the task definition your teams usually edit.
+    <p><strong>What to Say:</strong> When running containers on ECS, you have two launch types: EC2 and Fargate. With EC2, you manage the underlying virtual machines—patching operating systems, managing cluster autoscaling, and dealing with agent upgrades.</p>
+    <p><strong>The Fargate Advantage:</strong> AWS Fargate completely eliminates the server management layer. It is serverless container compute: you specify the CPU and memory combination your task needs, and AWS provisions the isolated execution environment on demand.</p>
+    <p><strong>United Context:</strong> At United, running services on ECS with Fargate is standard practice because it removes operational infrastructure toil, provides dedicated network interfaces per task via the awsvpc mode, and scales on demand.</p>
+    <p><strong>Ask the Room:</strong> In your teams at United, how many of you manage EC2 instances directly versus deploying containerized tasks to Fargate?</p>
+    <p><strong>Teaching Focus:</strong> Contrast the EC2 launch type with serverless AWS Fargate, emphasizing United's operational preference for serverless container workloads.</p>
   </aside>
 </section>
 
@@ -1664,15 +1586,9 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <tr><td><code>depends_on:</code></td><td><code>dependsOn</code> inside one task; separate services otherwise</td></tr>
   </table>
   <aside class="notes">
-    This is the table students fill in during Lab 07, so go through it row by row.
-    The image and environment rows are direct copies. Ports differ because Fargate has no host port mapping: the
-    container port is the task's port on its own network interface.
-    The secrets row is the important change. In ECS the task definition holds only the ARN of a secret in AWS Secrets
-    Manager or Systems Manager Parameter Store. ECS reads the value when the task starts, using the task execution role,
-    and passes it as an environment variable. The value never appears in the task definition.
-    Logging moves from "docker logs" to CloudWatch Logs through the awslogs driver.
-    The last row: in ECS the database would not run as a second container in the task. It would be Amazon RDS, a separate
-    managed service.
+    <p><strong>What to Say:</strong> This table is the Rosetta Stone for Part 5 of Lab 07. You will take the docker-compose.yaml file you wrote for local development and translate it into a production Amazon ECS task definition.</p>
+    <p><strong>Key Differences:</strong> Notice how closely the concepts align: image maps to containerDefinitions image, and environment variables map to name-value pairs. But notice the two crucial differences: first, port mappings in Fargate do not specify a host port because every task gets its own dedicated ENI and IP address. Second, passwords never appear in plaintext—instead, you pass a Secrets Manager ARN under the secrets array, and ECS injects the value securely at launch time.</p>
+    <p><strong>Teaching Focus:</strong> Guide learners through the field-by-field translation from Docker Compose to an Amazon ECS task definition, highlighting secrets hygiene.</p>
   </aside>
 </section>
 
@@ -1687,14 +1603,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>Logs go to Amazon CloudWatch Logs.</li>
   </ul>
   <aside class="notes">
-    The image stays the same. The surroundings change.
-    The two roles are a common source of confusion. The task execution role is used by the ECS
-    agent before your code runs: pulling from ECR, fetching secrets, creating the log stream. The task role is assumed by
-    your application code at run time, for example to read from an S3 bucket. Keep them separate so the application cannot
-    read secrets meant for other services.
-    The load balancer checks each task's health and only sends traffic to healthy ones, which is the same idea as the Kubernetes readiness probe in the next lecture.
-    At United, the shared CDK library usually creates these pieces, so an application team mostly supplies the image and the
-    task settings.
+    <p><strong>What to Say:</strong> When you move a container workload from your laptop into AWS, the container image itself remains 100% identical—that is the beauty of OCI compliance. But the infrastructure surrounding that image changes significantly.</p>
+    <p><strong>Roles &amp; Infrastructure:</strong> Pay close attention to the two distinct IAM roles: the task execution role is used by the AWS ECS agent before your container starts to pull the image from ECR and fetch secrets from Secrets Manager. The task role is used by your running application code to interact with AWS services like S3 or DynamoDB. Keeping these separated ensures least-privilege security.</p>
+    <p><strong>Production Perimeter:</strong> Furthermore, local host port bindings are replaced by an Application Load Balancer, and local container databases are replaced by managed Amazon RDS instances.</p>
+    <p><strong>Teaching Focus:</strong> Clarify the critical distinction between the ECS Task Execution Role and Task Role, and explain AWS surrounding infrastructure (ALB, RDS, VPC).</p>
   </aside>
 </section>
 
@@ -1706,8 +1618,9 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   <h1>Lab 07: Build, Scan and Describe a Container</h1>
   <h2>Day 3 &middot; 35&ndash;45 minutes</h2>
   <aside class="notes">
-    Hands-on lab: Lab 07 — Build, Scan and Describe a Container.
-    Theoretical target: 35–45 minutes.
+    <p><strong>What to Say:</strong> It is time for Lab 07: Build, Scan and Describe a Container. Theoretical duration is 35 to 45 minutes.</p>
+    <p><strong>Lab Milestone:</strong> You will write a production Dockerfile for the flight-status service, build and inspect its image layers, push it to our local container registry, run security scans with Trivy, generate an SBOM, orchestrate a multi-container stack with Docker Compose, and author an Amazon ECS task definition.</p>
+    <p><strong>Teaching Focus:</strong> Introduce Lab 07, establish the 35-45 minute target duration, and frame the hands-on engineering milestone.</p>
   </aside>
 </section>
 
@@ -1722,13 +1635,12 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>Run the API with Postgres in Docker Compose, then map the Compose file to an ECS task definition.</li>
   </ul>
   <aside class="notes">
-    The lab installs Trivy, so it needs internet access for the vulnerability database download.
-    Remind students to read the "why" paragraph before each step, and to compare their Dockerfile with the solution only
-    after they have built it once.
-    Common problems: forgetting the trailing dot in "docker build -t ... .", and the registry push failing if Docker was
-    not restarted after the insecure-registry setting in Lab 01. The troubleshooting section of the lab covers both.
-    Fast finishers can try the "Going further" task that compares the slim and full Python base images in a scan.
-    
+    <p><strong>What to Say:</strong> Please open labs/07-containers.md in your lab VM browser. Before you begin typing commands, let me highlight three critical gotchas where engineers often hit roadblocks:</p>
+    <p><strong>1. Build Context &amp; Trailing Dot:</strong> When running docker build -t localhost:5001/flight-status:0.1.0 ., do not forget the trailing dot! That dot sets the build context. If you run it from the wrong directory, Docker cannot find requirements.txt or the flightstatus package.</p>
+    <p><strong>2. Registry Port Distinction:</strong> Pay attention to port numbers: from your VM terminal, you push to localhost:5001. But inside our k3d cluster, the registry is reached at k3d-registry.localhost:5000. In Lab 08 and 09, your Kubernetes manifests and pipelines will reference port 5000.</p>
+    <p><strong>3. Trivy Database Download:</strong> In Part 1, when Trivy runs for the first time, it downloads the vulnerability database. If you see a brief network pause, give it a moment to complete.</p>
+    <p><strong>Classroom Checkpoint:</strong> Drop 'Lab 07 Complete' into chat once you have verified your running Docker Compose stack and validated your ECS task definition.</p>
+    <p><strong>Teaching Focus:</strong> Preempt key learner stumbling blocks in Lab 07: build context syntax, registry port translation (5001 vs 5000), and first-run vulnerability DB downloads.</p>
   </aside>
 </section>
 
@@ -1739,8 +1651,8 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   <h1>Kubernetes Core Concepts</h1>
   <h2>Control plane architecture, Pods, Deployments, and Services</h2>
   <aside class="notes">
-    Topic transition: Kubernetes Core Concepts.
-    This divider slide has zero allocated teaching time.
+    <p><strong>What to Say:</strong> Welcome back from Lab 07. With our secure, scanned container image built and stored in the registry, we now enter our next major domain: Kubernetes Core Concepts. We will examine cluster architecture, declarative reconciliation loops, workload objects, and networking.</p>
+    <p><strong>Teaching Focus:</strong> Transition from container packaging to enterprise container orchestration on Kubernetes.</p>
   </aside>
 </section>
 
@@ -1769,14 +1681,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>Burns et al. (2016) describe what Google learned from Borg and Omega. Kubernetes adopted labels instead of numbered jobs, one IP address per Pod, and independent controllers that reconcile state.</p>
   <aside class="notes">
-    Google ran Borg, its internal cluster manager, from about 2003. Omega, described in a 2013 paper, explored a more
-    flexible scheduler design. Kubernetes was announced and open-sourced in June 2014, and version 1.0 shipped in July
-    2015, when the Cloud Native Computing Foundation was founded to host it. Amazon EKS became generally available in
-    June 2018. Rancher released k3s, the small distribution that k3d runs in Docker, in 2019.
-    The ACM Queue article "Borg, Omega, and Kubernetes" (2016) lists lessons from Borg. Three of them influenced the
-    Kubernetes API: give every Pod its own IP address instead of sharing host ports, group objects with labels instead of
-    numbering them, and split control into small controllers that each reconcile one kind of object.
-    The article is about ten pages and is a good read after the course.
+    <p><strong>What to Say:</strong> Kubernetes did not emerge overnight; it represents over two decades of Google engineering experience running large-scale distributed systems. Google managed internal container workloads using a proprietary platform called Borg since 2003, followed by a second-generation system called Omega.</p>
+    <p><strong>Design Evolution:</strong> In 2014, Google open-sourced Kubernetes, donating it to the newly founded Cloud Native Computing Foundation in 2015. Kubernetes took the battle-tested lessons from Borg—such as assigning every Pod its own IP address instead of port-mapping hosts, using dynamic labels instead of rigid hierarchical job IDs, and splitting management into independent reconciliation loops.</p>
+    <p><strong>Ask the Room:</strong> How many of you currently interact with Kubernetes clusters in production, and what has been your biggest hurdle when learning the platform?</p>
+    <p><strong>Teaching Focus:</strong> Trace the lineage of Kubernetes from Google Borg and Omega, highlighting lessons learned in IP-per-pod and label-based loose coupling.</p>
   </aside>
 </section>
 
@@ -1814,14 +1722,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>Every Kubernetes controller runs this loop. A deleted Pod comes back because the ReplicaSet controller sees two Pods where the spec asks for three, and creates one.</p>
   <aside class="notes">
-    This slide connects Day 2 and Day 3. Terraform reconciles when you run "apply". Kubernetes reconciles all the time.
-    You change the desired state by writing an object to the API server, for example with "kubectl apply". Controllers
-    watch the API server, compare the desired state with what is running, and act to close the difference. Then they
-    start again.
-    Two consequences. First, Kubernetes repairs itself: a crashed Pod, a deleted Pod or a failed node all show up as a
-    difference and get fixed. Second, manual changes to a running object are overwritten if they conflict with the spec
-    held by the owner. Editing a Pod that a Deployment owns does not last.
-    In Lab 08 you delete a Pod on purpose and watch a new one appear within seconds.
+    <p><strong>What to Say:</strong> This diagram captures the core heartbeat of Kubernetes. Think back to Day 2: Terraform reconciles infrastructure state when you run terraform apply. Kubernetes, by contrast, is a continuous, self-healing reconciliation engine that runs every second of every day.</p>
+    <p><strong>The Loop in Action:</strong> You declare your desired state—the spec—in YAML manifests and submit it to the API server. Controllers constantly observe the real world, compare actual state with desired state, calculate the delta, and execute actions to drive reality into alignment.</p>
+    <p><strong>Self-Healing:</strong> If a worker node crashes or an engineer accidentally deletes a running Pod, the ReplicaSet controller detects that actual count is 2 while desired count is 3, and immediately spins up a replacement.</p>
+    <p><strong>Teaching Focus:</strong> Contrast one-time Terraform apply convergence with Kubernetes' continuous, self-healing reconciliation loops.</p>
   </aside>
 </section>
 
@@ -1872,14 +1776,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>Every component talks to the API server, and only the API server uses the datastore. In k3d, one container (<code>k3d-devops-server-0</code>) runs the control plane and your Pods.</p>
   <aside class="notes">
-    Go through the components. The API server validates and stores objects; it is the only component that reads and
-    writes the datastore. etcd is the usual datastore; k3s uses an embedded SQLite database when there is a single server.
-    The scheduler picks a node for each new Pod, based on resource requests and constraints. The controller manager runs
-    the built-in controllers, such as the Deployment and ReplicaSet controllers from the previous slide.
-    On each node, the kubelet watches the API server for Pods assigned to its node and asks the container runtime,
-    containerd here, to start them. kube-proxy programs the network rules that make Services work.
-    In Amazon EKS, AWS runs the control plane for you across several availability zones, and you see only the API endpoint.
-    Your nodes are EC2 instances or Fargate.
+    <p><strong>What to Say:</strong> Let's examine how the Kubernetes control plane coordinates with worker nodes. At the center is the kube-apiserver, the only component that directly reads and writes cluster state to etcd.</p>
+    <p><strong>Component Roles:</strong> The kube-scheduler watches for newly created Pods without node assignments and selects the best node based on resource requests and affinity rules. The kube-controller-manager runs the control loops. On every worker node, the kubelet agent ensures containers defined in Pod specs are running via containerd, while kube-proxy manages local networking and iptables rules.</p>
+    <p><strong>EKS Mapping:</strong> In our lab VM, k3d bundles these components into a single container for rapid learning. In Amazon EKS, AWS fully manages the control plane across three availability zones, while your workloads run on EC2 node groups or Fargate.</p>
+    <p><strong>Teaching Focus:</strong> Explain the responsibilities of the control plane (API server, etcd, scheduler, controllers) and worker node daemons (kubelet, kube-proxy).</p>
   </aside>
 </section>
 
@@ -1918,14 +1818,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <p>A Pod is one or more containers that share an IP address and volumes. A Deployment creates a new ReplicaSet for each new Pod template, scales the old one to zero and keeps it for rollback.</p>
     <p class="small muted">Press &darr; for supporting detail: Hierarchy of Kubernetes Objects</p>
     <aside class="notes">
-      Build the picture from the bottom. A Pod is the smallest unit Kubernetes schedules. Its containers share one network
-      namespace, so they reach each other on localhost, and they can share volumes. Most Pods have one main container.
-      A ReplicaSet keeps a number of identical Pods running. You rarely create one yourself.
-      A Deployment manages ReplicaSets. When you change the Pod template, for example the image tag, the Deployment creates
-      a new ReplicaSet and moves Pods from the old one to the new one. The old ReplicaSet stays with zero Pods, up to ten
-      revisions by default (revisionHistoryLimit), and "kubectl rollout undo" scales it back up.
-      In Lab 08 you will see the ReplicaSet names change with each rollout: the suffix is a hash of the Pod template.
-    </aside>
+    <p><strong>What to Say:</strong> When deploying applications to Kubernetes, we organize objects in a strict three-tier hierarchy: Deployments manage ReplicaSets, and ReplicaSets manage Pods.</p>
+    <p><strong>Pods &amp; Revisions:</strong> A Pod is the smallest deployable unit—one or more containers sharing an IP address and localhost network. A ReplicaSet ensures that an exact number of identical Pods remain healthy. But in practice, you almost never create ReplicaSets directly. You declare a Deployment.</p>
+    <p><strong>Rollback Engine:</strong> When you update an image tag from 1.4.0 to 1.5.0, the Deployment controller spins up a new ReplicaSet, scales it up as readiness probes pass, and scales the old ReplicaSet down to zero. That old ReplicaSet is retained in cluster history, allowing an instant rollback with kubectl rollout undo.</p>
+    <p><strong>Teaching Focus:</strong> Detail the object hierarchy from Pod to ReplicaSet to Deployment, explaining how revision history enables instant rollbacks.</p>
+  </aside>
   </section>
 
   <section class="concept">
@@ -1955,12 +1852,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
       <p>Engineers define Deployments in Git YAML files and rarely manage ReplicaSets or Pods directly. The Deployment controller automates version upgrades and replica health under the hood.</p>
     </div>
     <aside class="notes">
-      For BAs, QEs, and mainframe/ops engineers:
-      Deployment = The blueprint &amp; rollout strategy.
-      ReplicaSet = The supervisor enforcing headcounts.
-      Pod = The atomic worker unit executing containers.
-      When we deploy version 1.5.0 in Lab 08, the Deployment spins up a new ReplicaSet and gradually replaces pods while keeping the old ReplicaSet ready for rollback.
-    </aside>
+    <p><strong>What to Say:</strong> For everyone in the room navigating Kubernetes terminology for the first time, here is the organizational breakdown:</p>
+    <p><strong>The Blueprint:</strong> The Deployment is the architect and project manager—it defines the desired version, resource requirements, and rollout strategy. The ReplicaSet is the headcount supervisor—it ensures the exact number of workers are on shift. The Pod is the actual worker team executing the containers.</p>
+    <p><strong>Enterprise Rule:</strong> In GitOps and CI/CD pipelines, you only ever commit Deployment manifests to Git. Kubernetes manages the subordinate ReplicaSets and Pods automatically.</p>
+    <p><strong>Teaching Focus:</strong> Reinforce the mental hierarchy of Deployments, ReplicaSets, and Pods using the architect, supervisor, and worker analogy.</p>
+  </aside>
   </section>
 </section>
 
@@ -2004,15 +1900,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <p>A Service gives a set of Pods one stable name and address, and sends traffic only to Pods that pass their readiness probe. An Ingress routes HTTP requests to Services by host name and path.</p>
     <p class="small muted">Press &darr; for supporting detail: Why do we need a Service?</p>
     <aside class="notes">
-      Pods come and go and get new IP addresses each time. A Service is the stable front: a fixed virtual IP and a DNS
-      name, such as flight-status.flightops-dev.svc.cluster.local. It selects Pods by label, and its endpoint list holds
-      only the Pods that are ready.
-      An Ingress describes HTTP routing: requests for a host name and path go to a Service. An Ingress controller does the
-      routing. k3s ships Traefik as its Ingress controller, and k3d publishes it on port 8080 of your lab machine.
-      In Amazon EKS, the AWS Load Balancer Controller usually turns an Ingress into an Application Load Balancer, which is
-      the same role the load balancer plays in front of ECS services.
-      In Lab 08 you open the app in the browser through the Ingress and see the version change during a rollout.
-    </aside>
+    <p><strong>What to Say:</strong> Pods in Kubernetes are ephemeral: they scale up, scale down, crash, and reschedule, and every time a new Pod starts, it gets a completely new dynamic IP address. If clients attempted to connect directly to Pod IPs, every deployment would trigger a massive connection outage.</p>
+    <p><strong>The Role of Services:</strong> A Kubernetes Service provides a permanent, stable virtual IP and DNS name within the cluster. It selects Pods using label selectors (like app: flight-status) and routes traffic only to Pods currently passing their readiness probes.</p>
+    <p><strong>Ingress Routing:</strong> An Ingress sits in front of Services, acting as a Layer 7 HTTP router that routes incoming domain names and paths to internal Services. In our lab, k3d uses an embedded Traefik ingress controller, whereas in Amazon EKS, the AWS Load Balancer Controller provisions an Application Load Balancer.</p>
+    <p><strong>Teaching Focus:</strong> Explain how Services solve ephemeral Pod IP addressing and how Ingress controllers route Layer 7 external traffic.</p>
+  </aside>
   </section>
 
   <section class="concept">
@@ -2042,10 +1934,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
       <p>A <strong>Service</strong> manages internal Layer 4 (TCP/UDP) routing and load balancing within the cluster. An <strong>Ingress</strong> handles external Layer 7 (HTTP/HTTPS) routing, host matching, and SSL/TLS termination.</p>
     </div>
     <aside class="notes">
-      Clarify for all roles:
-      Without a Service, you would have to update firewall rules and DNS records every time a Pod restarted.
-      The Service decouples consumer requests from ephemeral worker containers. kube-proxy maintains iptables/IPVS rules on every node to load balance traffic across ready Pod endpoints.
-    </aside>
+    <p><strong>What to Say:</strong> Let's reinforce why Services are indispensable. Without a Kubernetes Service, every microservice update would require updating upstream DNS records, firewall configurations, and client connection strings across your infrastructure.</p>
+    <p><strong>Layer 4 vs Layer 7:</strong> The Service decouples consumers from providers at Layer 4 (TCP/UDP), using kube-proxy to maintain high-speed routing rules across node endpoints. The Ingress complements the Service by managing Layer 7 HTTP concerns: SSL/TLS termination, host-based routing (like flights-dev.localhost), and path prefix matching.</p>
+    <p><strong>Teaching Focus:</strong> Clarify the fundamental distinction between Layer 4 internal load balancing (Services) and Layer 7 external routing (Ingress).</p>
+  </aside>
   </section>
 </section>
 
@@ -2082,17 +1974,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <strong>Core Architectural Rule:</strong> <em>Liveness restarts the process; Readiness controls traffic routing.</em>
   </div>
   <aside class="notes">
-    Probes are how Kubernetes learns about the application's health. The kubelet runs them on each node, usually as an
-    HTTP GET.
-    The difference between liveness and readiness matters. If the database is down, every Pod's readiness check fails and
-    the Pods stop receiving traffic, which is correct. If the liveness check also tested the database, the kubelet would
-    restart every Pod, which does not fix the database and adds load when it comes back. So a liveness check should only
-    test the process itself.
-    Readiness is also what makes rolling updates safe: a new Pod gets traffic only when it reports ready, and the rollout
-    waits for it. In Lab 08 you deploy a version whose readiness check fails and see the rollout stop while the old Pods
-    keep serving.
-    The startup probe (stable since Kubernetes 1.20) protects slow-starting applications from being killed by the liveness
-    probe.
+    <p><strong>What to Say:</strong> Health probes are how Kubernetes monitors application vitality. There are three types of probes, and confusing them causes severe production outages.</p>
+    <p><strong>The Golden Rule:</strong> Memorize this golden rule: liveness restarts the process; readiness controls traffic routing. A liveness probe checks if your process is deadlocked or hung—if it fails, the kubelet terminates and restarts the container. Never check external dependencies like databases in a liveness probe, or a database glitch will trigger a catastrophic restart storm across your entire cluster!</p>
+    <p><strong>Readiness &amp; Startup:</strong> A readiness probe checks if the pod can safely serve customer traffic right now. If it fails, the Pod is quietly removed from the Service endpoint pool while staying alive. And startup probes protect slow-starting applications from premature liveness termination during initial boot.</p>
+    <p><strong>Ask the Room:</strong> What happens to a rolling update if a newly deployed pod fails its readiness check?</p>
+    <p><strong>Teaching Focus:</strong> Teach the critical operational rule: liveness restarts processes, readiness routes traffic; warn against external dependency checks in liveness probes.</p>
   </aside>
 </section>
 
@@ -2138,16 +2024,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     </div>
   </div>
   <aside class="notes">
-    Requests and limits are the Kubernetes interface to the cgroups from this morning.
-    Requests are for scheduling. The scheduler adds up the requests of the Pods on a node and places a new Pod only where
-    its requests fit. A Pod with no requests can be placed anywhere, which is how nodes become overloaded.
-    Limits are enforced by the kernel, with the same behaviour as in Docker: memory over the limit means OOMKilled,
-    CPU at the limit means throttling.
-    Kubernetes derives a quality-of-service class from these settings. When a node runs short of memory, the kubelet
-    evicts Pods, starting with those that use the most beyond their requests; BestEffort Pods have no requests, so they go
-    first.
-    Yesterday's ResourceQuota in each namespace requires requests and limits on every container, so the Lab 08 manifests
-    must set them.
+    <p><strong>What to Say:</strong> Here is where the cgroups we discussed this morning connect directly to Kubernetes manifest configuration. Every container should define two pairs of resource values: requests and limits for both CPU and memory.</p>
+    <p><strong>Requests vs Limits:</strong> Requests represent the scheduling floor. The kube-scheduler sums container requests on a node to ensure it never overcommits capacity. Limits represent the hard runtime ceiling enforced by the Linux kernel. Exceeding CPU limits results in throttling; exceeding memory limits results in an instant OOMKilled termination.</p>
+    <p><strong>QoS Classes:</strong> Depending on how you configure these, Kubernetes assigns one of three Quality of Service classes: Guaranteed, Burstable, or BestEffort. In Lab 08, setting requests and limits is mandatory to satisfy the namespace ResourceQuota we established in Lab 04.</p>
+    <p><strong>Teaching Focus:</strong> Explain resource requests (scheduling floor) versus limits (runtime ceiling) and connect them to Kubernetes QoS classes and namespace quotas.</p>
   </aside>
 </section>
 
@@ -2191,14 +2071,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>Settings: 4 replicas, maxSurge 1, maxUnavailable 0. There are never fewer than 4 ready Pods or more than 5 Pods. The dashed Pod has started but is not ready yet.</p>
   <aside class="notes">
-    Work through the example. maxSurge is how many Pods may exist above the desired count during the rollout.
-    maxUnavailable is how many of the desired Pods may be not ready. With surge 1 and unavailable 0, Kubernetes adds one
-    new Pod, waits for its readiness probe to pass, removes one old Pod, and repeats.
-    Ask the class to work out the other common setting: 4 replicas with the defaults, 25 percent each. (maxSurge rounds up
-    to 1 and maxUnavailable rounds down to 1, so Kubernetes can replace two Pods at a time and capacity can drop to 3.)
-    What if the new version never becomes ready? The rollout stops at step 2, the old Pods keep serving, and after the
-    progress deadline (600 seconds by default) the Deployment reports that the rollout failed. That is the failure you
-    create in Lab 08.
+    <p><strong>What to Say:</strong> Let's trace how Kubernetes performs a zero-downtime rolling update. By default, Deployments use two parameters: maxSurge and maxUnavailable.</p>
+    <p><strong>Step-by-Step Flow:</strong> In this example with 4 replicas, maxSurge 1, and maxUnavailable 0, Kubernetes guarantees there are never fewer than 4 healthy pods serving traffic. In step 2, it launches one new version 1.5.0 Pod, bringing total pods to 5. It waits for that pod's readiness probe to pass. Only when the new pod is green does it terminate one old 1.4.0 pod, returning the count to 4. This sequence repeats until all pods run version 1.5.0.</p>
+    <p><strong>Failure Safety:</strong> If the new version fails its readiness probe, the rollout halts immediately at step 2. The four original pods continue serving user traffic without dropped requests.</p>
+    <p><strong>Teaching Focus:</strong> Walk through rolling update mechanics step by step, showing how maxSurge, maxUnavailable, and readiness probes prevent downtime.</p>
   </aside>
 </section>
 
@@ -2214,9 +2090,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </ul>
   <p class="small">Source: <a href="https://kubernetes.io/case-studies/spotify/">Kubernetes, Spotify case study</a>.</p>
   <aside class="notes">
-    Allow two minutes. This historical migration is broader than one Deployment's rolling update. Do not imply that
-    Helios and Kubernetes are ReplicaSets or that the lab teaches cluster migration.
-    Relate the risk-control principle to readiness checks and retaining a recoverable previous version.
+    <p><strong>What to Say:</strong> Let's examine real-world Kubernetes operations through Spotify's published migration from their homegrown Helios container orchestrator.</p>
+    <p><strong>Safe Migration Strategy:</strong> When migrating thousands of production services, Spotify did not attempt a high-risk overnight cutover. Instead, they ran Helios and Kubernetes side by side, routing production traffic gradually and verifying operational telemetry before retiring the legacy system.</p>
+    <p><strong>Core Lesson:</strong> This mirrors the fundamental DevOps safety principle we practice today: always maintain a proven, recoverable previous version and validate health under real traffic conditions before committing fully to a new platform or release.</p>
+    <p><strong>Teaching Focus:</strong> Connect Spotify's dual-orchestrator migration strategy to risk management, progressive verification, and rollback safety.</p>
   </aside>
 </section>
 
@@ -2233,8 +2110,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </ul>
   <p class="small">Source: <a href="https://github.com/Shopify/krane">Shopify, krane project README</a>.</p>
   <aside class="notes">
-    Allow two minutes if selected for delivery. The project says Shopify uses krane within its Shipit deployment app.
-    This is not a new lab dependency. Our equivalent check is kubectl rollout status followed by application verification.
+    <p><strong>What to Say:</strong> Consider also Shopify's operational tooling for Kubernetes deployments. Shopify built open-source tools like krane to solve a critical operational gap: running kubectl apply merely submits a manifest, it does not tell you if the deployment actually succeeded.</p>
+    <p><strong>Inspect Rollout Health:</strong> Krane watches the requested rollout in real time, streams pod readiness status, and halts the deployment pipeline if containers fail to start.</p>
+    <p><strong>Course Connection:</strong> In our labs, we implement this exact discipline. Submitting YAML is only the beginning—in Lab 08 and Lab 09, we use kubectl rollout status to explicitly block the pipeline until all replicas are healthy and passing probes.</p>
+    <p><strong>Teaching Focus:</strong> Emphasize that submitting manifests is only the first step; pipelines must actively monitor rollout status to confirm success.</p>
   </aside>
 </section>
 
@@ -2274,15 +2153,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>A Role allows verbs on resource types in one namespace, and a RoleBinding grants the Role to a user, group or ServiceAccount. RBAC rules only add permissions, so anything a Role does not list is refused.</p>
   <aside class="notes">
-    This is the identity the Lab 09 pipeline uses, created as code in Lab 06. Everything in the Role is scoped to one
-    namespace. ClusterRole and ClusterRoleBinding do the same for the whole cluster, for objects such as namespaces.
-    Show how to test permissions without guessing:
-    "kubectl auth can-i create deployments -n flightops-dev --as=system:serviceaccount:flightops-dev:deployer" answers yes.
-    The same question for "create namespaces" answers no.
-    Kubernetes RBAC has no deny rules. A request is allowed if any binding allows it. That makes it easy to reason about:
-    to know what an identity can do, read the Roles bound to it.
-    In Amazon EKS, IAM identities are mapped to Kubernetes users and groups through EKS access entries, and the same RBAC
-    rules then apply.
+    <p><strong>What to Say:</strong> Here is the security architecture that protects our Kubernetes cluster from unauthorized access. Kubernetes Role-Based Access Control, or RBAC, links an identity to specific permissions.</p>
+    <p><strong>RBAC Mechanics:</strong> A ServiceAccount represents a machine identity—like our automated deployer account from Lab 06. A Role defines allowed API verbs (such as get, list, create, patch) on specific resource types within a single namespace. A RoleBinding connects the ServiceAccount to that Role.</p>
+    <p><strong>Additive Security:</strong> Remember that Kubernetes RBAC is strictly additive: there are no explicit deny rules. If a permission is not explicitly granted by a bound Role, the API server rejects the request immediately. In Lab 09, our Harness pipeline authenticates using this exact scoped deployer credential.</p>
+    <p><strong>Teaching Focus:</strong> Deconstruct Kubernetes RBAC architecture (ServiceAccount, RoleBinding, Role) and emphasize least-privilege additive authorization.</p>
   </aside>
 </section>
 
@@ -2299,14 +2173,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </table>
   <p>The Kubernetes API, kubectl, the manifests and RBAC are the same in both. That is why the Lab 08 manifests would run on EKS with only the image and Ingress settings changed.</p>
   <aside class="notes">
-    k3s is a certified Kubernetes distribution: it passes the same conformance tests as EKS. Rancher made it small by
-    packing the components into one binary and replacing etcd with SQLite for single-server clusters. k3d runs k3s nodes
-    as Docker containers, which is how each of you has a cluster on one VM.
-    The differences in the table are all at the edges: who runs the control plane, where nodes come from, how traffic
-    enters, where images come from and how Pods get cloud permissions. EKS Pod Identity, added in 2023, and the older IAM
-    Roles for Service Accounts let a Pod call AWS APIs without stored keys.
-    At United, deployments to EKS run through the Harness platform. The objects it applies are the same Deployments,
-    Services and Ingresses you write in Lab 08.
+    <p><strong>What to Say:</strong> A common question learners ask is: 'Does what we are learning in our local k3d environment translate directly to Amazon EKS at United?'</p>
+    <p><strong>Architectural Parity:</strong> The answer is an emphatic yes. K3s is a fully certified, conformant Kubernetes distribution. Every manifest you write—Deployments, Services, Ingresses, RBAC Roles, and Kustomize overlays—uses the exact same Kubernetes API specifications as Amazon EKS.</p>
+    <p><strong>Edge Differences:</strong> The only differences lie at the infrastructure boundaries: in EKS, AWS manages the control plane across availability zones, worker nodes are EC2 or Fargate instances, ingress is managed by the AWS Load Balancer Controller, and images are pulled from Amazon ECR using IAM authentication. But the orchestration layer is 100% identical.</p>
+    <p><strong>Ask the Room:</strong> When deploying to EKS in your teams, do you manage raw manifests, Helm charts, or Kustomize overlays through Harness?</p>
+    <p><strong>Teaching Focus:</strong> Reassure learners of 100% API and manifest parity between local k3d and Amazon EKS, outlining cloud boundary differences.</p>
   </aside>
 </section>
 
@@ -2319,10 +2190,9 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
-    Instructor source and answer key: quizzes/day3/kahoot-1.md. Prepare the game before class or read the questions
-    and options aloud. Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
-    Debrief readiness, reconciliation, CPU throttling and stable Service endpoints.
-    Keep the complete activity within five minutes; do not consume the following lab's budget.
+    <p><strong>What to Say:</strong> Let's pause for our first 5-minute retrieval checkpoint of Day 3: Section Quiz 1 on Kubernetes Core Concepts. Grab your devices and join using the Kahoot PIN displayed on the screen.</p>
+    <p><strong>Quiz Focus:</strong> We have twelve fast-paced questions testing Pod networking, the role of ReplicaSets in Deployments, liveness versus readiness probes, and CPU throttling versus memory OOM kills. Compete hard and let's see who leads the board!</p>
+    <p><strong>Teaching Focus:</strong> Facilitate the 5-minute retrieval quiz and debrief reconciliation loops, probe distinctions, and QoS resource enforcement.</p>
   </aside>
 </section>
 
@@ -2334,8 +2204,9 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   <h1>Lab 08: Kubernetes Deployments, Rollouts and Rollbacks</h1>
   <h2>Day 3 &middot; 40&ndash;50 minutes</h2>
   <aside class="notes">
-    Hands-on lab: Lab 08 — Kubernetes Deployments, Rollouts and Rollbacks.
-    Theoretical target: 40–50 minutes.
+    <p><strong>What to Say:</strong> Time to get hands-on with Lab 08: Kubernetes Deployments, Rollouts and Rollbacks. Target duration is 40 to 50 minutes.</p>
+    <p><strong>Lab Milestone:</strong> You will author Kubernetes manifests from scratch, deploy the flight-status container to the flightops-dev namespace created by Terraform in Lab 04, observe self-healing and rolling updates, intentionally inject three distinct failure modes, and execute zero-downtime rollbacks.</p>
+    <p><strong>Teaching Focus:</strong> Introduce Lab 08, set the 40-50 minute time allocation, and frame the deployment and rollback milestone.</p>
   </aside>
 </section>
 
@@ -2350,14 +2221,13 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>Roll back and read the rollout history.</li>
   </ul>
   <aside class="notes">
-    The lab deploys into the dev namespace that Terraform created yesterday, using the image pushed in Lab 07.
-    Suggest that students keep a second terminal open with "kubectl get pods -w" during every rollout, so they see Pods
-    start, become ready and stop.
-    The two failure exercises look different on purpose. A broken image tag gives ImagePullBackOff, and the Pods never
-    start. A failing readiness probe gives Pods that run but never become ready. In both cases the old Pods keep
-    serving; check that with the browser or curl.
-    If the ResourceQuota rejects a Pod, the event explains it: "kubectl describe replicaset" shows the quota message.
-    
+    <p><strong>What to Say:</strong> Please open labs/08-kubernetes-rollouts.md in your lab VM browser. Before you begin editing manifests, take note of four essential tips:</p>
+    <p><strong>1. Keep a Watch Terminal Open:</strong> Open a second terminal window and run kubectl get pods -n flightops-dev -w. Watching the real-time status transitions as pods start, become ready, and terminate is the fastest way to understand rolling update dynamics.</p>
+    <p><strong>2. Label Selector Accuracy:</strong> In Part 1, ensure the spec.selector.matchLabels in your Deployment matches the metadata.labels in your pod template and the selector in your Service. A typo here means your Service will have zero endpoints and will return 503 errors.</p>
+    <p><strong>3. Diagnose the Two Failure Modes:</strong> In Part 4, you will break the deployment in two distinct ways. An invalid image tag triggers ImagePullBackOff where containers never run. A broken readiness probe creates running containers that stay at 0/1 ready. Notice that in both scenarios, your existing pods keep serving traffic without dropping requests!</p>
+    <p><strong>4. Quota Thresholds:</strong> If scaling fails, inspect events with kubectl describe replicaset to see if you hit the namespace ResourceQuota from Lab 04.</p>
+    <p><strong>Classroom Checkpoint:</strong> Post 'Lab 08 Green' in chat once you have completed your rollbacks and inspected your rollout history.</p>
+    <p><strong>Teaching Focus:</strong> Preempt key stumbling blocks in Lab 08: label selector mismatches, diagnosing ImagePullBackOff vs unready probes, and reading quota rejection events.</p>
   </aside>
 </section>
 
@@ -2368,8 +2238,8 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   <h1>Continuous Delivery</h1>
   <h2>Deployment strategies, verification gates, and automated rollbacks</h2>
   <aside class="notes">
-    Topic transition: Continuous Delivery.
-    This divider slide has zero allocated teaching time.
+    <p><strong>What to Say:</strong> Welcome back from Lab 08. Now that you have mastered container packaging and Kubernetes rollouts, we enter our final theoretical lecture: Continuous Delivery. We will examine release strategies, artifact promotion, automated verification gates, and instant rollbacks.</p>
+    <p><strong>Teaching Focus:</strong> Transition from manual Kubernetes operations to automated, enterprise-grade continuous delivery pipelines.</p>
   </aside>
 </section>
 
@@ -2405,15 +2275,12 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <p>Continuous delivery keeps every change that passes the pipeline ready to release at any time (Humble and Farley, 2010). Continuous deployment releases each of those changes automatically.</p>
     <p class="small muted">Press &darr; for supporting detail: Delivery vs. Deployment</p>
     <aside class="notes">
-      The two terms are often mixed up. In continuous delivery, the software is always in a releasable state, and releasing
-      is a business decision that takes one click. In continuous deployment, every change that passes all checks goes to
-      production with no manual step. Timothy Fitz described continuous deployment at IMVU in 2009; Humble and Farley's book
-      Continuous Delivery followed in 2010.
-      Continuous deployment needs strong automated checks and fast rollback, because no person looks at the change before
-      users do. Many regulated organisations practise continuous delivery with an approval before production.
-      Lab 09 is close to continuous deployment: a merge to main deploys to prod if dev passed. The next slides cover what makes
-      that safe.
-    </aside>
+    <p><strong>What to Say:</strong> In industry conversations, the acronym CD is often thrown around loosely, but there is a profound distinction between Continuous Delivery and Continuous Deployment.</p>
+    <p><strong>The Core Distinction:</strong> In Continuous Delivery, every commit that passes automated testing and security gates is automatically deployed to pre-production environments and kept continuously releasable. However, the final promotion to production is a deliberate business decision—often requiring a single human click or approval window.</p>
+    <p><strong>Straight Through to Production:</strong> In Continuous Deployment, there is zero human intervention—every passing commit flows straight through into production automatically, relying entirely on telemetry-driven canary analysis and automated rollbacks.</p>
+    <p><strong>Ask the Room:</strong> At United, do your team pipelines follow Continuous Delivery with an approval gate, or full Continuous Deployment?</p>
+    <p><strong>Teaching Focus:</strong> Clarify the distinction between Continuous Delivery (releasable on demand with a business gate) and Continuous Deployment (fully automated production release).</p>
+  </aside>
   </section>
 
   <section>
@@ -2438,10 +2305,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
       <p>Most enterprise and regulated organizations practice <strong>Continuous Delivery</strong>: pipelines automate all verification and staging deployments, while business owners retain control over production release timing.</p>
     </div>
     <aside class="notes">
-      Distinction for BAs, QEs, and mainframe/ops engineers:
-      Both share identical automated CI pipelines and staging deployments.
-      The sole difference is the final gate to production: a human decision click (Delivery) vs. automated straight-through processing (Deployment).
-    </aside>
+    <p><strong>What to Say:</strong> For our business analysts, quality engineers, and operations partners, here is how to synthesize the two models:</p>
+    <p><strong>Shared Foundation:</strong> Both approaches share the exact same automated CI pipeline, automated test suites, container builds, security scans, and automated staging deployments.</p>
+    <p><strong>The Enterprise Reality:</strong> The sole difference is whether the final trigger to production is pulled by a human approval or by automated pipeline logic. In high-consequence industries like aviation, Continuous Delivery is overwhelmingly the preferred enterprise pattern because it balances automated engineering rigor with business governance.</p>
+    <p><strong>Teaching Focus:</strong> Reinforce the operational equivalence of CI and staging between both models, highlighting business governance in enterprise delivery.</p>
+  </aside>
   </section>
 </section>
 
@@ -2481,15 +2349,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>The image that passed the checks in dev is the image that runs in prod. Settings that differ between environments come from the environment, as variables and Secrets (Wiggins, 2011).</p>
   <aside class="notes">
-    Humble and Farley call this "only build your binaries once". If each environment gets its own build, the thing in
-    production is not the thing you tested: a dependency may have changed between builds, or a build flag may differ.
-    Promotion means deploying the same image digest to the next environment. Only configuration changes: database address,
-    replica count, feature settings. The Twelve-Factor App calls this strict separation of config from code.
-    In Lab 09 the ci pipeline builds the image once, tags it with the commit SHA, deploys it to the flightops-dev namespace
-    and runs smoke tests. When you push a release tag, the promote pipeline checks that the image for that commit exists
-    and deploys the same image to flightops-prod. Nothing is rebuilt.
-    In the Harness platform, the same idea appears as one artifact on a service, deployed by stages that target different
-    environments.
+    <p><strong>What to Say:</strong> If there is one cardinal rule of modern continuous delivery, it is this: only build your binaries once! Jez Humble and Dave Farley made this a cornerstone of their seminal work.</p>
+    <p><strong>Why Rebuilding is Dangerous:</strong> If your pipeline rebuilds a container image for dev, rebuilds another image for staging, and builds a third image for production, you have violated artifact integrity. Even if the code didn't change, a downstream dependency might have been updated, a base image layer could differ, or a compiler flag might vary.</p>
+    <p><strong>The Promotion Standard:</strong> You must build the container image once in CI, scan it, tag it with the immutable commit SHA and digest, deploy that exact image to dev, and promote the identical image digest to production. Only configuration—such as database connection strings and replica counts—changes across environments.</p>
+    <p><strong>Teaching Focus:</strong> Instill the 'build once, promote everywhere' rule, explaining why rebuilding artifacts per environment destroys test validity.</p>
   </aside>
 </section>
 
@@ -2504,14 +2367,11 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
     <li>Harness Open Source has no approval step. In Lab 09, a person promotes a release to prod by pushing a git tag.</li>
   </ul>
   <aside class="notes">
-    Approvals are a control, and like any control they have a cost. Accelerate (Forsgren et al., 2018) found that
-    approval by an external change board was associated with lower delivery performance and no improvement in stability,
-    while peer review of each change, as in a pull request, worked well.
-    So ask what a specific approval checks. If the answer is "a person looks at the same test results the pipeline already
-    checked", automate the check instead. If the answer is "the release must wait for the end of a sales event", that is
-    information only a person has.
-    In Lab 09 the pull request review is the human check. The branch rule on main means a change reaches prod only after
-    review and a green pipeline.
+    <p><strong>What to Say:</strong> In enterprise pipelines, approvals are a necessary control, but every manual approval introduces latency into your lead time for changes.</p>
+    <p><strong>DORA Findings:</strong> The DORA research published in Accelerate revealed a striking insight: heavyweight external change approval boards (CABs) actually correlate with worse software delivery performance and higher failure rates, without improving stability. What does improve stability is peer code review via pull requests combined with automated pipeline quality gates.</p>
+    <p><strong>Strategic Approvals:</strong> Use manual approvals only where a human possesses context the pipeline cannot know—such as verifying a holiday change freeze or business marketing alignment.</p>
+    <p><strong>United Context:</strong> In the enterprise Harness platform, approvals can integrate directly with ServiceNow or Jira change tickets. In Lab 09, we simulate release approval cleanly through Git release tags.</p>
+    <p><strong>Teaching Focus:</strong> Analyze the operational cost of manual approvals, citing DORA findings on CABs, and explain how peer reviews and automated gates replace slow ticket queues.</p>
   </aside>
 </section>
 
@@ -2563,14 +2423,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>A rolling deployment needs little extra capacity but runs two versions side by side for a while. Blue-green needs two full environments and rolls back by switching traffic back (Fowler, 2010).</p>
   <aside class="notes">
-    A rolling deployment is what you did in Lab 08: replace instances a few at a time. It is the default for Kubernetes
-    Deployments and ECS services. The cost is a period where both versions serve users, so the two versions must work with
-    the same database schema and the same clients.
-    Blue-green, as Fowler described it in 2010, keeps two complete environments. You deploy to the idle one, test it, then
-    switch the router. Rollback is another switch, which takes seconds. The cost is double capacity during the release, and
-    database changes still need care because both environments use the same data.
-    The Harness platform supports rolling, blue-green and canary strategies for Kubernetes and for Amazon ECS. In the labs we
-    use the Kubernetes rolling update, because it needs no extra tooling.
+    <p><strong>What to Say:</strong> When releasing a new version to production, you have several deployment strategies, each with distinct trade-offs between infrastructure cost and release speed.</p>
+    <p><strong>Comparing Strategies:</strong> A rolling deployment, which you practiced in Lab 08, gradually replaces old pods with new ones. It requires minimal extra cluster capacity, but during the rollout, both versions run concurrently, meaning your database schema must remain backward-compatible.</p>
+    <p><strong>Blue-Green Mechanics:</strong> Blue-green deployment spins up a completely duplicate environment—green—running the new version alongside the current blue environment. You run smoke tests against green in isolation, and when satisfied, switch the router or load balancer instantly. Rollback is as fast as flipping the switch back, but it requires double the compute infrastructure during deployment.</p>
+    <p><strong>Teaching Focus:</strong> Compare rolling updates with blue-green deployments, analyzing infrastructure capacity costs, traffic transition speed, and database compatibility requirements.</p>
   </aside>
 </section>
 
@@ -2613,14 +2469,10 @@ CMD ["uvicorn", "flightstatus.main:app", "--host", "0.0.0.0", "--port", "8000"]<
   </svg>
   <p>A canary release sends a small share of real traffic to the new version and compares it with the current version before sending more (Sato, 2014). With plain Kubernetes, the split follows the Pod count.</p>
   <aside class="notes">
-    The name comes from the canary that miners took underground to detect gas. Danilo Sato described the technique on
-    martinfowler.com in 2014.
-    The canary is judged by the same measures users notice: error rate and response time, compared with the stable
-    version over the same period. If it is as good or better, the share grows, for example 10, 50, then 100 percent. If it
-    is worse, all traffic goes back to stable, and only a small share of users saw the problem.
-    With plain Kubernetes, one canary Pod next to nine stable Pods behind the same Service gives roughly a 10 percent split.
-    Precise percentages need an ingress controller, a service mesh, or a delivery tool. The Harness platform's canary
-    strategy for Kubernetes and its Continuous Verification step automate the compare-and-decide part.
+    <p><strong>What to Say:</strong> A canary release is the gold standard for high-traffic, mission-critical systems. Borrowing the metaphor from coal miners who used canaries to detect toxic gases, this technique routes a tiny slice of real production traffic—say 5 or 10 percent—to the new version.</p>
+    <p><strong>Automated Evaluation:</strong> While the canary runs, monitoring systems compare its telemetry—error rates, latency, and CPU usage—against the baseline version. If the metrics look healthy, the traffic allocation gradually expands to 25, 50, and 100 percent. If errors spike, traffic immediately snaps back to the stable version, ensuring only a tiny fraction of users experienced the defect.</p>
+    <p><strong>Enterprise Orchestration:</strong> Plain Kubernetes can approximate a canary by adjusting pod counts, but enterprise platforms like Harness Continuous Verification automate the statistical analysis and rollback decisions.</p>
+    <p><strong>Teaching Focus:</strong> Explain canary deployment architecture, statistical metric comparison against baseline workloads, and automated traffic shifting.</p>
   </aside>
 </section>
 
@@ -2637,14 +2489,11 @@ return departures_board(flights)</code></pre>
     <li>Each flag needs an owner and a removal date. Old flags multiply the code paths you must test (Hodgson, 2017).</li>
   </ul>
   <aside class="notes">
-    Deployment is a technical event: new code is running. Release is a business event: users can use a feature. Flags
-    let you do them at different times. That allows trunk-based development from Day 1, because unfinished work can be
-    merged to main while switched off.
-    Pete Hodgson's article lists four kinds of toggles: release toggles for unfinished features, experiment toggles for A/B
-    tests, ops toggles to switch off expensive features under load, and permission toggles for features some users pay for.
-    The risk is debt. Every flag doubles the paths through that code, so release flags should be removed once the feature is
-    fully on. Some teams add a test that fails when a flag is older than its removal date.
-    Harness also sells a feature flag product, separate from its CI and CD modules; we do not use it in the course.
+    <p><strong>What to Say:</strong> One of the most liberating architectural shifts in modern DevOps is decoupling code deployment from feature release.</p>
+    <p><strong>Technical vs Business Events:</strong> Deployment is a technical event: new compiled code is running on servers in production. Release is a business event: end users can see and interact with the feature. Feature flags allow you to merge code to main and deploy it to production dark—completely switched off.</p>
+    <p><strong>Safe Rollbacks &amp; Hygiene:</strong> Business teams can turn the flag on for internal testers, then for a specific airport hub, and eventually for all users without running a new deployment pipeline. If an issue appears, flipping the flag off is the fastest possible rollback.</p>
+    <p><strong>Technical Debt Warning:</strong> However, beware of toggle debt! Every active flag doubles the code paths you must test. Always assign every flag an owner and a strict deprecation date once fully rolled out.</p>
+    <p><strong>Teaching Focus:</strong> Define the separation of deployment (technical) from release (business), explore feature toggle types, and warn against long-term toggle debt.</p>
   </aside>
 </section>
 
@@ -2681,15 +2530,10 @@ return departures_board(flights)</code></pre>
   </svg>
   <p>A smoke test calls the new version the way a user would: a health check, a version check, one real request. The Lab 09 smoke test checks the version through the ingress; a "Going further" task adds the other two. A step with <code>when: failure()</code> rolls back when any earlier step fails.</p>
   <aside class="notes">
-    Verification answers the question "is the new version working for users?" right after the deployment, while the
-    previous version is still one command away.
-    The lab pipeline uses three checks in increasing order of value: the rollout finishes (all Pods ready), the health
-    and version endpoints return the expected values through the Ingress, and one real API request returns flight data.
-    In the Harness platform, the Verify step goes further: it compares metrics and logs of the new version with a baseline,
-    using sources such as Prometheus, Datadog or CloudWatch, and can trigger the stage's rollback.
-    Automated rollback depends on the earlier practices: immutable images, a previous ReplicaSet to return to, and
-    database changes that the old version can still work with. Ask the class which of these would be hardest in their own
-    systems.
+    <p><strong>What to Say:</strong> In high-performing delivery pipelines, you do not declare victory the second kubectl apply exits. You must verify that the new release is actually functioning correctly for users.</p>
+    <p><strong>Verification Stages:</strong> A robust pipeline follows three progressive verification gates: first, wait for the rollout to complete and all pods to report ready. Second, execute smoke tests against live ingress endpoints to verify health and version strings. Third, run end-to-end synthetic API queries to confirm real business workflows.</p>
+    <p><strong>Immediate Rollback:</strong> If any verification check fails, the pipeline immediately triggers an automated rollback using kubectl rollout undo, restoring the previous stable ReplicaSet before users are affected. In Lab 09, you will configure a rollback step using when: failure() to automate this exact safety net.</p>
+    <p><strong>Teaching Focus:</strong> Outline the three-tier verification hierarchy (rollout status, smoke healthchecks, synthetic transactions) and automated failure rollback triggers.</p>
   </aside>
 </section>
 
@@ -2707,13 +2551,11 @@ return departures_board(flights)</code></pre>
     <tr><td>Promote pipeline started by a release tag</td><td>Approval stage, then a Deploy stage for the prod environment</td></tr>
   </table>
   <aside class="notes">
-    Use this table to connect the lab to the tool United uses. Each row is something the lab does by hand in a step, and
-    the platform does with a dedicated feature.
-    The biggest difference is the Deploy stage. In the platform you do not write kubectl commands. You define a service
-    (the manifests and the artifact), an environment (dev or prod) and an infrastructure definition (which cluster and
-    namespace). A delegate running inside United's network holds the cluster access, so no kubeconfig is stored in the
-    pipeline. The platform also records which version runs in which environment, and offers rollback as a stage action.
-    After the course, open one of your team's pipelines in the Harness platform and find each row of this table in it.
+    <p><strong>What to Say:</strong> This mapping table bridges the work you do in our open-source lab environment with the enterprise Harness platform used across United Airlines.</p>
+    <p><strong>Platform Capabilities:</strong> In Lab 09, you write shell commands in .harness/ci.yaml to invoke pytest, Trivy, and kubectl. In the commercial Harness platform, these correspond to managed stages: Security Testing Orchestration (STO) replaces manual Trivy scripts, and Harness CD Deploy Stages replace raw kubectl commands.</p>
+    <p><strong>Harness Architecture:</strong> In enterprise Harness, you define Services, Environments, and Infrastructure Definitions. An internal Harness Delegate running inside United's VPC executes deployments securely without needing cluster credentials stored in the pipeline.</p>
+    <p><strong>Takeaway:</strong> Every concept you build by hand today maps directly to a first-class feature in United's production Harness platform.</p>
+    <p><strong>Teaching Focus:</strong> Map Lab 09 open-source steps directly to enterprise Harness platform features (STO, CD stages, Continuous Verification, Delegates).</p>
   </aside>
 </section>
 
@@ -2730,14 +2572,11 @@ return departures_board(flights)</code></pre>
   </table>
   <p>Forsgren et al. (2018) found that teams with high delivery speed also had high stability. The same practices improved both.</p>
   <aside class="notes">
-    We started the course on Day 1 with these four measures. Now each one maps to things you built.
-    Two of them measure speed: how often you deploy and how long a commit takes to reach production. Two measure
-    stability: how often a deployment causes a failure and how long it takes to recover. The research behind Accelerate
-    found no trade-off between the two groups: the best performers were fast and stable at the same time, because small,
-    automated, reversible changes are both quicker and safer.
-    The 2024 DORA report also tracks a rework rate, the share of deployments that were unplanned fixes.
-    Ask the class to pick one metric their team could measure next week, and which source they would use: Harness deployment
-    history, Git, or incident records.
+    <p><strong>What to Say:</strong> On Day 1, we introduced the four DORA metrics. Now look at how every single practice you learned across the past three days moves the needle on these industry benchmarks.</p>
+    <p><strong>Speed &amp; Stability:</strong> Deployment Frequency improves through small PRs and automated promotion pipelines. Lead Time for Changes shrinks by eliminating manual handoffs and speeding up CI tests. Change Failure Rate drops because of shift-left linting, container scanning, and readiness probes. And Time to Restore Service plummets thanks to immutable image digests and automated rollbacks.</p>
+    <p><strong>DORA Insight:</strong> The core discovery of Accelerate is that speed and stability reinforce each other—elite teams do not trade safety for speed; they use automated safety to move faster.</p>
+    <p><strong>Ask the Room:</strong> Which of these four metrics does your team currently measure, and which one represents your biggest opportunity for improvement?</p>
+    <p><strong>Teaching Focus:</strong> Connect the complete 3-day curriculum back to the four DORA metrics, reinforcing that automation drives both speed and stability.</p>
   </aside>
 </section>
 
@@ -2750,10 +2589,9 @@ return departures_board(flights)</code></pre>
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
-    Instructor source and answer key: quizzes/day3/kahoot-2.md. Prepare the game before class or read the questions
-    and options aloud. Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
-    Debrief artifact promotion, delivery versus deployment, approvals and canary exposure.
-    Keep the complete activity within five minutes; do not consume the following lab's budget.
+    <p><strong>What to Say:</strong> Time for our final Kahoot checkpoint of the course: Section Quiz 2 on Continuous Delivery. Open your browser or app and enter the PIN shown on screen.</p>
+    <p><strong>Quiz Focus:</strong> Twelve questions testing artifact promotion, the distinction between delivery and deployment, canary exposure thresholds, and automated rollback triggers. Let's crown our Day 3 quiz champion!</p>
+    <p><strong>Teaching Focus:</strong> Facilitate the 5-minute retrieval quiz and debrief artifact promotion, canary analysis, and automated rollback strategies.</p>
   </aside>
 </section>
 
@@ -2765,8 +2603,9 @@ return departures_board(flights)</code></pre>
   <h1>Lab 09: End-to-End Delivery Pipeline</h1>
   <h2>Day 3 &middot; 60&ndash;75 minutes</h2>
   <aside class="notes">
-    Hands-on lab: Lab 09 — End-to-End Delivery Pipeline.
-    Theoretical target: 60–75 minutes.
+    <p><strong>What to Say:</strong> We have arrived at the grand capstone of the course: Lab 09, End-to-End Delivery Pipeline. Target duration is 60 to 75 minutes.</p>
+    <p><strong>The Capstone Mission:</strong> This lab synthesizes every skill you have acquired over the past three days. You will extend your Harness pipeline to build and scan container images, deploy automatically to dev on merged pull requests, execute ingress smoke tests, trigger automated rollbacks on failure, and promote proven images to production using Git release tags.</p>
+    <p><strong>Teaching Focus:</strong> Launch the capstone lab, set the 60-75 minute time allocation, and frame the complete end-to-end engineering milestone.</p>
   </aside>
 </section>
 
@@ -2781,15 +2620,12 @@ return departures_board(flights)</code></pre>
     <li>Compare each step with its Harness platform feature.</li>
   </ul>
   <aside class="notes">
-    This lab uses everything from the course: the repository, branch rule and pull request flow from Day 1, the
-    namespaces and the deploy ServiceAccount from Day 2, and the image and manifests from this morning.
-    Expect the first run to take several minutes, mostly for the image build and the scan database download. Later runs
-    are faster.
-    The broken release is the most important part. Students should see the deploy step fail when the new Pods never become
-    ready, the rollback step run, and the app in the browser still showing the previous version.
-    Anyone who finishes early can try a "Going further" task, such as a tag rule that limits who may create release tags,
-    or a smoke test for prod that reads the departures board.
-    
+    <p><strong>What to Say:</strong> Please open labs/09-end-to-end-delivery.md in your lab VM browser. Before you begin assembling the pipeline, let me highlight three critical implementation details:</p>
+    <p><strong>1. Initial Build Duration:</strong> In Part 1, your first pipeline execution will take several minutes because Docker must build the image from scratch and Trivy must download the vulnerability database. Subsequent runs will be significantly faster thanks to caching.</p>
+    <p><strong>2. Harness YAML Indentation &amp; Secret Syntax:</strong> Be extremely careful when editing .harness/ci.yaml. Pay close attention to YAML indentation, and verify that your secret expression matches &lt;+secrets.getValue("dev_kubeconfig")&gt; exactly as configured in Lab 06.</p>
+    <p><strong>3. The Broken Release Exercise:</strong> In Part 4, you will intentionally merge a broken release. Watch closely: the deployment step will fail when pods fail readiness checks, the rollback step with when: failure() will execute immediately, and your browser will prove that the application stayed online serving the previous stable version!</p>
+    <p><strong>Classroom Checkpoint:</strong> Drop 'Lab 09 Complete' into chat once you have observed your automated rollback and successfully promoted version 1.2.0 to production.</p>
+    <p><strong>Teaching Focus:</strong> Preempt key stumbling blocks in Lab 09: initial build runtime, Harness YAML secret syntax, and verifying automated rollback execution.</p>
   </aside>
 </section>
 
@@ -2855,7 +2691,9 @@ return departures_board(flights)</code></pre>
     </div>
   </div>
   <aside class="notes">
-    Debrief Day 3 in four modules: packaging applications into secure container images, scanning dependencies and building SBOMs, orchestrating resilient Kubernetes deployments, and tying everything into an automated end-to-end continuous delivery pipeline with verification gates and rollback.
+    <p><strong>What to Say:</strong> What an extraordinary day of engineering accomplishments. Look back at the four massive modules you completed today: packaging secure Python containers with multi-stage builds and non-root execution, establishing software supply chain security with Trivy scans and CycloneDX SBOMs, orchestrating resilient Kubernetes workloads with self-healing Deployments and Ingress networking, and uniting everything into an automated continuous delivery pipeline with verification gates and rollback safety.</p>
+    <p><strong>Milestone:</strong> Every one of you has taken an application all the way from raw source code into an automated, production-grade cloud delivery lifecycle.</p>
+    <p><strong>Teaching Focus:</strong> Summarize Day 3's four core pillars, celebrating learner accomplishments in container packaging, orchestration, and continuous delivery.</p>
   </aside>
 </section>
 
@@ -2907,11 +2745,10 @@ return departures_board(flights)</code></pre>
     </div>
   </div>
   <aside class="notes">
-    Summarise the course as one path. On Day 1 a change became a pull request with automated checks. On Day 2 the
-    environments became code with a reviewed plan and a least-privilege identity. On Day 3 the application became an
-    immutable image, deployed by a pipeline with verification and rollback.
-    Use the following transfer-plan sequence for a concrete next action rather than adding a second reflection here.
-    Leave time for questions about United's own Harness pipelines, since many participants will go back to them on Monday.
+    <p><strong>What to Say:</strong> Take a step back and look at the entire three-day journey you have traveled. On Day 1, you established trunk-based development, automated test pyramids, and quality gates in Harness CI. On Day 2, you replaced snowflake server administration with declarative Terraform infrastructure, remote state locking, and least-privilege credentials. Today on Day 3, you packaged those applications into immutable containers, orchestrated them on Kubernetes, and automated continuous delivery.</p>
+    <p><strong>Enterprise Value:</strong> These are not isolated academic exercises—they represent the exact modern DevOps delivery architecture that powers resilient enterprise platforms at United Airlines.</p>
+    <p><strong>Ask the Room:</strong> Looking across all three days, which lab or architectural pattern was the biggest revelation for you personally?</p>
+    <p><strong>Teaching Focus:</strong> Connect the complete 3-day course trajectory into a single coherent delivery pipeline, celebrating student transformation.</p>
   </aside>
 </section>
 
@@ -2926,9 +2763,10 @@ return departures_board(flights)</code></pre>
     <li>Sharing in chat or aloud is optional; keep production details private.</li>
   </ul>
   <aside class="notes">
-    Allow two and a half minutes here and one and a half for feedback. Give quiet writing time, then collect
-    one volunteered or anonymized plan. Ask for a missing evidence or success signal rather than judging ambition.
-    Use the next slide to validate the plan and let everyone revise theirs. This is not a satisfaction poll.
+    <p><strong>What to Say:</strong> Let's take two and a half minutes for a personal implementation exercise. Knowledge only creates impact when translated into concrete workplace habits.</p>
+    <p><strong>Writing Prompt:</strong> Complete this statement privately in your notes: When a specific delivery situation occurs in my team, I will apply one specific practice, using observable artifact or evidence. I will know it worked when I observe a measurable success result.</p>
+    <p><strong>Facilitation:</strong> Take 90 seconds of quiet reflection to write your commitment down. Focus on naming a concrete trigger and an observable success signal. Sharing in chat or over voice is completely optional.</p>
+    <p><strong>Teaching Focus:</strong> Facilitate a structured personal transfer exercise using situation-action-evidence-result prompts to bridge course learning to workplace practice.</p>
   </aside>
 </section>
 
@@ -2943,14 +2781,10 @@ return departures_board(flights)</code></pre>
     <li>Please fill in the course survey. The next version of this course uses your answers.</li>
   </ul>
   <aside class="notes">
-    Debrief for one and a half minutes. Identify the example's situation, action, endpoint evidence and expected commit.
-    Help one volunteered plan acquire a verifiable signal; ask everyone to revise their own plan.
-    Production changes still require team approval and a safe environment. A plan is not permission to deploy.
-    The labs are written to run on a blank Ubuntu 24.04 machine, so participants can repeat them later on any VM with the
-    same specification. The catch-up script makes it possible to start at any lab.
-    The most useful next step is to apply the mapping table to a real pipeline. It turns the course concepts into questions
-    about their own work: where are our tests, where is the scan, how do we roll back?
-    Thank the group, give them the survey link from Pluralsight, and stay on the call for questions.
+    <p><strong>What to Say:</strong> Here is how to keep your momentum going as you head back to your engineering teams next week. First, keep your course repository and VM notes—every single lab in this course is designed to run cleanly on a fresh Ubuntu 24.04 VM, and our catch-up scripts allow you to replay any lab at any time.</p>
+    <p><strong>Immediate Action:</strong> Open one of your team's live pipelines in the Harness platform on Monday and trace each step from our Lab 09 mapping table: where are the tests, where are the scans, how do we handle approvals, and how do we roll back?</p>
+    <p><strong>Survey:</strong> Please take two minutes right now to complete the Pluralsight course evaluation survey. Your candid feedback directly shapes future iterations of this course.</p>
+    <p><strong>Teaching Focus:</strong> Provide actionable next steps for Monday morning, encourage pipeline exploration at United, and collect participant course evaluations.</p>
   </aside>
 </section>
 
@@ -2979,11 +2813,8 @@ return departures_board(flights)</code></pre>
     </ul>
   </div>
   <aside class="notes">
-    These are the sources behind today's lectures. The three most useful for further reading are the Borg, Omega and
-    Kubernetes article, NIST SP 800-190, and the martinfowler.com articles on blue-green, canary and feature toggles.
-    All of them are free to read online except the two books. For the AWS side, the Amazon ECS Developer Guide chapter on
-    task definitions is the best companion to the Lab 07 mapping exercise. The Kubernetes documentation pages on probes and
-    on rolling updates match the Lab 08 exercises one to one.
+    <p><strong>What to Say:</strong> Here are the foundational engineering sources and literature behind today's lectures. If you want to dive deeper into container orchestration, the Google Borg and Omega ACM Queue paper is essential reading. For continuous delivery and organizational performance, Accelerate by Forsgren, Humble, and Kim is the definitive scientific study. And for cloud deployment patterns, the Amazon ECS Developer Guide and Kubernetes official documentation on rolling updates match our lab workflows one to one.</p>
+    <p><strong>Teaching Focus:</strong> Guide learners toward authoritative industry literature (ACM Queue, Accelerate, NIST, AWS, and Kubernetes documentation) for continued professional growth.</p>
   </aside>
 </section>
 
@@ -3000,8 +2831,8 @@ return departures_board(flights)</code></pre>
     <span class="connect-hint">Point your phone camera at the QR code</span>
   </div>
   <aside class="notes">
-    Leave this slide visible at wrap-up. The written link is an alternative to scanning the QR code.
-    This closing contact slide has zero allocated teaching time.
+    <p><strong>What to Say:</strong> I want to sincerely thank each and every one of you for your dedication, deep technical curiosity, and collaborative engagement over these past three days. Please connect with me on LinkedIn using the QR code on screen or the link in the deck—I would love to follow your DevOps journeys, celebrate your team pipeline wins, and remain a resource for you as you apply these practices across United Airlines.</p>
+    <p><strong>Teaching Focus:</strong> Conclude the course with warmth and gratitude, providing LinkedIn contact information for ongoing professional mentorship.</p>
   </aside>
 </section>
 
@@ -3010,8 +2841,8 @@ return departures_board(flights)</code></pre>
   <h1>Thank You</h1>
   <h2>Intermediate DevOps &middot; Day 3: Containers, Kubernetes and Continuous Delivery</h2>
   <aside class="notes">
-    Thank you and wrap-up.
-    This closing slide has zero allocated teaching time.
+    <p><strong>What to Say:</strong> Thank you everyone for an exceptional three days of Intermediate DevOps. Have safe travels, enjoy putting these continuous delivery practices into production, and keep building resilient systems!</p>
+    <p><strong>Teaching Focus:</strong> Final session wrap-up and dismissal.</p>
   </aside>
 </section>
 
