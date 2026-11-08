@@ -46,7 +46,7 @@ class TimingTests(unittest.TestCase):
         )
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            slides = root / "devops-demos/slides"
+            slides = root / "slides"
             slides.mkdir(parents=True)
             for day in range(1, 4):
                 (slides / f"day{day}.html").write_text(html)

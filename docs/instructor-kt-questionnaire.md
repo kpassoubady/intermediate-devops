@@ -4,13 +4,13 @@
 **Course:** Intermediate DevOps (3-Day Instructor-Led Training)  
 **Stack:** Harness Open Source, Docker, k3d (Kubernetes), Terraform, Python (`flight-status` API), Trivy  
 **Context:** Handoff from previous instructor to current instructor (`intermediate-devops`)  
-**Associated Materials:** `devops-demos/slides/` (Reveal.js Day 1–3), `devops-demos/labs/` (Labs 01–09), `docs/speaker-notes-guide.md`
+**Associated Materials:** `slides/` (Reveal.js Day 1–3), `labs/` in the companion repo (Labs 01–09), `docs/speaker-notes-guide.md`
 
 ---
 
 ## Executive Summary & Purpose
 
-This questionnaire is designed for the Knowledge Transfer (KT) session with the outgoing instructor. The slides have been revised and visually modernized for upcoming delivery, while the nine underlying labs remain identical to preserve compatibility with existing infrastructure and automated testing (`scripts/catch-up.sh` and `tests/run-lab.py`).
+This questionnaire is designed for the Knowledge Transfer (KT) session with the outgoing instructor. The slides have been revised and visually modernized for upcoming delivery, while the nine underlying labs remain identical to preserve compatibility with existing infrastructure and automated testing (`scripts/catch-up.sh` and `tests/run-lab.py` in the companion repo).
 
 The goals of this KT session are:
 1. Validate **actual classroom timing** vs theoretical allocations for all 9 labs.
@@ -33,7 +33,7 @@ The goals of this KT session are:
   * If the schedule falls behind on Day 1 or Day 2, what content or optional exercises did you trim first?
 
 ### 1.2 "Copy-and-Paste" Lab Mechanics & Feedback (Question 2)
-*The lab guides (`devops-demos/labs/01-09`) are highly prescriptive, featuring pre-formatted shell commands and UI click paths with copy buttons.*
+*The lab guides (`labs/01`–`09` in the companion repo) are highly prescriptive, featuring pre-formatted shell commands and UI click paths with copy buttons.*
 
 * **Student Feedback:**
   * What direct feedback did students give about the "copy-paste" nature of the labs?
@@ -126,7 +126,7 @@ Use this section to walk through each lab individually during the KT meeting.
 ## Section 3: Lab Infrastructure, Tooling & Failure Recovery
 
 ### 3.1 The Catch-Up Script (`scripts/catch-up.sh`)
-*The course provides an automated catch-up script powered by `tests/run-lab.py` to replay prior labs.*
+*The companion repo provides an automated catch-up script powered by `tests/run-lab.py` to replay prior labs.*
 
 * How often was `catch-up.sh` needed in typical deliveries? (e.g., 1–2 students per day, or widespread)?
 * How long does `catch-up.sh 04` or `catch-up.sh 09` take to run on a student machine?
@@ -164,7 +164,7 @@ Use this section to walk through each lab individually during the KT meeting.
 ## Section 5: Pedagogy, Slides & Classroom Engagement Strategies
 
 ### 5.1 Slide Delivery & Speaker Notes
-*The HTML decks in `devops-demos/slides/day1.html`, `day2.html`, and `day3.html` contain extensive Reveal.js notes in `<aside class="notes">`.*
+*The HTML decks in `slides/day1.html`, `day2.html`, and `day3.html` contain extensive Reveal.js notes in `<aside class="notes">`.*
 
 * How closely did you follow the speaker notes during lectures?
 * Which specific lecture topics generated the most questions or debate? (e.g., Git trunk-based development vs GitFlow, Kubernetes probes, OIDC secret-zero)?

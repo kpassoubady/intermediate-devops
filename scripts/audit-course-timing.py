@@ -54,7 +54,7 @@ def classify(slide):
 def audit():
     results = []
     for day in range(1, 4):
-        path = ROOT / f"devops-demos/slides/day{day}.html"
+        path = ROOT / f"slides/day{day}.html"
         rows = []
         for number, slide in enumerate(re.findall(r"<section\b.*?</section>", path.read_text(), re.S), 1):
             title, kind, minutes, low, high = classify(slide)
