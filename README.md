@@ -6,9 +6,9 @@ This repo holds the catalog, outline, slide sources, quizzes, and research notes
 
 ## Contents
 
-- `devops-demos/catalog/`: course catalog and outline (`Intermediate-DevOps-Outline.md`).
-- `devops-demos/slides/`: Reveal.js decks for Day 1 to Day 3 (`day1.html` to `day3.html`).
-- `devops-demos/quizzes/`: quizzes for each day.
+- `catalog/`: course catalog and outline (`Intermediate-DevOps-Outline.md`).
+- `slides/`: Reveal.js decks for Day 1 to Day 3 (`day1.html` to `day3.html`).
+- `quizzes/`: quizzes for each day.
 - `docs/`: instructor guides.
 - `llm-context/`: context for LLM agents.
 - `scripts/`: build and export helpers.

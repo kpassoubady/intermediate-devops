@@ -1,6 +1,6 @@
 # Viewing speaker notes during a lecture
 
-This instructor-only guide covers the Day 1 HTML deck at [`devops-demos/slides/day1.html`](../devops-demos/slides/day1.html). Use the HTML presentation rather than an exported PDF or PowerPoint file.
+This instructor-only guide covers the Day 1 HTML deck at [`slides/day1.html`](../slides/day1.html). Use the HTML presentation rather than an exported PDF or PowerPoint file.
 
 The deck already uses Reveal.js 5.2.1, includes notes in `<aside class="notes">` elements, and enables the `RevealNotes` plugin. No changes to the deck are required. Speaker view opens in a separate window with the current slide, an upcoming-slide preview, notes, a clock, and a presentation timer.
 
@@ -9,7 +9,7 @@ The deck already uses Reveal.js 5.2.1, includes notes in `<aside class="notes">`
 1. Open Terminal and run the following command. Python 3 must be installed.
 
    ```bash
-   python3 -m http.server 8000 --bind 127.0.0.1 --directory "/Users/kangs/code/github/intermediate-devops/devops-demos/slides"
+   python3 -m http.server 8000 --bind 127.0.0.1 --directory "/Users/kangs/code/github/intermediate-devops/slides"
    ```
 
 2. Leave that Terminal window running. Open this address in Chrome, Edge, or Firefox:
