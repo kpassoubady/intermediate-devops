@@ -876,12 +876,10 @@
   <div class="t-sub">United Airlines · Pluralsight instructor-led training</div>
   <div class="t-meta">Kangeyan Passoubady<br>9-11 November 2026</div>
   <aside class="notes">
-    Welcome everyone. Introduce yourself and your background in DevOps and in teaching.
-    Explain that this is a three-day, hands-on course. 
-    Today is about continuous integration: how code moves from a developer's machine into a shared main branch, and how automated
-    pipelines check every change. By the end of the day every participant will have their own Harness Open Source installation,
-    a repository with a small Python service, and a pipeline that tests every pull request.
-    Use the learner introduction and experience waterfalls that follow to learn about the group.
+    <p><strong>What to Say:</strong> Welcome everyone to Intermediate DevOps. Rather than listening to passive lectures, you will spend the next three days building a complete, production-grade delivery pipeline for a real flight-status service from scratch.</p>
+    <p><strong>The Day 1 Milestone:</strong> Today is all about Continuous Integration. By the end of today, every one of you will have a self-hosted Harness platform running on your own VM, a version-controlled repository, and an automated CI pipeline that tests code changes and blocks broken pull requests from merging into main.</p>
+    <p><strong>Next Step:</strong> Transition directly to the prerequisites slide to address any anxiety about prior experience.</p>
+    <p><strong>Teaching Focus:</strong> Welcome learners, set an engineer-to-engineer workshop tone, and establish the 3-day project arc.</p>
   </aside>
 </section>
 
@@ -896,9 +894,10 @@
   </ul>
   <p>Recommended preparation: Pluralsight DevOps Foundations Skill IQ and about 30 minutes of its recommended learning.</p>
   <aside class="notes">
-    Allow one minute. These prerequisites come from the course outline. Check for access or experience gaps privately
-    during the first lab. Docker, Harness Open Source, Terraform and Kubernetes are installed during the labs;
-    do not ask learners to have them installed before class.
+    <p><strong>What to Say:</strong> Address the room directly: 'We have a mix of backgrounds today—software engineers, quality engineers, business analysts, and colleagues transitioning from mainframe or sysadmin roles. You do not need to be a Linux kernel expert or a seasoned cloud architect to thrive in this course.'</p>
+    <p><strong>Key Reassurance:</strong> Everything we touch—Docker, Harness, Terraform, and Kubernetes—will be installed cleanly together in Lab 01. Nobody was expected to pre-install software or bring their own cloud accounts.</p>
+    <p><strong>Timing:</strong> Spend under 1 minute here and jump straight into the chat waterfall.</p>
+    <p><strong>Teaching Focus:</strong> Reassure learners across diverse roles (developers, QEs, BAs, ops/mainframe) and defuse tool anxiety.</p>
   </aside>
 </section>
 
@@ -914,9 +913,9 @@
   <p>Type without sending. Send together after the countdown: 3... 2... 1... send.</p>
   <p>You may speak when invited, keep a private note, or pass. Share only what feels comfortable.</p>
   <aside class="notes">
-    Allow two minutes. Give everyone quiet drafting time before the countdown. Read a few responses and acknowledge
-    the mix of roles without ranking experience or requiring anyone to disclose personal information.
-    Invite spoken contributions without requiring them.
+    <p><strong>Facilitation Mechanic:</strong> Announce the waterfall rules aloud: 'In the meeting chat, draft your name, your location or time zone, your current role, and how long you've been in IT or at United. But please hold off on hitting Enter!'</p>
+    <p><strong>Why Waterfalls Work:</strong> Giving 30 seconds of quiet drafting prevents dominant voices from setting the tone and ensures quieter participants are represented equally.</p>
+    <p><strong>Debrief (30 seconds):</strong> Count down '3... 2... 1... send!' Scan the incoming flood and call out 3 distinct functions: for instance, note the balance between application developers, QA/test automation engineers, and operational staff, noting that DevOps exists precisely to unify these disciplines.</p>
   </aside>
 </section>
 
@@ -943,9 +942,9 @@
   </div>
   <blockquote><p><strong>60 seconds:</strong> Share in chat, speak when invited, keep a private note, or pass.</p></blockquote>
   <aside class="notes">
-    Allow one minute. Invite each learner to choose one prompt, not all three. Sharing is optional.
-    Do not call on anyone who chooses a private note or passes, or ask for personal details.
-    Keep this within the welcome and course-overview time; do not reduce lab time.
+    <p><strong>What to Say:</strong> Let's take 60 seconds to step away from code. Pick just ONE prompt—a bucket list item, a memorable trip, or a recent moment that made you smile—and drop a quick phrase into chat, or feel free to come off mute.</p>
+    <p><strong>Pacing Rule:</strong> Keep this strictly to 60 seconds total. Acknowledge 2 or 3 fun travel or hobby notes with warmth, and transition immediately into technical baseline discovery.</p>
+    <p><strong>Teaching Focus:</strong> Brief human connection before diving into deep technical architectures.</p>
   </aside>
 </section>
 
@@ -963,9 +962,11 @@
     <p>Speaking when invited, a private note, and passing are equally welcome.</p>
     <p class="small muted">Press &darr; for supporting detail: What We Learned (key points)</p>
     <aside class="notes">
-      Allow two minutes. Do not assume everyone has used these tools. Ask for a starting point, not a proficiency score.
-      Read the responses before moving directly to the synthesis. Record questions that need a later lab or discussion.
-    </aside>
+    <p><strong>What to Say:</strong> Let's gauge where everyone is starting from. In chat, draft: your current familiarity with Git, pipelines, Docker, or Kubernetes; what your primary daily focus is; and one real delivery headache or question you want answered this week. Again, don't hit send until the countdown.</p>
+    <p><strong>What to Watch For:</strong> Look for clues like 'I've only clicked merge in GitHub', 'We use Jenkins, Harness is new', 'I write manual test cases and want to understand automated gates', or 'I work in ops and debug broken container rollouts'.</p>
+    <p><strong>Action:</strong> Run countdown 3-2-1, skim the answers, and acknowledge key patterns aloud.</p>
+    <p><strong>Teaching Focus:</strong> Uncover the team's actual pain points, tooling exposure, and real-world blockers.</p>
+  </aside>
   </section>
 
   <section class="chat-waterfall-answer">
@@ -980,10 +981,10 @@
     </ul>
     <p>Compare these themes with your response. Note one lab or topic to revisit.</p>
     <aside class="notes">
-      Allow one minute. Connect two or three actual responses to the themes above; do not claim these themes summarize
-      the group before reading its answers. Name questions outside the course scope and offer a follow-up route.
-      The five intro slides, including the personal icebreaker, have a seven-minute budget.
-    </aside>
+    <p><strong>What to Say:</strong> Connect specific chat messages to the syllabus: 'I see questions about debugging flaky pipelines, moving from manual sign-offs to branch rules, and understanding container rollbacks. That mirrors our exact progression: today we lock down code integration and automated testing; tomorrow we tackle environments and secrets; on Day 3 we package containers and automate Kubernetes rollbacks.'</p>
+    <p><strong>Scope Clarification:</strong> If anyone asked about production AWS IAM policies or authoring complex Helm charts, note gently that those are handled by dedicated platform teams, but our labs give you the core building blocks to understand their systems.</p>
+    <p><strong>Teaching Focus:</strong> Map the cohort's actual chat input directly into the 3-day trajectory.</p>
+  </aside>
   </section>
 </section>
 
@@ -997,11 +998,9 @@
     <li>Ask questions at any time, by voice or in the chat.</li>
   </ul>
   <aside class="notes">
-    Cover the logistics.   The exact times are on the schedule slide that follows.
-    The course follows Pluralsight's ratio of roughly thirty percent lecture and seventy percent hands-on work.
-    The lectures focus on concepts and the reasons behind the practices. The labs apply those concepts with real tools.
-    Encourage questions at any point. If a question needs a longer answer, park it and come back during a lab.
-    Mention that during labs you can look at a participant's problem together if they share their screen.
+    <p><strong>What to Say:</strong> This is not an all-day slide lecture. Our structure is roughly 30% interactive lecture and 70% hands-on lab time. Every single slide is designed specifically to give you the mental model you need to succeed in the lab that immediately follows.</p>
+    <p><strong>Culture of Questions:</strong> In DevOps, there are no silly questions—only cryptic error messages. If you hit a strange exit code, an unexpected merge conflict, or a concept that doesn't click, interrupt me immediately in chat or on mic. During lab time, we can screen-share and troubleshoot together as a group.</p>
+    <p><strong>Teaching Focus:</strong> Establish the adult learning contract and psychological safety.</p>
   </aside>
 </section>
 
@@ -1016,12 +1015,9 @@
   </table>
   <p>The labs build on each other. The application and pipelines from Day 1 are used again on Days 2 and 3.</p>
   <aside class="notes">
-    Walk through the three days. Day one builds a continuous integration pipeline for a small airline flight-status service.
-    Day two provisions the environments for that service with Terraform on a local Kubernetes cluster, runs Terraform from a pipeline,
-    and covers how to handle credentials. Day three packages the service as a container, deploys it to Kubernetes,
-    and finishes with one pipeline that tests, builds, scans, deploys and promotes the service, with automatic rollback.
-    The labs are cumulative. If someone misses part of a day, the catch-up script described in two slides restores their machine
-    to the start of any lab.
+    <p><strong>What to Say:</strong> Think of the three days as the full lifecycle of a modern microservice: Day 1 answers "How do we prove our code isn't broken before it merges?" Day 2 answers "Where does the infrastructure live, and how do we protect credentials in code and pipelines?" Day 3 answers "How do we containerize the service, deploy it to a cluster without downtime, and automatically roll back if health probes fail?"</p>
+    <p><strong>Cumulative Continuity:</strong> Emphasize that we work on the exact same flight-status codebase all three days. If someone encounters an environment issue or misses a lab, an automated catch-up script is available to restore their VM to the exact starting state of any lab.</p>
+    <p><strong>Teaching Focus:</strong> Explain the cumulative narrative of the flight-status application.</p>
   </aside>
 </section>
 
@@ -1092,11 +1088,9 @@
     </div>
   </div>
   <aside class="notes">
-    Show the plan for the day. 
-    Lab 01 sets up the machine and Harness Open Source. Lab 02 writes the first pipeline. Lab 03 adds branch protection,
-    pull requests, integration tests with a real database, and a coverage threshold.
-    
-    The labs are the main part of the course, and people learn most when they have enough time to finish them and read the explanations.
+    <p><strong>What to Say:</strong> Today moves in three distinct waves: Before lunch, we explore DevOps foundations, version control hygiene, and install Harness Open Source on our machines in Lab 01. Immediately after lunch, we learn pipeline syntax and build our first CI automation in Lab 02. In the late afternoon, we introduce test automation, coverage thresholds, and branch rules in Lab 03.</p>
+    <p><strong>Energy Check:</strong> Remind learners that our lectures are concise launchpads (15–20 minutes) specifically targeted to prepare them for hands-on execution.</p>
+    <p><strong>Teaching Focus:</strong> Outline today's major delivery milestones and set realistic expectations.</p>
   </aside>
 </section>
 
@@ -1104,19 +1098,17 @@
   <span class="slide-logo" role="img" aria-label="Kavin School"></span>
   <h2>How the labs work</h2>
   <ul>
-    <li>The labs are Markdown files in the course repository: <code>https://github.com/kpassoubady/intermediate-devops</code>.</li>
+    <li>The labs are Markdown files in the course repository: <code>https://github.com/kpassoubady/intermediate-devops-companion</code>.</li>
     <li>Each step explains why before it shows a command. Read the explanation before you run anything.</li>
     <li>Checkpoints show what you should see. Troubleshooting notes cover the common problems.</li>
     <li>"Going further" tasks are optional, for when you finish early.</li>
     <li>If you fall behind, <code>scripts/catch-up.sh 04</code> brings your machine to the start of Lab 04.</li>
   </ul>
   <aside class="notes">
-    Explain the lab format. Every lab has goals at the top, a reason before each step, files that participants write themselves with
-    an explanation of each part, checkpoints that say what the output should look like, and a troubleshooting section.
-    Encourage participants not to paste commands without reading. The previous version of this course was criticised as copy-and-paste,
-    and the labs are written so that the explanations matter.
-    The catch-up script takes a lab number. It runs the earlier labs automatically, so a participant who missed a lab can still start the next one.
-    It takes a few minutes, so run it at the start of a lecture rather than at the start of a lab.
+    <p><strong>What to Say:</strong> Warn the room candidly: 'The biggest trap in technical training is treating labs as a speed-run of clicking the copy button and pressing Ctrl+Shift+V in the terminal. If you do that, you'll reach the end in 10 minutes and retain nothing.'</p>
+    <p><strong>How to Approach Each Step:</strong> Every single step has a brief explanation before the command block. Read the rationale first, run the command, and pause at the checkpoint to inspect the real terminal output. Pay attention to error codes, container IDs, and git hashes.</p>
+    <p><strong>The Catch-Up Safety Net:</strong> If you run into an intractable typo or step away for a call, don't panic. The companion repo includes <code>scripts/catch-up.sh &lt;lab-number&gt;</code>, which uses an automated runner to replay all prior labs and leave your machine in the exact expected state.</p>
+    <p><strong>Teaching Focus:</strong> Actively break the 'copy-paste autopilot' habit that leads to disengagement.</p>
   </aside>
 </section>
 
@@ -1134,13 +1126,10 @@
   </table>
   <p class="small">AWS: Amazon Web Services. EKS: Elastic Kubernetes Service. CDK: Cloud Development Kit. TSS: Thycotic One and Secret Server.</p>
   <aside class="notes">
-    The lab machines start empty on purpose. Installing the tools shows what each one is for and what it depends on.
-    No AWS account or Harness account is needed. Each tool in the lab stands in for a service used at United.
-    Harness Open Source is the free, self-hosted product from Harness. It has repositories, pull requests and pipelines,
-    but not the deployment features of the Harness platform. Where the platform has a feature, the labs do the same job with a script,
-    and the lectures show which platform feature replaces the script.
-    k3d runs a real Kubernetes cluster inside Docker containers. The Kubernetes concepts are the same as on Amazon EKS.
-    Ask the class which of these United tools they use today.
+    <p><strong>What to Say:</strong> Explain the architectural rationale: 'Why are we giving each of you an isolated Ubuntu VM with local containers rather than logging into United's AWS console or corporate Harness tenant? Because in enterprise cloud environments, strict IAM policies, network security groups, and shared cluster noise hide how the tools actually talk to each other.'</p>
+    <p><strong>Enterprise Equivalence:</strong> By running Harness Open Source, local k3d, and Terraform locally, you get complete root visibility to inspect every network packet, mount, and daemon socket. The concepts are identical: k3d runs upstream Kubernetes exactly like Amazon EKS; Harness Open Source uses the exact same container execution engine as Harness Cloud; and Terraform parses the exact same HCL provider syntax as United's cloud pipelines.</p>
+    <p><strong>Ask the Room:</strong> 'Who here currently interacts with Harness at United? Who deploys to EKS or ECS?' Use their answers to tailor later examples.</p>
+    <p><strong>Teaching Focus:</strong> Bridge the local lab sandbox to United Airlines' enterprise architecture.</p>
   </aside>
 </section>
 
@@ -1151,8 +1140,7 @@
   <h1>DevOps Foundations</h1>
   <h2>Principles, the Three Ways, and delivery performance</h2>
   <aside class="notes">
-    Topic transition: DevOps Foundations.
-    This divider slide has zero allocated teaching time.
+    <p><strong>Transition:</strong> We move into DevOps Foundations. Frame this module around the central question: 'Why did DevOps emerge, and what makes small, automated batches mathematically safer than large quarterly releases?'</p>
   </aside>
 </section>
 
@@ -1197,13 +1185,9 @@
     </div>
   </div>
   <aside class="notes">
-    Give the history briefly. In 2008 Andrew Clay Shafer proposed a session on agile infrastructure at the Agile conference in Toronto,
-    and Patrick Debois was the one person who attended. In June 2009 Allspaw and Hammond showed at the Velocity conference that Flickr
-    deployed more than ten times a day because developers and operations engineers worked together and shared tools.
-    Debois then organised devopsdays in Ghent in October 2009, and the short name stuck.
-    The movement grew out of agile software development. Agile had shortened development cycles, but releases still waited weeks
-    for operations. The books and the research came later and gave the practices a vocabulary and evidence.
-    Sources: Allspaw and Hammond (2009); Kim et al. (2021), introduction.
+    <p><strong>What to Say:</strong> Notice the progression: DevOps was not invented by cloud vendors selling tools. It started as an organic reaction to Agile. Agile had compressed software development cycles down to two-week sprints, but releases still sat in queues for months waiting for an operations deployment window. In 2009, John Allspaw and Paul Hammond stunned the industry at the Velocity conference by showing that Flickr deployed ten times a day because dev and ops shared tools and ownership. Patrick Debois coined the term in Belgium shortly after.</p>
+    <p><strong>Ask the Room:</strong> How many of you remember the days—or still experience them—where code releases meant midnight bridge calls and cold pizza?</p>
+    <p><strong>Teaching Focus:</strong> Explain that DevOps was born out of real practitioner frustration, not vendor marketing.</p>
   </aside>
 </section>
 
@@ -1228,12 +1212,10 @@
   </svg>
   <p>The two groups have opposite goals, and work moves between them in large, slow batches. DevOps practices give both groups one shared goal, which is frequent and safe change.</p>
   <aside class="notes">
-    Describe the situation many organisations were in before DevOps. Development teams are measured on delivering features.
-    Operations teams are measured on uptime. Every release is a risk to operations, so operations slows releases down,
-    and development responds by bundling more changes into each release. Large releases fail more often and are harder to debug.
-    The feedback loop is slow: a developer hears about a production problem weeks later, when the code is no longer fresh in their mind.
-    Ask the class whether they recognise this pattern from mainframe or operations work. Many will.
-    Source: Kim et al. (2021), part 1, "the core, chronic conflict".
+    <p><strong>What to Say:</strong> In *The Phoenix Project*, Gene Kim calls this the "core chronic conflict". Look at how traditional IT structured bonuses and promotions: Developers were evaluated on velocity—shipping new features as fast as possible. Operations was evaluated on four-nines availability and stability. Therefore, to Operations, every single software change handed over the wall was a direct threat to their uptime and sleep.</p>
+    <p><strong>The Vicious Cycle:</strong> Because releases frequently caused outages, Ops responded by adding longer freeze windows, manual test sign-offs, and Change Advisory Boards (CABs). Dev responded by cramming even more features into each release. The batch size ballooned, blast radius expanded, and when failure inevitably happened, finding the bug across 200 changes took weeks. DevOps changes the game by giving both teams a unified goal: small, continuous, safe delivery.</p>
+    <p><strong>Ask the Room:</strong> Who has worked under a strict change freeze where nobody could deploy for weeks?</p>
+    <p><strong>Teaching Focus:</strong> Unpack the structural misaligned incentives behind the 'Wall of Confusion'.</p>
   </aside>
 </section>
 
@@ -1259,14 +1241,9 @@
   </svg>
   <p>The Three Ways are the principles behind most DevOps practices (Kim et al., 2021).</p>
   <aside class="notes">
-    The DevOps Handbook organises the practices under three principles.
-    The First Way is flow: make work move quickly from left to right, from a developer's idea to a customer, in small batches,
-    with as little waiting as possible. Continuous integration and deployment pipelines belong here.
-    The Second Way is feedback: detect problems where they happen and send the information back quickly. Automated tests,
-    monitoring and pull request checks belong here.
-    The Third Way is continual learning and experimentation: blameless reviews of incidents, time to improve the system, and safe experiments.
-    Today's labs mostly cover the First and Second Ways.
-    Source: Kim, Humble, Debois, Willis and Forsgren (2021), The DevOps Handbook, 2nd edition, parts 2 to 5.
+    <p><strong>What to Say:</strong> The DevOps Handbook organizes all technical delivery practices into these Three Ways: First, Flow—moving work smoothly from left to right, from developer keyboard to customer, in tiny increments without waiting in queues. Second, Feedback—shortening and amplifying feedback from right to left so defects trigger an immediate stop-the-line response rather than lingering unnoticed. Third, Continual Learning—allocating time to improve daily work, conduct blameless incident reviews, and build automated guardrails that make experimentation safe.</p>
+    <p><strong>Course Alignment:</strong> Today's labs are strictly built around the First and Second Ways: establishing automated pipelines (Flow) and fast, reliable pull request checks (Feedback).</p>
+    <p><strong>Teaching Focus:</strong> Frame the Three Ways as foundational delivery physics, not abstract slogans.</p>
   </aside>
 </section>
 
@@ -1297,14 +1274,10 @@
   </svg>
   <p>Lead time for changes is the time from commit to running in production (Forsgren et al., 2018). In this example the change spends most of its lead time waiting.</p>
   <aside class="notes">
-    A value stream is the sequence of activities that turns a request into something a customer uses.
-    Value stream mapping records, for each activity, the work time and the waiting time before it.
-    In this made-up example a change needs six and a half hours of work but takes about nine days to reach production,
-    because it waits in queues: for a reviewer, for a test environment, for a change approval board, for a release window.
-    Improving the speed of individual people barely changes the lead time. Removing waits does.
-    Automation removes many of these waits: tests run when the code is pushed, and deployment does not need a scheduled window.
-    Ask the class where changes wait longest in their own process.
-    Sources: Kim et al. (2021), chapter 7; Forsgren, Humble and Kim (2018), chapter 2.
+    <p><strong>What to Say:</strong> Look at the stark reality on this value stream: an engineer does 6.5 hours of real keyboard work, but the change takes over a week to reach production. Why? Because over 90% of the lifecycle is dead wait time—waiting 2 days for a code review, 3 days for access to a QA staging environment, 4 days for a weekly change approval meeting.</p>
+    <p><strong>The Core Insight:</strong> Telling developers to write code faster or work late nights moves the needle by less than 5%. If you want to compress cycle time, you must eliminate the idle queue time between stages. That is precisely why we automate testing on pull requests and automate environment provisioning with Infrastructure as Code on Day 2.</p>
+    <p><strong>Ask the Room:</strong> Think about your current team: where does a change spend the most calendar days just sitting in a queue?</p>
+    <p><strong>Teaching Focus:</strong> Expose the massive difference between touch time (actual work) and lead time (calendar wait time).</p>
   </aside>
 </section>
 
@@ -1345,14 +1318,9 @@
     <p class="formula-example"><strong>Example:</strong> 20 items in progress &divide; 5 items finished per week = <strong>4 weeks lead time</strong>.<br><em>Takeaway: To shorten lead time without working faster or cutting corners, start fewer things at once.</em></p>
   </div>
   <aside class="notes">
-    Batch size is one of the main ideas of lean manufacturing that DevOps applies to software.
-    When a release contains two hundred changes and something breaks, the team must search two hundred changes for the cause.
-    When a release contains one change, the cause is obvious and the rollback is small.
-    Little's Law comes from queueing theory. It holds for any stable system: the average time an item spends in the system equals
-    the number of items in the system divided by the rate at which items leave.
-    The practical result: to shorten lead time without working faster, start fewer things at once.
-    This is why trunk-based development and small pull requests matter, which is the next lecture.
-    Sources: Little, J. D. C. (1961), Operations Research 9(3); Kim et al. (2021), chapter 2.
+    <p><strong>What to Say:</strong> Think about root-cause debugging: if you deploy a massive release containing 200 merged PRs and users report crashes, your engineers must search across 200 variables and millions of diff lines to locate the fault. But if you deploy single logical changes hourly, debugging takes seconds: you inspect the single commit deployed ten minutes ago.</p>
+    <p><strong>Little's Law in Plain English:</strong> Look at the math from queueing theory: Lead Time equals Work in Progress divided by Throughput. If your team starts 20 user stories simultaneously and delivers 5 a week, your average turnaround is 4 weeks. To cut lead time in half without working overtime or burning out, you don't type faster—you cap your work in progress. You start fewer branches at once, merge daily, and keep PRs small. That is the mathematical foundation of trunk-based development.</p>
+    <p><strong>Teaching Focus:</strong> Connect lean manufacturing batch size and Little's Law to software delivery risk.</p>
   </aside>
 </section>
 
@@ -1368,12 +1336,9 @@
   </table>
   <p>These are the DORA metrics (Forsgren et al., 2018). The 2024 DORA report adds a fifth measure, rework rate, which is the share of deployments that are unplanned fixes for production problems.</p>
   <aside class="notes">
-    DORA stands for DevOps Research and Assessment. The research started with the State of DevOps reports in 2014 and is now run by Google Cloud.
-    The four metrics measure software delivery, not individual people. Two measure throughput and two measure stability.
-    The fourth metric was called "time to restore service" until 2023, when DORA renamed it to failed deployment recovery time
-    to make clear it measures recovery from a change, not every kind of outage. DORA's current names are change lead time and change fail rate.
-    Warn against using the metrics to compare teams or to set individual targets. Teams then change how they count instead of how they work.
-    Sources: Forsgren, Humble and Kim (2018), chapter 2; DORA (2024), Accelerate State of DevOps Report.
+    <p><strong>What to Say:</strong> The DORA research evaluated over 30,000 engineers globally to answer: "How do we measure delivery capability objectively?" They settled on four core metrics. Two measure velocity: how often code deploys, and how quickly a commit reaches users. Two measure reliability: what percentage of releases cause an incident, and how fast you recover when something breaks.</p>
+    <p><strong>Crucial Instructor Warning:</strong> Emphasize strongly: DORA metrics measure team and system performance, NEVER individual human productivity. The moment leadership attempts to rank developers by deployment frequency, engineers will game the system by splitting single commits into 50 trivial PRs. Goodhart's Law takes over, and the metric ceases to measure real health.</p>
+    <p><strong>Teaching Focus:</strong> Explain how DORA balances throughput and stability without turning into toxic individual metrics.</p>
   </aside>
 </section>
 
@@ -1410,14 +1375,9 @@
     Source: <em>Accelerate</em> (Forsgren, Humble &amp; Kim, 2018) &mdash; Empirical research across 23,000+ industry respondents.
   </div>
   <aside class="notes">
-    Accelerate summarises four years of State of DevOps research, from 2014 to 2017.
-    The first finding surprises many people: the teams that deploy most often also have the lowest change failure rates and recover fastest.
-    Small, frequent, automated changes are safer than large, rare, manual ones.
-    The second finding links software delivery to the business. The third identifies capabilities that predict performance.
-    The book lists twenty-four. Several of them are the topics of this course: version control of everything, trunk-based development,
-    continuous integration, test automation, deployment automation and shifting security left.
-    Point out that the research measures correlation and uses statistical methods to support the predictions, which the book explains in part two.
-    Source: Forsgren, Humble and Kim (2018), chapters 2, 3 and 4.
+    <p><strong>What to Say:</strong> The single most impactful finding in *Accelerate* is Finding #1: Speed and stability are NOT trade-offs. For thirty years, traditional management dogma insisted that if you wanted high stability, you had to move slowly and introduce heavy gatekeepers. The empirical data proved the exact opposite: the highest-performing organizations deployed orders of magnitude faster *and* experienced far lower change failure rates. Why? Because small, frequent, automated changes are inherently lower risk.</p>
+    <p><strong>Bridge to Next Lecture:</strong> Finding #3 showed that this elite performance is causally driven by specific engineering habits: trunk-based development, continuous integration, and automated testing. Let's look at how version control and trunk-based delivery make this possible in practice.</p>
+    <p><strong>Teaching Focus:</strong> Shatter the historical myth that moving fast compromises stability.</p>
   </aside>
 </section>
 
@@ -1428,8 +1388,7 @@
   <h1>Version Control and Continuous Integration</h1>
   <h2>Branching workflows, trunk-based delivery, and automated checks</h2>
   <aside class="notes">
-    Topic transition: Version Control and Continuous Integration.
-    This divider slide has zero allocated teaching time.
+    <p><strong>Transition:</strong> We move from organizational principles to engineering mechanics. In this module, we examine how Git's cryptographic commit graph powers automated CI, why trunk-based delivery replaced GitFlow, and how pipelines act as objective quality filters.</p>
   </aside>
 </section>
 
@@ -1469,13 +1428,10 @@
     <li>A branch is a name that points to one commit. A merge commit has two parents.</li>
   </ul>
   <aside class="notes">
-    Most participants use Git, but it helps to state the model precisely because pipelines depend on it.
-    A commit stores a complete snapshot of the project, not a diff. Git computes a hash from the snapshot, the metadata and the parent hashes.
-    Because the parent hash is part of the input, a commit hash identifies the whole history before it. If anyone rewrites an old commit,
-    every later hash changes. This is why a pipeline can report a result for an exact commit and nobody can change that commit afterwards.
-    A branch is a movable pointer. When you commit on a branch, the pointer moves to the new commit.
-    In the diagram the feature branch started at 7c02, received two commits, and was merged into main.
-    Source: Chacon and Straub, Pro Git, 2nd edition, chapter 3 (git-scm.com/book).
+    <p><strong>What to Say:</strong> Everyone here uses Git, but let's connect Git's internal data model directly to automated pipelines. A Git commit is NOT a file diff; it is a full tree snapshot pointing to its parent hashes. Because each commit hash is computed using its contents, author, and parent SHA, any retroactive alteration to history completely changes every downstream hash.</p>
+    <p><strong>Pipeline Custody:</strong> This immutability provides an unbroken audit trail: when Harness reports that execution #42 passed commit <code>e91b</code>, you have mathematical proof of what ran, and nobody can alter that code without producing a different hash.</p>
+    <p><strong>Lab 01 Connection:</strong> In Lab 01 coming up next, we will configure Git, push our starter flight-status application with a personal access token, and establish the repository that our pipelines will monitor.</p>
+    <p><strong>Teaching Focus:</strong> Explain why Git's cryptographic immutability is the prerequisite for all CI/CD pipelines.</p>
   </aside>
 </section>
 
@@ -1491,13 +1447,10 @@
   </table>
   <p>The labs use trunk-based development with short-lived branches and pull requests.</p>
   <aside class="notes">
-    Git Flow was published by Vincent Driessen in 2010 and became very popular. It suits software with planned, numbered releases
-    that must support several versions at once, such as installed desktop software.
-    In 2020 Driessen added a note to the original article. He wrote that for software that is delivered continuously, such as web applications,
-    a simpler workflow is a better fit than Git Flow.
-    Trunk-based development keeps one main branch, often called trunk. Developers merge small changes into it every day.
-    Ask the class which model their teams use today, and how long their branches usually live.
-    Sources: Driessen, V. (2010, note added 2020), "A successful Git branching model", nvie.com; Hammant, P., trunkbaseddevelopment.com.
+    <p><strong>What to Say:</strong> GitFlow was designed in 2010 by Vincent Driessen for shrink-wrapped, packaged desktop software where teams had to maintain multiple release versions simultaneously (like v1.2 and v2.0 patches). But in continuous web and cloud delivery, GitFlow creates severe integration drag: branches like <code>develop</code>, <code>release</code>, and <code>hotfix</code> stay separated for weeks, delaying feedback.</p>
+    <p><strong>Author Retraction:</strong> In 2020, Driessen added a prominent note to his original blog post: for software that is delivered continuously, GitFlow is an explicit anti-pattern, and teams should adopt simpler trunk-based workflows.</p>
+    <p><strong>Ask the Room:</strong> How many active branches does your team typically manage right now, and how long does a branch stay open before merging?</p>
+    <p><strong>Teaching Focus:</strong> Explain why GitFlow created massive delivery friction and why trunk-based delivery is the cloud standard.</p>
   </aside>
 </section>
 
@@ -1523,13 +1476,9 @@
     <li>High performers had three or fewer active branches, branches that lived less than a day, and no code freezes (Forsgren et al., 2018).</li>
   </ul>
   <aside class="notes">
-    In trunk-based development the main branch is the integration point. Branches still exist, but only to hold a change while it is reviewed.
-    The change is small enough to review in minutes and merge the same day.
-    Large features are built in small steps. Code that is not ready for users is merged but switched off with a feature flag.
-    Day 3 returns to feature flags as a release technique.
-    The Accelerate research found that these branch habits predicted delivery performance. Teams with long-lived branches and code freezes
-    performed worse, because integration was delayed and risky.
-    Sources: Forsgren, Humble and Kim (2018), chapter 4; Hammant, P., trunkbaseddevelopment.com.
+    <p><strong>What to Say:</strong> Trunk-based development does not mean pushing broken code straight to <code>main</code>. It means feature branches are extremely short-lived—lasting hours or at most a single day. When engineers merge tiny, coherent changes into <code>main</code> every day, merge conflicts are practically eliminated.</p>
+    <p><strong>The Common Objection:</strong> People often ask: "How do I build a large multi-week feature if I have to merge to main every day?" The answer is <strong>feature flags</strong> (or branch by abstraction). You merge the code into main continuously, but wrap the new execution path behind a toggle so it remains dark in production until fully verified. This decouples code deployment from feature release.</p>
+    <p><strong>Teaching Focus:</strong> Dispel misconceptions about trunk-based development and explain how to ship large features safely.</p>
   </aside>
 </section>
 
@@ -1568,12 +1517,10 @@
     <strong>The Small PR Golden Rule:</strong> Review turnaround speed and critical scrutiny drop precipitously as PR size grows. Keep pull requests scoped to single logical changes readable in under 20 minutes.
   </div>
   <aside class="notes">
-    The pull request is where automation and people meet. The pipeline checks what a machine can check: the build, the tests, the lint rules.
-    The reviewer checks what a machine cannot: whether the change is the right change, whether the design fits, whether the tests test the right thing.
-    Bacchelli and Bird interviewed and surveyed developers at Microsoft and analysed review comments. Developers said finding defects was the main reason
-    for review, but most comments were about code improvements and understanding. Review also spreads knowledge of the codebase across the team.
-    Large pull requests are hard to review properly. Reviewers skim them and approve them. Keep pull requests to a size a colleague can read in about twenty minutes.
-    Source: Bacchelli, A., and Bird, C. (2013), "Expectations, outcomes, and challenges of modern code review", ICSE 2013.
+    <p><strong>What to Say:</strong> The pull request is where automation and human judgment divide responsibilities. Notice the division of labor: Machines must check what machines can objectively prove—compilation, unit tests, code style, security vulnerabilities, and test coverage. Never allow expensive senior engineering time to be wasted debating indentation or missing semicolons in PR comments.</p>
+    <p><strong>The Real Value of Code Review:</strong> Bacchelli and Bird's Microsoft research revealed that peer reviews rarely catch functional logic bugs. Their true real-world value is <strong>knowledge sharing, architectural alignment, and shared code ownership</strong>.</p>
+    <p><strong>The 20-Minute Golden Rule:</strong> Review quality collapses as PR size increases. A 20-line pull request gets 10 insightful comments; a 1,000-line pull request gets an exhausted "LGTM" and an immediate merge.</p>
+    <p><strong>Teaching Focus:</strong> Establish clear boundaries between automated checks and human peer review.</p>
   </aside>
 </section>
 
@@ -1591,13 +1538,10 @@
     <p>Fowler's article lists more practices. These five are the ones a pipeline enforces (Fowler, 2024).</p>
     <p class="small muted">Press &darr; for supporting detail: What is Continuous Integration?</p>
     <aside class="notes">
-      Martin Fowler's article on continuous integration was first published in 2000, rewritten in 2006 and revised again in January 2024.
-      It defines CI as a practice, not a tool: a team integrates its work frequently, and each integration is verified by an automated build with tests.
-      A team that has a build server but merges once a month does not practise CI.
-      The ten-minute build comes from Extreme Programming. If the build takes an hour, people stop waiting for it and push more changes on top of a broken build.
-      The other practices in the article include hiding work in progress, testing in a clone of production, making the build status visible, and automating deployment.
-      Source: Fowler, M. (2024), "Continuous Integration", martinfowler.com/articles/continuousIntegration.html.
-    </aside>
+    <p><strong>What to Say:</strong> Martin Fowler defines CI as a practice: integrating work into the shared mainline at least daily, verified by an automated build that runs in under ten minutes. Why ten minutes? Because if a build takes forty-five minutes, developers lose focus, grab coffee, or switch branches. By the time a failure reports, the author has moved on and other developers have already stacked code on top of the broken build.</p>
+    <p><strong>The Acid Test:</strong> Ask yourself: if your laptop died right now and you received a blank machine, could you clone your repository and run the full test suite with one single command? If you need a 10-page wiki or have to copy secret configuration files from a senior colleague, your CI foundation has gaps.</p>
+    <p><strong>Teaching Focus:</strong> Present CI as an engineering discipline and cultural contract, not merely software tooling.</p>
+  </aside>
   </section>
 
   <section>
@@ -1622,10 +1566,9 @@
       <p>Having a build server is not CI. A team that runs automated builds but merges only once a month is doing automated builds, not Continuous Integration.</p>
     </div>
     <aside class="notes">
-      Explain Martin Fowler's classic distinction for BAs, QEs and mainframe engineers:
-      CI is a team habit and social contract first, and an automated tool second.
-      Without frequent daily integration into main, the automated tool only reports conflicts after they have already become large and painful.
-    </aside>
+    <p><strong>What to Say:</strong> For BAs, QEs, and mainframe engineers: remember this critical distinction. An automated build server like Harness or Jenkins is just software. Continuous Integration is a team social contract. If an organization spends millions on cloud CI infrastructure, but teams keep private feature branches open for four weeks before merging, they are not doing Continuous Integration—they are simply doing automated batch testing.</p>
+    <p><strong>Teaching Focus:</strong> Reinforce the distinction between running an automated build and actually doing Continuous Integration.</p>
+  </aside>
   </section>
 </section>
 
@@ -1641,9 +1584,9 @@
   </ul>
   <p class="small">Source: <a href="https://code.flickr.net/2009/06/26/slides-from-velocity-2009/">Flickr engineering, Velocity 2009 slides</a>.</p>
   <aside class="notes">
-    Allow two minutes. This is a historical case, not a claim about Flickr's current stack or deployment rate.
-    Connect the tooling and shared responsibility to the CI practices on the preceding slide.
-    Frequent deployment also needs operational safeguards; CI alone is not a guarantee of safe production changes.
+    <p><strong>What to Say:</strong> When Allspaw and Hammond gave their 2009 presentation at Velocity, deploying ten times a day sounded reckless to enterprise IT. But their core insight proved that deploying ten small changes a day is ten times *safer* than deploying one massive release per month. Why? Because when each deployment is tiny, failure isolation is immediate and recovery is trivial.</p>
+    <p><strong>Caveat:</strong> Note that CI alone doesn't guarantee safety—it requires automated smoke testing and shared operational monitoring, which we explore on Day 3.</p>
+    <p><strong>Teaching Focus:</strong> Reframe frequent deployment as an operational risk reduction strategy.</p>
   </aside>
 </section>
 
@@ -1660,8 +1603,7 @@
   </ul>
   <p class="small">Source: <a href="https://www.usenix.org/conference/lisa11/deployinator-being-stupid-be-smart">USENIX, Deployinator</a>.</p>
   <aside class="notes">
-    Allow two minutes if selected for delivery. Keep the 2011 date with the deployment-rate claim.
-    This is an illustration of small batches and feedback, not a prescription to copy Etsy's historical stack.
+    <p><strong>Status:</strong> Marked as SKIP. If delivered, spend under 2 minutes: point out that Etsy's Deployinator popularized self-service developer deployments. Small, rapid releases made it trivial to detect failures and roll back immediately.</p>
   </aside>
 </section>
 
@@ -1687,11 +1629,10 @@
     <li>Integrating every day keeps each merge small and each problem easy to locate.</li>
   </ul>
   <aside class="notes">
-    Integration effort does not grow in a straight line with time. Two developers who each change ten files a day overlap rarely in one day,
-    but after three weeks their changes touch many of the same areas, and the combined change is too large to reason about.
-    Teams used to call the weeks before a release "integration hell". Continuous integration removes that phase by integrating continuously.
-    Ask the class if they have experienced a merge that took more than a day to resolve. Ask how big the branches were.
-    Source: Fowler (2024), section "Integration Hell"; Humble and Farley (2010), chapter 3.
+    <p><strong>What to Say:</strong> Integration pain does NOT grow in a straight line with time. If two developers each modify five files today, the chance of overlap is negligible. But if their branches stay separated for three weeks, both have modified shared schemas, shared utility functions, and shared configs. The merge becomes an agonizing, multi-day archaeological excavation.</p>
+    <p><strong>The Hidden Danger:</strong> Worse than textual conflicts are semantic conflicts: code that merges cleanly with no git errors, but crashes at runtime because assumptions changed. Continuous integration removes "integration hell" by making integration happen continuously throughout the day.</p>
+    <p><strong>Ask the Room:</strong> Who has spent an entire afternoon untangling a merge conflict, only to break something else in the process?</p>
+    <p><strong>Teaching Focus:</strong> Explain why merge conflict pain increases exponentially, not linearly, with branch age.</p>
   </aside>
 </section>
 
@@ -1724,13 +1665,9 @@
   </svg>
   <p>A change moves to the next stage only if it passed the previous one (Humble and Farley, 2010).</p>
   <aside class="notes">
-    Humble and Farley defined the deployment pipeline as the automated path every change takes from version control to production.
-    The commit stage runs in minutes and catches most problems. It compiles or packages the code, runs unit tests and static analysis,
-    and produces the artifact that later stages use. The acceptance stage runs slower tests against the built artifact.
-    Later stages deploy the same artifact to environments closer to production.
-    The pipeline also records evidence: for each version, which tests ran and which environments it reached.
-    Today's labs build the first two stages. Lab 09 on Day 3 adds deployment, smoke tests, promotion and rollback.
-    Source: Humble, J., and Farley, D. (2010), Continuous Delivery, chapter 5.
+    <p><strong>What to Say:</strong> Jez Humble and Dave Farley formalized this pattern in *Continuous Delivery*. Notice how stages are sequenced: fast, cheap, and lightweight checks go on the left; slow, expensive, and broad checks go on the right. The Commit Stage takes 2–3 minutes to run unit tests and linters, giving developers immediate feedback. Only if that passes do we invest resources in slower integration tests and environment deployments.</p>
+    <p><strong>Course Alignment:</strong> In Labs 02 and 03 today, we build the Commit Stage and Acceptance Stage for our flight-status service. On Day 3 in Lab 09, we complete the pipeline by wiring up automated Dev deployment, smoke tests, and production promotion.</p>
+    <p><strong>Teaching Focus:</strong> Explain how stages are ordered to optimize feedback speed and resource cost.</p>
   </aside>
 </section>
 
@@ -1760,12 +1697,9 @@
     <li>If you rebuild for production, you deploy something that was never tested.</li>
   </ul>
   <aside class="notes">
-    An artifact is the output of the build: a JAR file, a Python wheel, or, in this course, a container image.
-    The image is identified by a digest, a hash of its content, so you can prove that production runs the same image that dev tested.
-    Rebuilding from the same commit is not the same thing: dependencies may have changed, and the build machine may differ.
-    The Twelve-Factor App calls this separation "strict separation of config from code" and recommends environment variables for configuration.
-    In Lab 09 the pipeline builds one image, tags it with the build number, deploys it to dev, tests it, and promotes the same image to production.
-    Sources: Humble and Farley (2010), chapter 5; Wiggins, A. (2011), The Twelve-Factor App, factor III, 12factor.net.
+    <p><strong>What to Say:</strong> Here is an immutable law of enterprise DevOps: <strong>Never rebuild code for different environments.</strong> You build the container image or application binary once in the pipeline, tag it with its cryptographic SHA256 digest, and promote that exact artifact through Dev, Staging, and Production.</p>
+    <p><strong>Why Rebuilding Fails:</strong> If you rebuild from source for production, you might pull down a new patch version of a pip dependency released 10 minutes ago, or run against slightly different base image layers. What you tested in QA is no longer what runs in Production. The Twelve-Factor App mandates strict separation of config from code: the container artifact is immutable, and only environment variables change between clusters.</p>
+    <p><strong>Teaching Focus:</strong> Explain why rebuilding source code for different environments is a major production hazard.</p>
   </aside>
 </section>
 
@@ -1777,8 +1711,7 @@
   <h1>Lab 01: Lab Environment and Harness Open Source</h1>
   <h2>Day 1 &middot; 30&ndash;40 minutes</h2>
   <aside class="notes">
-    Hands-on Lab: Lab 01 (Lab Environment and Harness Open Source).
-    Allocated time: 30 to 40 minutes.
+    <p><strong>Lab Launch:</strong> Announce Lab 01: Lab Environment and Harness Open Source. Theoretical target is 30–40 minutes. Ensure everyone has their lab VM browser open to the companion guide before releasing them.</p>
   </aside>
 </section>
 
@@ -1793,13 +1726,11 @@
     <li>Push the starter application and look at it in the Harness web interface.</li>
   </ul>
   <aside class="notes">
-    Before participants start, show where the course repository is and how to open the first lab.
-    Remind them to read the reason before each step and to check each checkpoint.
-    The Docker installation adds their user to the docker group. If the docker command reports "permission denied" in a new terminal,
-    the lab explains how to fix it.
-    The Harness container needs about a minute to start the first time. Some participants will try to open the web page too early.
-    Walk around the virtual room during the lab. Ask participants to post in the chat when they have pushed the starter application.
-    After the lab, the next lecture explains what Harness does when it runs a pipeline.
+    <p><strong>Instructor Delivery Track:</strong> Have everyone open <code>labs/01-lab-environment.md</code> in the lab VM browser. Highlight three common stumbling blocks before they start:</p>
+    <p><strong>1. Docker Group Permissions:</strong> After adding the user to the docker group, they must run <code>newgrp docker</code> or open a new terminal window; otherwise <code>docker ps</code> will report "permission denied".</p>
+    <p><strong>2. Harness Container Startup Lag:</strong> The Harness container takes about 60 seconds to initialize SQLite and listen on port 3000. If their browser says "Unable to connect", wait 30 seconds and refresh.</p>
+    <p><strong>3. Personal Access Token (PAT):</strong> When generating the token in Harness UI, copy it immediately—Harness masks it after navigation. The lab stores it in <code>.git-credentials</code> so Git pushes without repeated password prompts.</p>
+    <p><strong>Classroom Checkpoint:</strong> Ask participants to drop 'Lab 01 Green' in the chat once their initial commit appears in the Harness web UI.</p>
   </aside>
 </section>
 
@@ -1810,8 +1741,7 @@
   <h1>Pipelines and Harness</h1>
   <h2>Automated build stages, container steps, and triggers</h2>
   <aside class="notes">
-    Topic transition: Pipelines and Harness.
-    This divider slide has zero allocated teaching time.
+    <p><strong>Transition:</strong> In this module, we dive into pipeline architecture and YAML syntax. We explore how Harness runs steps in ephemeral containers, why workspaces must be shared, and how local Harness Open Source maps directly to United's enterprise platform.</p>
   </aside>
 </section>
 
@@ -1845,13 +1775,10 @@
     </ul>
     <p class="small muted">Press &darr; for supporting detail: Hierarchy of a pipeline</p>
     <aside class="notes">
-      Use the vocabulary consistently from now on. A pipeline is the definition. An execution, or run, is one use of that definition for one commit.
-      Each execution has a number, which the YAML can read as build.number.
-      The clone step is added automatically. It fetches the commit that triggered the execution into the workspace.
-      The steps you write run after it, in order. If any step fails, the stage stops and the execution reports failure.
-      The status check is what branch rules use to allow or block a merge. Lab 03 depends on it.
-      The Harness platform uses the same words: pipeline, stage, step, execution, trigger.
-    </aside>
+    <p><strong>What to Say:</strong> Let's lock down our mental model for pipeline anatomy: The Pipeline is the blueprint code committed in Git. An Execution is one single run of that blueprint against a specific commit hash (for instance, Execution #12). Stages are major milestones (like a <code>build</code> stage or a <code>deploy</code> stage). Inside each stage, Steps execute sequentially in isolated containers. If any step fails with a non-zero exit code, the stage halts immediately.</p>
+    <p><strong>The Git Handshake:</strong> Notice the status check arrow on the far right: this is the vital link between CI and Git. In Lab 03, we use this status check to enforce branch protection on <code>main</code> so untested code cannot merge.</p>
+    <p><strong>Teaching Focus:</strong> Establish precise vocabulary and show how pipelines talk back to Git pull requests.</p>
+  </aside>
   </section>
 
   <section class="concept">
@@ -1881,9 +1808,9 @@
       <p>Think of an assembly line: The <em>pipeline</em> is the factory floor design, the <em>execution</em> is one car passing through, the <em>stages</em> are assembly stations (frame, engine, paint), and the <em>steps</em> are individual operations at each station.</p>
     </div>
     <aside class="notes">
-      Clarify the terminology before Lab 02. Non-developers and mainframe engineers often ask what the difference is between a stage and a step, or why an execution is called a build or a run.
-      In Harness YAML, kind: pipeline holds spec.stages, which hold spec.steps.
-    </aside>
+    <p><strong>What to Say:</strong> Use the factory analogy: The Pipeline is the factory assembly line blueprint. An Execution is one specific car moving down the belt. The Stages are the major departments (Chassis, Engine, Paint). The Steps are individual automated robotic tasks at each station. In Harness YAML, <code>kind: pipeline</code> wraps <code>spec.stages</code>, which wraps <code>spec.steps</code>.</p>
+    <p><strong>Teaching Focus:</strong> Solidify the pipeline hierarchy for non-developers and BAs using the manufacturing analogy.</p>
+  </aside>
   </section>
 </section>
 
@@ -1910,12 +1837,9 @@ spec:
     </ul>
   </div>
   <aside class="notes">
-    Read the YAML from the top. kind: pipeline says what the file is. A pipeline has a list of stages. A ci stage has a list of steps.
-    The step called test has type run, which means: start this container image and run this script inside it.
-    Storing the pipeline next to the code has three benefits. The pipeline and the code that it builds always match, because they come from the same commit.
-    Pipeline changes go through review. And an old commit can still be built with the pipeline that existed at that time.
-    Older CI servers stored jobs in a web interface, so nobody could review or roll back a change to a job.
-    In Lab 02 participants write this file themselves, one step at a time.
+    <p><strong>What to Say:</strong> Why is storing your pipeline in <code>.harness/ci.yaml</code> alongside your code such a critical engineering standard? Three major reasons: First, version synchronization—your pipeline syntax and your code dependencies change together in the exact same commit. You never suffer from a build script expecting Python 3.12 while the repository is still on 3.11. Second, peer review—changes to build flags or test arguments undergo PR review just like application code. Third, reproducible history—if you must patch an older release branch from six months ago, Git checks out the exact pipeline that verified it back then.</p>
+    <p><strong>Lab 02 Connection:</strong> In Lab 02, you will write this file step by step and watch Harness execute it.</p>
+    <p><strong>Teaching Focus:</strong> Explain why pipeline-as-code replaced web-UI job configurations in modern DevOps.</p>
   </aside>
 </section>
 
@@ -1932,14 +1856,10 @@ spec:
     </ul>
     <p class="small muted">Press &darr; for supporting detail: Why run steps in containers?</p>
     <aside class="notes">
-      Before containers, build servers had every tool installed on them: several versions of Java, Python, Node and so on.
-      Teams fought over the versions, and a build that passed on one agent failed on another.
-      With a container per step, each step declares its environment. The machine that runs the pipeline only needs Docker.
-      The same image runs on a developer's laptop, so "it works on my machine" becomes easier to check: run the same image locally.
-      Lab 02 does this. Participants run the tests in python:3.12-slim on their own machine before they write the pipeline.
-      Pinning matters because tags are mutable. python:3.12-slim today and next month are different images. For full reproducibility
-      you pin the digest, which Day 3 explains.
-    </aside>
+    <p><strong>What to Say:</strong> In legacy CI, build servers were fragile pets with multiple conflicting versions of Java, Python, and Node installed globally. If Team A upgraded Python to 3.12, Team B's legacy 3.9 job broke without warning. With containerized steps, the host machine only needs Docker. Each step brings its own disposable toolbox: <code>python:3.12-slim</code> for unit tests, <code>hashicorp/terraform</code> for infrastructure, or <code>bitnami/kubectl</code> for Kubernetes deployments. When the step exits, the container is destroyed—leaving no dirty temporary files or state behind.</p>
+    <p><strong>Pinning Best Practice:</strong> Always pin specific image tags or digests in production. If you use <code>latest</code>, an upstream base-image rebuild over the weekend can break your build on Monday without a single line of code changing.</p>
+    <p><strong>Teaching Focus:</strong> Explain how containerized steps eradicate the legacy 'snowflake' build server problem.</p>
+  </aside>
   </section>
 
   <section>
@@ -1964,9 +1884,9 @@ spec:
       <p>Because the container image is identical on your laptop and in the pipeline, "it works on my machine" problems disappear: you can run the exact same container command locally.</p>
     </div>
     <aside class="notes">
-      For BAs, QEs and mainframe engineers who haven't worked with Docker yet:
-      Explain that a container is just a packaged toolbox. We don't need Python installed on our lab server or laptop; Harness asks Docker to run python:3.12-slim just for the 30 seconds the test takes.
-    </aside>
+    <p><strong>What to Say:</strong> For non-developers and BAs: think of a containerized step like renting a specialty tool from Home Depot for 30 minutes. You don't buy, store, or maintain a commercial concrete mixer at home; you grab it, pour your driveway, and return it clean. That is what Harness does with <code>python:3.12-slim</code>: Docker runs the container for 20 seconds, executes pytest, and deletes it.</p>
+    <p><strong>Teaching Focus:</strong> Explain containerized steps using the disposable tool rental analogy.</p>
+  </aside>
   </section>
 </section>
 
@@ -2007,13 +1927,9 @@ spec:
   </svg>
   <p>Harness asks Docker to start one container per step. The steps reach Harness by the name <code>harness</code> on the <code>devops</code> network.</p>
   <aside class="notes">
-    This is the setup participants built in Lab 01. Harness Open Source runs in one container. The Docker socket is mounted into it,
-    so Harness can ask the Docker Engine on the lab machine to start other containers.
-    For each execution Harness creates a workspace volume, starts a clone container that fetches the code from Harness over HTTP,
-    and then starts one container per step with the workspace mounted.
-    The devops network is a user-defined Docker network. Containers on it can reach each other by name, which is why the clone step can use
-    http://harness:3000. On Day 2 the Kubernetes cluster joins the same network, so pipeline steps can reach it too.
-    On the Harness platform the same job is done by Harness Cloud machines or by a delegate inside the company network.
+    <p><strong>What to Say:</strong> Look at how Harness executes jobs on your lab machine: Harness itself runs in a Docker container, but notice the volume mount: <code>/var/run/docker.sock</code> is mounted into it from your host. This is known as Docker-out-of-Docker (DooD). When Harness needs to run your pipeline steps, it calls your host's Docker daemon and orders it to launch sibling containers on the shared <code>devops</code> Docker bridge network.</p>
+    <p><strong>How Containers Communicate:</strong> Because all step containers share this <code>devops</code> network, the clone container can reach Harness at <code>http://harness:3000</code> via Docker's embedded DNS. Notice also that every step mounts the exact same <strong>workspace volume</strong>.</p>
+    <p><strong>Teaching Focus:</strong> Walk through the Docker-out-of-Docker execution model and container networking.</p>
   </aside>
 </section>
 
@@ -2041,12 +1957,10 @@ spec:
     <li>Only the workspace is shared. To pass files to a later step, write them into the workspace.</li>
   </ul>
   <aside class="notes">
-    This catches many people the first time. If step one runs pip install and step two runs pytest, step two fails with "pytest: command not found",
-    because the package was installed in step one's container, and that container is gone.
-    Two fixes: install and test in the same step, or install into a virtual environment inside the workspace, which later steps can activate.
-    Lab 02 shows which of the two fixes its pipeline uses.
-    The same model applies on the Harness platform. Each step in a CI stage shares the workspace; tools installed elsewhere do not persist.
-    Ask the class: what happens to a file that the test step writes to /tmp?
+    <p><strong>What to Say:</strong> Pay close attention here, because this trips up almost every engineer on their first pipeline: <strong>Containers are completely ephemeral; only the workspace volume survives across steps.</strong></p>
+    <p><strong>The Classic Failure Mode:</strong> If Step 1 runs <code>pip install pytest</code>, that package is written to <code>/usr/local/lib/python3.12</code> inside Step 1's container. When Step 1 finishes, that container is completely deleted! When Step 2 launches in a brand-new container and runs <code>pytest</code>, what happens? <code>pytest: command not found</code>!</p>
+    <p><strong>The Solution:</strong> You have two architectural options: either run your install and test commands sequentially inside the same step script, or install dependencies into a virtual environment created inside the mounted workspace directory. In Lab 02, we chain install and test within the same step.</p>
+    <p><strong>Teaching Focus:</strong> Explain the #1 conceptual pitfall in containerized pipelines: ephemeral containers vs persistent workspace.</p>
   </aside>
 </section>
 
@@ -2073,11 +1987,10 @@ spec:
     </ul>
   </div>
   <aside class="notes">
-    Integration tests need real dependencies: a database, a cache, a message queue. A background step provides one for the length of the stage.
-    Here the step called db starts Postgres 17. The integration test step connects to host db on port 5432.
-    The database starts empty on every execution, so the tests do not depend on data left by an earlier run.
-    The password is a throwaway value for a database that exists for two minutes, which is acceptable in a test pipeline. Day 2 covers real credentials.
-    The test step must wait until Postgres accepts connections, because the database takes a few seconds to start. Lab 03 adds that wait.
+    <p><strong>What to Say:</strong> Unit tests run in pure memory, but real production microservices interact with real databases. How do we test database queries in CI without sharing a dirty staging database that gets corrupted by concurrent runs? We use <strong>Background Services</strong>.</p>
+    <p><strong>Lifecycle &amp; Isolation:</strong> In Harness, setting <code>type: background</code> spins up a container (like <code>postgres:17-alpine</code>) that runs alongside your stage. Because both containers share the pipeline's internal Docker network, your integration test connects directly to hostname <code>db</code> on port 5432. When the stage concludes, Harness terminates the database container. Every test run starts with a completely pristine database with zero leftover data.</p>
+    <p><strong>Lab 03 Warning:</strong> Postgres takes 3 to 5 seconds to boot and accept connections. If your test container tries to connect immediately, it crashes with "Connection Refused". In Lab 03, we write a quick polling loop to wait until port 5432 is healthy before running pytest.</p>
+    <p><strong>Teaching Focus:</strong> Explain how background service containers provide clean, disposable dependencies for integration testing.</p>
   </aside>
 </section>
 
@@ -2094,12 +2007,9 @@ spec:
   </table>
   <p>Lab 02 adds a branch-updated trigger so that every push runs the pipeline, including the merge commits on <code>main</code>.</p>
   <aside class="notes">
-    When you create a pipeline in Harness Open Source it gets one trigger, called default, for pull request events.
-    That is a sensible default for continuous integration: every proposed change is checked before merge.
-    Pushes are not covered by default. After a pull request is merged, main has a new commit, and you usually want to build it too,
-    because the merged result can differ from the branch that was tested. Lab 02 adds that trigger.
-    Tag triggers are often used for releases. The Harness platform has the same event types, plus scheduled triggers and triggers from
-    artifact registries.
+    <p><strong>What to Say:</strong> How does code movement in Git translate into pipeline execution? Through webhooks and triggers. In Harness Open Source, a newly created pipeline automatically receives a default trigger that listens for Pull Request events (opening, reopening, or updating a PR). This guarantees every proposed change is verified before review.</p>
+    <p><strong>Why We Need Branch Triggers:</strong> Notice what is NOT triggered by default: direct pushes or merges into <code>main</code>. Once a PR is merged, <code>main</code> gains a new merge commit. Why must we run the pipeline on <code>main</code> too? Because two pull requests tested separately against <code>main</code> can pass in isolation, but conflict with each other once both are merged! In Lab 02, we configure an explicit branch-updated trigger for <code>main</code>.</p>
+    <p><strong>Teaching Focus:</strong> Explain event triggers and why building on <code>main</code> after pull request merges is essential.</p>
   </aside>
 </section>
 
@@ -2126,13 +2036,9 @@ spec:
     </ul>
   </div>
   <aside class="notes">
-    Expressions let one pipeline file behave differently for different events.
-    build.number, build.commit, build.branch, build.event and build.target are among the values Harness Open Source provides.
-    Conditions are expressions that evaluate to true or false. Operators include ==, !=, and, or, not, matches, contains and startsWith.
-    A common use is to run tests on every event but deploy only for pushes to main. Lab 09 uses failure() to roll back a deployment
-    when a smoke test fails.
-    On the Harness platform the syntax is different, for example the expression &lt;+pipeline.sequenceId&gt;, but the idea is the same.
-    Source: Harness Open Source documentation, "Conditions" and "Expressions", developer.harness.io.
+    <p><strong>What to Say:</strong> Expressions allow a single pipeline file to alter its behavior based on Git context. Harness dynamically injects variables such as <code>${{ build.number }}</code>, <code>${{ build.commit }}</code>, and <code>${{ build.event }}</code>.</p>
+    <p><strong>Real-World Conditional Patterns:</strong> Using <code>when:</code> conditions, you can define sophisticated rules: run fast unit tests on all PRs, publish Docker images only when merging to <code>main</code> or pushing release tags, and trigger incident alerts or automated rollbacks using <code>when: failure()</code>. On Day 3 in Lab 09, we use <code>when: failure()</code> to initiate an automated Kubernetes rollback whenever our health smoke tests fail.</p>
+    <p><strong>Teaching Focus:</strong> Explain how runtime expressions and conditional logic make one pipeline file dynamically adaptive.</p>
   </aside>
 </section>
 
@@ -2148,13 +2054,10 @@ spec:
     <tr><td>Deployments</td><td>Scripted in run steps</td><td>Deploy stages with services, environments and strategies</td></tr>
   </table>
   <aside class="notes">
-    Harness Open Source and the Harness platform share ideas and vocabulary but are different products.
-    The platform is a SaaS product with modules for CI, CD, feature flags, security testing and more.
-    Harness Open Source started as Gitness. It provides code hosting and CI pipelines that run on your own machine.
-    The concepts in the labs transfer to the platform: pipelines in YAML, stages and steps, triggers, conditions, secrets, branch rules
-    and status checks. The deployment features do not exist in Open Source, so Lab 09 writes the deployment steps by hand.
-    That has a teaching benefit: participants see what the platform's deployment features do for them.
-    Source: developer.harness.io, Harness Open Source overview and platform documentation.
+    <p><strong>What to Say:</strong> Let's compare our local training setup with United's corporate Harness installation. Harness Open Source (which evolved from Gitness) is a single, self-hosted Docker container providing Git repositories and containerized CI runners. United Airlines uses the enterprise Harness SaaS platform.</p>
+    <p><strong>What Transfers 100%:</strong> Every core concept you learn today transfers directly: pipeline YAML syntax, stage and step sequencing, container-based task isolation, triggers, expressions, secrets management, and PR status checks.</p>
+    <p><strong>Enterprise Additions:</strong> What does the Enterprise SaaS platform add? Corporate governance hierarchy (Account &gt; Org &gt; Project), elastic cloud runners, native Continuous Delivery deployment stages, Open Policy Agent (OPA) compliance gates, and connectors to enterprise secrets stores like Thycotic Secret Server (TSS).</p>
+    <p><strong>Teaching Focus:</strong> Directly connect local lab exercises to United Airlines' enterprise SaaS platform.</p>
   </aside>
 </section>
 
@@ -2187,14 +2090,11 @@ spec:
     <p>A delegate connects out to Harness and runs tasks inside the network. Connectors tell it how to reach each system.</p>
     <p class="small muted">Press &darr; for supporting detail: How the Delegate protects networks</p>
     <aside class="notes">
-      On the Harness platform the pipeline definitions, execution history and user interface are in Harness's cloud.
-      The work that touches company systems is done by a delegate: a small service that the company runs inside its own network or cluster.
-      The delegate opens an outbound connection to Harness and asks for tasks, so the company does not open inbound firewall ports.
-      Connectors are configuration objects: how to reach a Git server, a container registry, a Kubernetes cluster or a cloud account, and which credentials to use.
-      A Deploy stage combines a service (what you deploy), an environment (where), and an infrastructure definition (which cluster and namespace).
-      At United, deployments to Amazon EKS run in Harness. Day 3 maps each Lab 09 step to these objects.
-      Source: developer.harness.io, "Delegate overview" and "Connectors".
-    </aside>
+    <p><strong>What to Say:</strong> Notice how United's enterprise platform is split between cloud management and internal execution: The Harness SaaS Control Plane hosts the pipeline graphs, triggers, audit trails, and web UI in the cloud. But Harness SaaS does NOT directly touch United's internal AWS accounts, Kubernetes clusters, or private repositories.</p>
+    <p><strong>The Role of the Delegate:</strong> Instead, United runs a lightweight agent called the <strong>Harness Delegate</strong> inside its own VPC or Kubernetes clusters. The Delegate reaches out over outbound HTTPS (port 443), asks Harness "is there a deployment task for me?", downloads the job, and executes it locally against Amazon EKS or Amazon ECS.</p>
+    <p><strong>Connectors:</strong> Connectors are reusable configuration objects that provide the Delegate with credentials to reach Git, ECR image registries, Kubernetes namespaces, and secrets stores.</p>
+    <p><strong>Teaching Focus:</strong> Explain United's hybrid cloud delivery architecture and the role of the Harness Delegate.</p>
+  </aside>
   </section>
 
   <section>
@@ -2219,10 +2119,9 @@ spec:
       <p>Connectors configure how the Delegate reaches internal targets (Git, clusters, container registries, secret managers). Sensitive credentials stay securely inside your network perimeter.</p>
     </div>
     <aside class="notes">
-      Explain why enterprise security teams approve this architecture:
-      Inbound firewall ports are dangerous. By having the Delegate reach out over HTTPS to ask "is there a build for me?", company networks stay locked down.
-      Connectors configure the credentials and endpoints used by the Delegate to execute tasks.
-    </aside>
+    <p><strong>What to Say:</strong> Why does enterprise InfoSec approve this model? Because opening inbound firewall holes to allow an external SaaS vendor to SSH or <code>kubectl</code> into your internal VPC creates catastrophic attack vectors. By having the Delegate initiate only outbound TLS connections (port 443) to poll for work, United's network remains strictly zero-ingress. Production database and cluster credentials never leave the corporate boundary.</p>
+    <p><strong>Teaching Focus:</strong> Explain why enterprise InfoSec teams approve the Delegate's reverse-polling architecture.</p>
+  </aside>
   </section>
 </section>
 
@@ -2235,11 +2134,8 @@ spec:
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
-    Instructor source and answer key: quizzes/day1/kahoot-1.md. Prepare the game before class; no hosted game is
-    created by this deck. If unavailable, read the questions and options aloud and use chat or private notes.
-    Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
-    Debrief shared workspaces, trigger defaults, failure conditions and background-service lifetime.
-    Keep the complete activity within five minutes; do not consume the following lab's budget.
+    <p><strong>Activity Pacing:</strong> 5-minute retrieval check using <code>quizzes/day1/kahoot-1.md</code>. If Kahoot is unavailable, read questions aloud and have participants vote in chat (A/B/C/D).</p>
+    <p><strong>Core Concepts to Debrief Aloud:</strong> (1) Why packages installed in Step 1 disappear in Step 2 unless written to the workspace; (2) Why PRs trigger builds by default but merges to <code>main</code> require a branch trigger; (3) Why background database containers are destroyed when the stage ends.</p>
   </aside>
 </section>
 
@@ -2251,8 +2147,7 @@ spec:
   <h1>Lab 02: Your First CI Pipeline</h1>
   <h2>Day 1 &middot; 30&ndash;40 minutes</h2>
   <aside class="notes">
-    Hands-on lab: Lab 02 — Your First CI Pipeline.
-    Theoretical target: 30–40 minutes.
+    <p><strong>Lab Launch:</strong> Announce Lab 02: Your First CI Pipeline. Duration: 30–40 minutes. Frame the goal: 'You will run Python tests locally inside a container, write your first <code>.harness/ci.yaml</code> pipeline, debug an intentional test failure, and configure automated push triggers.'</p>
   </aside>
 </section>
 
@@ -2267,12 +2162,12 @@ spec:
     <li>Add a trigger so that every push runs the pipeline.</li>
   </ul>
   <aside class="notes">
-    In this lab participants write the pipeline YAML themselves, step by step.
-    Point out that the first run of a new image is slow because Docker pulls it. Later runs reuse the image.
-    The lab contains a deliberate failure: a test breaks after a code change. Participants practise reading the log from the bottom up,
-    finding the failing assertion, and fixing the code rather than the test.
-    The lab also adds a report step that prints the build variables, and a short exercise where the lint step fails on an unused import.
-    
+    <p><strong>Instructor Delivery Track:</strong> Have everyone open <code>labs/02-first-ci-pipeline.md</code>. Preempt these four key failure modes before they start:</p>
+    <p><strong>1. Strict YAML Indentation:</strong> YAML requires 2 spaces—never tabs. A single tab character will cause Harness to throw a cryptic parser error when saving the pipeline.</p>
+    <p><strong>2. First-Run Image Pull Lag:</strong> On the first pipeline execution, Docker must download <code>python:3.12-slim</code>. It may appear frozen for 20–30 seconds. Subsequent executions will be instantaneous.</p>
+    <p><strong>3. Reading Logs from the Bottom Up:</strong> Part 3 introduces an intentional test failure. Coach students to scroll straight to the bottom of the execution log where pytest prints the exact assertion failure (<code>assert 'SCHEDULED' == 'BOARDING'</code>), rather than getting lost in the Python stack trace.</p>
+    <p><strong>4. Auto-Trigger Verification:</strong> In Part 4, ensure they add the branch trigger so that Git pushes start executions automatically without clicking 'Run'.</p>
+    <p><strong>Classroom Checkpoint:</strong> Ask learners to post 'Lab 02 Green' in chat once their automated push trigger turns green.</p>
   </aside>
 </section>
 
@@ -2283,8 +2178,7 @@ spec:
   <h1>Testing and Quality Gates</h1>
   <h2>The test pyramid, coverage thresholds, and branch rules</h2>
   <aside class="notes">
-    Topic transition: Testing and Quality Gates.
-    This divider slide has zero allocated teaching time.
+    <p><strong>Transition:</strong> We move into Testing and Quality Gates. This module covers the automated feedback loop: the test pyramid, test doubles, eliminating flaky tests, code coverage realities, and locking down <code>main</code> with branch rules.</p>
   </aside>
 </section>
 
@@ -2307,12 +2201,10 @@ spec:
   </svg>
   <p>Write many small, fast tests and a few slow, broad ones (Cohn, 2009; Vocke, 2018). Higher layers cost more to write, run and maintain.</p>
   <aside class="notes">
-    Start with why tests are automated at all. If a team deploys once a quarter, a week of manual testing is possible.
-    If it deploys every day, every change needs the same checks in minutes, and only automation can do that.
-    Mike Cohn described the pyramid in 2009. The idea is about proportion. Unit tests check one function or class in milliseconds,
-    so you can have thousands. End-to-end tests drive the whole system and break when anything changes, so keep few of them for the main user paths.
-    When a team has mostly end-to-end tests, the pyramid is upside down, a pattern sometimes called the ice-cream cone, and the suite is slow and fragile.
-    Sources: Cohn, M. (2009), Succeeding with Agile, chapter 16; Vocke, H. (2018), "The Practical Test Pyramid", martinfowler.com.
+    <p><strong>What to Say:</strong> Mike Cohn introduced the test pyramid in 2009 to combat the dreaded "ice-cream cone" or inverted pyramid. In an inverted pyramid, teams rely almost entirely on slow, brittle End-to-End browser tests that take hours to run, fail whenever a UI button moves, and are excruciating to debug.</p>
+    <p><strong>Healthy Proportions:</strong> In a sustainable CI pipeline, you maintain a massive, broad foundation of unit tests that run in milliseconds, a focused middle tier of integration and API tests verifying database queries and network boundaries, and a thin top layer of end-to-end smoke tests for critical user journeys.</p>
+    <p><strong>Ask the Room:</strong> Where does your team spend the most testing time right now—waiting on slow regression suites, or running fast unit tests?</p>
+    <p><strong>Teaching Focus:</strong> Explain how Cohn's test pyramid protects pipelines from the fragile 'inverted pyramid' anti-pattern.</p>
   </aside>
 </section>
 
@@ -2327,12 +2219,9 @@ spec:
   </table>
   <p>Lab 02 runs the unit and API tests. Lab 03 adds the integration tests, with Postgres as a background service.</p>
   <aside class="notes">
-    Describe the sample application. It is a small flight-status service written in Python with FastAPI.
-    It stores flights with an origin, destination, departure time and status. Status changes follow rules: a flight can go from scheduled to boarding,
-    but not from arrived back to boarding. Those rules are pure logic and have unit tests.
-    The API tests start the application in the test process with an in-memory store and send HTTP requests to it.
-    The integration tests use a real Postgres database to check the SQL. They are slower and need a database, so they run only when one is available.
-    Ask: which of these tests would catch a typo in an SQL query? Only the integration tests.
+    <p><strong>What to Say:</strong> Look at how our course application divides testing responsibilities: Unit tests verify state machine logic in pure Python—for example, verifying that a flight can go from SCHEDULED to BOARDING, but never backwards from ARRIVED to BOARDING. API tests boot the FastAPI application in-memory, sending real HTTP requests to verify status codes and JSON serialization in tens of milliseconds.</p>
+    <p><strong>Ask the Class:</strong> Which of these tests would catch a syntax error in an SQL SELECT query? Only the integration tests! That is why Lab 03 provisions a real PostgreSQL container as a background service.</p>
+    <p><strong>Teaching Focus:</strong> Map our flight-status microservice architecture across unit, API, and integration tests.</p>
   </aside>
 </section>
 
@@ -2349,13 +2238,9 @@ spec:
   </table>
   <p>The flight-status API tests use a fake, an in-memory store, in place of Postgres (Meszaros, 2007).</p>
   <aside class="notes">
-    A test double replaces a real dependency in a test, the way a stunt double replaces an actor.
-    Gerard Meszaros named the five kinds in xUnit Test Patterns. People often call all of them mocks, but the difference matters.
-    Stubs and fakes support state-based testing: you check the result. Mocks support behaviour-based testing: you check the calls.
-    Tests with many mocks break when the implementation changes, even if the behaviour is still correct.
-    The fake store in the sample app has the same interface as the Postgres store. That design makes the API tests fast,
-    and the integration tests check that the Postgres store behaves the same way.
-    Source: Meszaros, G. (2007), xUnit Test Patterns, chapter 11.
+    <p><strong>What to Say:</strong> Engineers often casually call every test substitute a "mock", but Gerard Meszaros formalized five distinct doubles: Dummies fill unused parameters; Stubs return hardcoded data; Spies record call counts; Mocks assert specific method interactions; and Fakes provide lightweight, working in-memory implementations.</p>
+    <p><strong>The Danger of Mock-Heavy Tests:</strong> Tests that heavily mock internal interfaces become brittle: they break whenever you refactor private helper methods, even when the external behavior is completely correct. In our flight-status API, we use a <strong>Fake</strong> in-memory repository: it adheres to the exact same interface as PostgreSQL, keeping API tests blistering fast while avoiding brittle mock assertions.</p>
+    <p><strong>Teaching Focus:</strong> Disentangle Meszaros' five test doubles and warn against the over-mocking trap.</p>
   </aside>
 </section>
 
@@ -2397,12 +2282,10 @@ spec:
     </div>
   </div>
   <aside class="notes">
-    A test suite is only useful if a failure means something. When failures are random, people stop reading them.
-    John Micco reported Google's numbers in 2016. With millions of test runs a day, a 1.5% flaky rate produces thousands of false failures daily.
-    In the labs, the integration tests could be flaky if they started before Postgres was ready. Lab 03 avoids this by waiting until the database accepts connections,
-    instead of sleeping for a fixed number of seconds.
-    Quarantine means moving the test out of the blocking suite, with a ticket to fix it, so it does not block everyone while it is broken.
-    Source: Micco, J. (2016), "Flaky Tests at Google and How We Mitigate Them", Google Testing Blog.
+    <p><strong>What to Say:</strong> A CI pipeline is only as valuable as the trust developers place in red builds. The moment you tolerate flaky tests—tests that randomly pass and fail on the exact same commit SHA—developers stop investigating failures. They just smash "Re-run" until it passes, completely defeating the purpose of CI.</p>
+    <p><strong>The Golden Remediation Rule:</strong> Never allow a known flaky test to sit in your blocking pull request gate. The moment a test exhibits flakiness, immediately <strong>quarantine</strong> it (move it to a non-blocking test group with an urgent engineering ticket) to protect team confidence in pipeline feedback.</p>
+    <p><strong>Anti-Pattern Alert:</strong> Never use fixed <code>sleep 5</code> commands to wait for databases or microservices in CI; on a busy multi-tenant runner, CPU throttling will eventually breach the sleep. Always use active TCP socket polling loops, as we do in Lab 03.</p>
+    <p><strong>Teaching Focus:</strong> Expose how flaky tests destroy developer trust and establish strict remediation rules.</p>
   </aside>
 </section>
 
@@ -2418,8 +2301,8 @@ spec:
   </ul>
   <p class="small">Source: <a href="https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html">Google Testing Blog, Flaky Tests at Google</a>.</p>
   <aside class="notes">
-    Allow two minutes. Avoid repeating the statistics from the preceding slide. Focus on why the quality of feedback
-    matters to a merge or release decision. This describes the published 2016 system, not a current service guarantee.
+    <p><strong>What to Say:</strong> Google's 2016 findings underscored a dangerous habit: if an engineering culture accepts a green rerun as "proof" that a previous red build was just noise, you are flying completely blind. Flaky tests actively mask real production bugs because engineers assume every failure is just an intermittent flake. Flakiness must be treated as high-priority technical debt.</p>
+    <p><strong>Teaching Focus:</strong> Reinforce that rerun-to-green culture is an engineering blindfold.</p>
   </aside>
 </section>
 
@@ -2436,9 +2319,7 @@ spec:
   </ul>
   <p class="small">Source: <a href="https://shopify.engineering/faster-shopify-ci">Shopify, Keeping Developers Happy with a Fast CI</a>.</p>
   <aside class="notes">
-    Allow two minutes if selected for delivery. Explain that 95th percentile means 95% of runs finish within that time.
-    These are historical project results. Test selection needs safeguards against missed tests and is outside the labs.
-    Do not suggest replacing the course's full test runs with a selective system.
+    <p><strong>Status:</strong> Marked as SKIP. If delivered: Note that Shopify tackled 170,000 tests across its core monolith using predictive test selection to cut CI turnaround from 45 to 18 minutes. In our course labs, we run all tests because our suite executes in under 15 seconds.</p>
   </aside>
 </section>
 
@@ -2457,13 +2338,9 @@ def test_can_board():
     <li>A coverage threshold is still useful as a floor that blocks large untested changes.</li>
   </ul>
   <aside class="notes">
-    Coverage tools record which lines execute during the test run. The test on the slide calls the function and asserts nothing,
-    yet the coverage report shows the function as fully covered.
-    Inozemtseva and Holmes used mutation testing: they inserted small faults into the programs and checked how many each test suite detected.
-    More tests detected more faults, but coverage on its own was not a strong predictor.
-    Use coverage to find code that no test runs at all. Do not treat a high number as proof of good tests.
-    In Lab 03 the pipeline fails if coverage drops below a threshold. The threshold blocks a pull request that adds code with no tests.
-    Source: Inozemtseva, L., and Holmes, R. (2014), "Coverage is not strongly correlated with test suite effectiveness", ICSE 2014.
+    <p><strong>What to Say:</strong> Look at the code on screen: <code>test_can_board()</code> executes the function, but contains <strong>zero assertion statements</strong>. Line coverage tools report 100% coverage, yet the test verifies absolutely nothing! If the function returned garbage, the test would still pass green.</p>
+    <p><strong>The Academic Reality:</strong> Inozemtseva and Holmes' research proved that high code coverage has a very low correlation with real fault detection. So how should we use coverage? Use it as a <strong>floor, not a ceiling</strong>. A coverage threshold prevents developers from merging large new features with zero tests. In Lab 03, we enforce an 85% coverage threshold in our pipeline.</p>
+    <p><strong>Teaching Focus:</strong> Expose the fundamental illusion of line coverage without assertion quality.</p>
   </aside>
 </section>
 
@@ -2518,12 +2395,10 @@ def test_can_board():
     <strong>Pipeline Optimization Rule:</strong> <em>Fastest checks run first.</em> Static analysis completes in seconds without provisioning databases or containers—catching typos and security flaws before expensive integration tests run.
   </div>
   <aside class="notes">
-    Static analysis complements tests. Tests check behaviour for the inputs someone thought of. Static analysis checks every line for known
-    categories of problems, whether or not a test reaches it.
-    Ruff is a Python linter and formatter. It checks hundreds of rules in well under a second for a project of this size.
-    Ordering matters in a pipeline. Put the fastest checks first, so a typo fails the pipeline in seconds instead of after a five-minute test run.
-    Security scanners for source code, dependencies and container images follow the same idea. Day 3 adds a container image scan.
-    Ask the class which static analysis tools their teams already use, for example SonarQube or a language linter.
+    <p><strong>What to Say:</strong> Static analysis inspects code syntax, type contracts, and security patterns without executing the program. Notice our three tiers: Tier 1 style formatters (like Ruff or ESLint), Tier 2 type checkers (Mypy or TypeScript), and Tier 3 security analyzers (Semgrep, Bandit, SonarQube).</p>
+    <p><strong>The Golden Pipeline Rule:</strong> <strong>Fastest checks run first.</strong> Ruff checks hundreds of rules across thousands of lines in 50 milliseconds. If an engineer committed an unused import or a syntax error, fail the pipeline within 2 seconds—never make them wait 5 minutes for Docker containers and database initialization just to learn they forgot a closing bracket.</p>
+    <p><strong>Ask the Room:</strong> What static analysis or security scanning tools are currently configured in your repositories at United?</p>
+    <p><strong>Teaching Focus:</strong> Explain static analysis tiers and the critical rule of pipeline step ordering.</p>
   </aside>
 </section>
 
@@ -2550,13 +2425,9 @@ def test_can_board():
   </svg>
   <p>"Shift left" means moving checks toward the start of this line. A problem found in the editor costs one person a few seconds. The same problem found in production affects customers.</p>
   <aside class="notes">
-    The term shift left comes from drawing the delivery process from left to right, as on the slide.
-    The later a problem is found, the more people it affects and the more work has already been built on top of it.
-    You will hear claims that a bug costs a hundred times more in production. Those exact numbers are hard to trace to good evidence,
-    so do not quote them. The direction of the effect is not disputed.
-    Shift left does not mean removing later checks. It means adding fast, cheap checks early, so the later checks find less.
-    Today's lab works in the highlighted step: the pull request pipeline. Developers can run the same lint and tests locally before they push,
-    which moves the check one step further left.
+    <p><strong>What to Say:</strong> "Shift Left" simply means moving feedback loops as close to the author\'s fingertips as possible. Look at the cost curve: Catching a bug in your editor takes 5 seconds and impacts only you. Catching it in a pull request pipeline takes 3 minutes and informs you and your reviewer. Catching it in staging takes days and blocks QA. Catching it in Production causes an outage, customer impact, and executive incident bridges.</p>
+    <p><strong>Lab Connection:</strong> In Labs 02 and 03, you run tests locally before pushing, moving quality verification as far left as possible.</p>
+    <p><strong>Teaching Focus:</strong> Explain how feedback cost and blast radius escalate across the delivery lifecycle.</p>
   </aside>
 </section>
 
@@ -2585,12 +2456,9 @@ def test_can_board():
     <li>The rule names the <code>ci</code> status check. Merge is possible only after the latest run of <code>ci</code> passed.</li>
   </ul>
   <aside class="notes">
-    A quality gate is a condition a change must meet before it moves on. In Harness Open Source the gate for main is a branch rule.
-    The rule blocks direct pushes, so every change arrives through a pull request. It requires the status check named after the pipeline to succeed.
-    When the check fails, the merge button is disabled and the pull request shows which rule is not met. When the developer pushes a fix,
-    the pull request trigger runs the pipeline again, and the merge becomes possible after a green run.
-    Rules can also require approvals from reviewers or code owners. In Lab 03 participants work alone, so approval is a "Going further" task.
-    The Harness platform and other Git hosts offer the same kind of rule, sometimes called branch protection.
+    <p><strong>What to Say:</strong> A Quality Gate is an immutable automated policy rule. In Harness Open Source, we configure a <strong>Branch Protection Rule</strong> on <code>main</code> that enforces two non-negotiable constraints: First, it completely rejects direct <code>git push origin main</code>. Second, it mandates that all changes arrive via a Pull Request, and that the <code>ci</code> pipeline status check is GREEN before the merge button unlocks.</p>
+    <p><strong>Remediation Flow:</strong> If tests or coverage fail, the merge button is disabled with an explicit rule violation message. The developer pushes a fix commit to their feature branch, Harness automatically reruns the pipeline, and only when the status turns green does merge become possible. In Lab 03, you will configure this exact rule and test it by attempting a forbidden direct push.</p>
+    <p><strong>Teaching Focus:</strong> Explain how branch protection rules enforce quality gates automatically.</p>
   </aside>
 </section>
 
@@ -2603,10 +2471,8 @@ def test_can_board():
     <li>After each answer, compare the reasoning with your own.</li>
   </ul>
   <aside class="notes">
-    Instructor source and answer key: quizzes/day1/kahoot-2.md. Prepare the game before class or read the questions
-    and options aloud. Allow 30 seconds to join, 20 seconds per question, and about 45 seconds per explanation.
-    Debrief fakes, coverage limits, flaky tests and required status checks.
-    Keep the complete activity within five minutes; do not consume the following lab's budget.
+    <p><strong>Activity Pacing:</strong> 5-minute retrieval check using <code>quizzes/day1/kahoot-2.md</code> or chat polling. Keep pace moving briskly.</p>
+    <p><strong>Core Concepts to Debrief Aloud:</strong> (1) Why Fakes provide fast state verification while over-mocking makes tests brittle; (2) Why 100% line coverage does not prove code correctness without rigorous assertions; (3) Why flaky tests must be quarantined immediately; (4) How required status checks lock down <code>main</code>.</p>
   </aside>
 </section>
 
@@ -2618,8 +2484,7 @@ def test_can_board():
   <h1>Lab 03: Quality Gates, Pull Requests and Integration Tests</h1>
   <h2>Day 1 &middot; 35&ndash;45 minutes</h2>
   <aside class="notes">
-    Hands-on lab: Lab 03 — Quality Gates, Pull Requests and Integration Tests.
-    Theoretical target: 35–45 minutes.
+    <p><strong>Lab Launch:</strong> Announce Lab 03: Quality Gates, Pull Requests and Integration Tests. Theoretical target: 35–45 minutes. This is Day 1's capstone lab: bringing together background PostgreSQL services, code coverage floors, branch protection, and real pull request delivery.</p>
   </aside>
 </section>
 
@@ -2634,13 +2499,12 @@ def test_can_board():
     <li>Fix what the tests and the pipeline find, then merge.</li>
   </ul>
   <aside class="notes">
-    This is the longest lab of the day. It brings together the branch rule, the pull request workflow, a background service and coverage.
-    Participants first see a direct push to main rejected, then make the change on a branch.
-    The new feature contains a sorting bug. The tests that participants add catch it on their own machine before they push.
-    After the fix, the pull request still fails: the pipeline's format check finds code that ruff would reformat.
-    Participants read the failure in the pull request, run the formatter, push again, and watch the check turn green.
-    Remind participants that the Postgres service takes a few seconds to start. The integration tests wait for it.
-    Fast finishers can add a second user as a reviewer and require an approval.
+    <p><strong>Instructor Delivery Track:</strong> Have everyone open <code>labs/03-quality-gates.md</code>. Preempt these four key milestones before they start:</p>
+    <p><strong>1. Trailing Newline in VS Code:</strong> Ruff enforces trailing newlines. Part 0 provides a <code>jq</code> command to set <code>"files.insertFinalNewline": true</code> in <code>settings.json</code> so pasted files pass linting cleanly.</p>
+    <p><strong>2. Direct Push Rejection:</strong> In Part 2, learners test their branch rule by trying to push directly to <code>main</code>. When Git rejects with "remote: branch main is protected", celebrate—it proves the gate works!</p>
+    <p><strong>3. Database Polling Loop:</strong> Point out how the pipeline waits for PostgreSQL on port 5432 using a polling loop rather than a brittle sleep statement.</p>
+    <p><strong>4. Intentional Bug &amp; Lint Fixes:</strong> The new departures feature includes an intentional sorting bug and unformatted code. Students experience the full professional workflow: failing locally -&gt; fixing code -&gt; passing tests -&gt; opening PR -&gt; fixing linter in PR -&gt; green merge.</p>
+    <p><strong>Classroom Checkpoint:</strong> Ask participants to post 'Lab 03 Merged' in chat once their pull request successfully merges into <code>main</code>.</p>
   </aside>
 </section>
 
@@ -2655,10 +2519,8 @@ def test_can_board():
   </ol>
   <p>Working alone? Write the explanation and challenge it yourself. Sharing aloud is optional.</p>
   <aside class="notes">
-    Allow two and a half minutes here and one and a half on the summary that follows, four minutes total.
-    Use existing table partners or chat pairs rather than spending time creating rooms.
-    Collect one volunteered explanation or written sentence. Do not repeat the preceding quiz questions.
-    Judge the explanation by whether it names observable evidence and a genuine limit, not by tool vocabulary.
+    <p><strong>Discussion Facilitation (2.5 minutes):</strong> Give the room 30 seconds of quiet reflection on the prompt: 'Why does a green test run alone not prove that a change is safe to merge?'</p>
+    <p><strong>Debrief Insight:</strong> Call on one volunteer or read a chat response. Validate their reasoning: 'A passing test proves only what its assertions explicitly exercised. It cannot prove that edge cases weren't overlooked, that the code scales under production concurrency, or that the feature solves the right business problem. That is why automated gates and human peer review must operate together.'</p>
   </aside>
 </section>
 
@@ -2722,14 +2584,10 @@ def test_can_board():
     <span style="font-size:18px;">&rarr;</span>
   </div>
   <aside class="notes">
-    Debrief for one and a half minutes. A passing check proves only the behavior it exercises; assertions, integration
-    boundaries and review still matter. A branch rule enforces selected checks but does not make them complete.
-    Validate the volunteered explanation, name one limit, and let everyone revise their sentence.
-    The flight-status repository now has a pipeline that runs lint, unit, API and integration tests
-    on every pull request, and main is protected so that only tested changes reach it.
-    That is the commit stage and part of the acceptance stage of a deployment pipeline.
-    Note misconceptions for the Day 2 retrieval debrief. The lab machine keeps its state overnight.
-    The catch-up script is for a fresh machine, not arbitrary repair of a partially completed lab.
+    <p><strong>What to Say:</strong> Take a step back and look at what you built today: You started at 9 AM with an empty Ubuntu VM. By 5 PM, you have installed Docker and Harness, configured Git credentials, written pipeline-as-code in YAML, orchestrated background database containers for integration tests, enforced sub-second linting, and locked down <code>main</code> with automated branch protection. You have constructed the complete Commit and Acceptance stages of a production deployment pipeline.</p>
+    <p><strong>Preview Day 2:</strong> Tomorrow we tackle Infrastructure as Code and Secrets: provisioning environments with Terraform, running Terraform plans and applies from Harness PRs, and managing credentials without leaking them into logs or Git.</p>
+    <p><strong>Overnight Logistics:</strong> Leave your lab machines running as-is; all state and containers persist overnight so we can pick up immediately at 9 AM.</p>
+    <p><strong>Teaching Focus:</strong> Celebrate today's cumulative achievements and preview Day 2.</p>
   </aside>
 </section>
 
@@ -2761,9 +2619,7 @@ def test_can_board():
     </ul>
   </div>
   <aside class="notes">
-    These are the sources cited today. Point participants to Accelerate and to Fowler's article on continuous integration if they want to read one thing.
-    The DevOps Handbook is the most practical of the books. The Harness documentation covers both Harness Open Source and the platform.
-    Also recommend Pro Git by Scott Chacon and Ben Straub, free at git-scm.com/book, for anyone who wants a deeper understanding of Git.
+    <p><strong>Reading Recommendations:</strong> Point learners to three key sources if they want to explore further tonight: (1) *Accelerate* by Forsgren, Humble, and Kim for the empirical science of delivery performance; (2) Martin Fowler's "Continuous Integration" essay for team engineering habits; and (3) Scott Chacon's *Pro Git* (free online at git-scm.com/book) for Git internals.</p>
   </aside>
 </section>
 
@@ -2780,8 +2636,7 @@ def test_can_board():
     <span class="connect-hint">Point your phone camera at the QR code</span>
   </div>
   <aside class="notes">
-    Leave this slide visible at wrap-up. The written link is an alternative to scanning the QR code.
-    This closing contact slide has zero allocated teaching time.
+    <p><strong>Networking:</strong> Leave this slide up during Q&amp;A. Invite participants to connect on LinkedIn using the QR code or direct link.</p>
   </aside>
 </section>
 
@@ -2790,8 +2645,7 @@ def test_can_board():
   <h1>Thank You</h1>
   <h2>Intermediate DevOps &middot; Day 1: Continuous Integration</h2>
   <aside class="notes">
-    Thank you and wrap-up.
-    This closing slide has zero allocated teaching time.
+    <p><strong>Wrap-Up:</strong> Thank everyone for their hard work and debugging persistence today. Remind them of tomorrow's 9:00 AM start time for Day 2: Infrastructure as Code and Credentials.</p>
   </aside>
 </section>
 
