@@ -9,10 +9,10 @@ Instructor-only answer key. Offer A/B/C/D in chat, a private note, or passing as
 
 Question: Which release path preserves the artifact that passed checks in dev?
 
-- A: Rebuild the same source commit using the current base-image tag
+- A: Delete the dev artifact and rewrite the code from scratch
 - B: Promote the same image and supply prod configuration separately
-- C: Rebuild after replacing dev settings in the source tree
-- D: Build a prod image with the same version label as the dev image
+- C: Commit different production passwords into the dev git branch
+- D: Manually copy compiled binaries over public email
 
 Correct Answer: B
 Explanation: Build once and promote the checked artifact. A new build can differ even when labels or source match.
@@ -22,9 +22,9 @@ Grounding: `../../slides/day3.html`, "Build once, promote the same artifact".
 
 Question: Which practice distinguishes continuous deployment from continuous delivery?
 
-- A: Keeping every passing change ready for release
-- B: Building one artifact for several environments
-- C: Checking the deployed version with a smoke test
+- A: Never testing code before deploying to production
+- B: Storing build artifacts exclusively on floppy disks
+- C: Requiring all developers to approve each git commit in person
 - D: Automatically releasing every change that passes the pipeline
 
 Correct Answer: D
@@ -36,9 +36,9 @@ Grounding: `../../slides/day3.html`, "Continuous delivery and continuous deploym
 Question: Where does the taught approval guidance say a human adds information the pipeline lacks?
 
 - A: Confirming a business change window
-- B: Comparing the deployed version with the expected version
-- C: Checking whether a unit test passed
-- D: Checking whether an image scan exceeded its threshold
+- B: Manually calculating the sha256 checksum by hand
+- C: Manually re-typing the entire application source code
+- D: Visually counting every single pixel in the container image
 
 Correct Answer: A
 Explanation: Human approvals are useful for business context such as change windows, not repeatable automated checks.
@@ -59,10 +59,10 @@ Grounding: `../../slides/day3.html`, "Canary releases".
 
 Question: What is the key advantage of a Blue-Green deployment strategy?
 
-- A: It eliminates the need for automated integration testing
+- A: It deletes all customer databases before switching traffic
 - B: It allows near-instant cutover and rapid rollback
-- C: It requires zero additional server or cluster infrastructure
-- D: It avoids having to build container images in CI
+- C: It permanently shuts down all internet access for users
+- D: It prevents developers from ever updating the code again
 
 Correct Answer: B
 Explanation: By maintaining two production environments, traffic can be cut over immediately, with quick rollback if needed.
@@ -72,10 +72,10 @@ Grounding: `../../slides/day3.html`, "Rolling and blue-green deployments".
 
 Question: How do feature flags change the software release workflow?
 
-- A: They require deploying code only during weekend maintenance
+- A: They force all servers to reboot every five minutes
 - B: They decouple deploying code from releasing functionality
-- C: They eliminate the need for container vulnerability scanning
-- D: They merge pull requests automatically without code review
+- C: They permanently lock all source code files as read-only
+- D: They delete all user accounts when a feature is toggled
 
 Correct Answer: B
 Explanation: Feature flags allow code to be deployed to production dark and turned on independently for specific users.
@@ -85,10 +85,10 @@ Grounding: `../../slides/day3.html`, "Feature flags separate deployment from rel
 
 Question: What should trigger an automated rollback in a continuous delivery pipeline?
 
-- A: A scheduled maintenance window expiring
+- A: A user visiting the application's homepage successfully
 - B: Automated smoke tests or production health metrics failing
-- C: A new pull request being opened by a team member
-- D: A developer logging into the Kubernetes worker node
+- C: The pipeline finishing all tests with zero errors
+- D: An engineer sending a thumbs-up emoji in team chat
 
 Correct Answer: B
 Explanation: When post-deployment verification tests or health metrics fail, the pipeline should automatically trigger a rollback.
@@ -98,10 +98,10 @@ Grounding: `../../slides/day3.html`, "Automated verification and rollback".
 
 Question: Which DORA metric tracks the percentage of deployments that cause production failures?
 
-- A: Lead Time for Changes
+- A: Total Lines of Code in the Repository
 - B: Change Failure Rate
-- C: Deployment Frequency
-- D: Failed Deployment Recovery Time
+- C: Number of Open Slack Channels
+- D: CPU Clock Speed in Megahertz
 
 Correct Answer: B
 Explanation: Change Failure Rate measures the percentage of releases or hotfixes that cause an incident or degradation.
@@ -111,10 +111,10 @@ Grounding: `../../slides/day3.html`, "DORA metrics revisited".
 
 Question: In Kubernetes, what command rolls back a Deployment to its previous revision?
 
-- A: kubectl delete deployment
+- A: kubectl delete all --all
 - B: kubectl rollout undo deployment
-- C: kubectl apply -f rollout.yaml
-- D: kubectl restart deployment
+- C: kubectl format disk
+- D: kubectl disconnect network
 
 Correct Answer: B
 Explanation: kubectl rollout undo rolls back a Deployment to its previous ReplicaSet revision.
@@ -135,10 +135,10 @@ Grounding: `../../slides/day3.html`, "Continuous delivery and continuous deploym
 
 Question: Which practice aligns with the 12-factor principle for promoting container artifacts?
 
-- A: Baking different database credentials into separate images
+- A: Hardcoding production passwords directly into the source code
 - B: Injecting environment-specific settings via environment variables
-- C: Recompiling the application binary in each target environment
-- D: Storing production API keys inside the public Dockerfile
+- C: Re-writing the entire application in a new language for production
+- D: Storing sensitive API secrets in the public README file
 
 Correct Answer: B
 Explanation: The 12-factor app model strictly separates configuration from code, injecting configuration at runtime via environment.

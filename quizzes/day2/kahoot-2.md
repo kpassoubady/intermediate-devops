@@ -9,9 +9,9 @@ Instructor-only answer key. Offer A/B/C/D in chat, a private note, or passing as
 
 Question: What makes the old value of a credential stop working?
 
-- A: Rotation creates a replacement value
+- A: Creating an additional backup copy of the credential
 - B: Log masking hides the value from output
-- C: Secret scanning detects its pattern in a commit
+- C: Storing the credential in a public code repository
 - D: Revocation invalidates the old value
 
 Correct Answer: D
@@ -22,10 +22,10 @@ Grounding: `../../slides/day2.html`, "Rotation and revocation".
 
 Question: A deployment job only updates Deployments in dev. Which access grant follows least privilege?
 
-- A: Edit all resource types in dev
+- A: Full cluster-admin access across all clusters
 - B: Update Deployments in dev
-- C: Update Deployments in all namespaces
-- D: Edit all resource types in all namespaces
+- C: Delete all namespaces and persistent volumes
+- D: Root administrative access to all worker nodes
 
 Correct Answer: B
 Explanation: Limit verbs, resource types and namespace to what the job actually needs.
@@ -35,10 +35,10 @@ Grounding: `../../slides/day2.html`, "Least privilege".
 
 Question: Which practice remains necessary even when a platform supports secret log masking?
 
-- A: Encode secrets before printing them
-- B: Print only part of each secret for troubleshooting
+- A: Echo all raw secret tokens directly to stdout
+- B: Commit secret values directly into git repository files
 - C: Keep secret values out of pipeline logs
-- D: Print secrets only during failed pipeline runs
+- D: Post raw credentials to public team chat channels
 
 Correct Answer: C
 Explanation: Transformed values can evade masking. Harness Open Source 3.3.0 does not mask secrets at all.
@@ -59,10 +59,10 @@ Grounding: `../../slides/day2.html`, "Kubernetes Secrets".
 
 Question: What is the secret-zero problem in security architecture?
 
-- A: Creating an initial secret with an expiration of zero seconds
+- A: Setting all database administrator passwords to zero
 - B: How an application securely authenticates to retrieve its secrets
-- C: Setting a database administrator password to an empty string
-- D: Granting full root permissions to all automated CI runners
+- C: Deleting all user accounts from the operating system
+- D: Disabling all encryption algorithms on production servers
 
 Correct Answer: B
 Explanation: Secret-zero describes the paradox of needing an initial secret/identity to authenticate to a secret vault.
@@ -72,10 +72,10 @@ Grounding: `../../slides/day2.html`, "The secret-zero problem".
 
 Question: What is the key advantage of dynamic, short-lived credentials over static secrets?
 
-- A: They eliminate the need for network connectivity
+- A: They last forever and never need to be refreshed
 - B: They automatically expire quickly, limiting damage if leaked
-- C: They can be safely committed into public Git repositories
-- D: They bypass all role-based access control policies
+- C: They can be safely published in public forum posts
+- D: They bypass all authentication and role-based access checks
 
 Correct Answer: B
 Explanation: Short-lived credentials drastically reduce the window of vulnerability if a token is intercepted or leaked.
@@ -85,10 +85,10 @@ Grounding: `../../slides/day2.html`, "Short-lived and dynamic credentials".
 
 Question: Where is an unintentional secret leak most commonly found in DevOps workflows?
 
-- A: Pre-compiled binary headers
+- A: Physical server power supply cables
 - B: Git commit history and application log files
-- C: Physical network router memory
-- D: Encrypted SSL certificates
+- C: Unformatted blank backup tapes
+- D: Disconnected network patch cords
 
 Correct Answer: B
 Explanation: Credentials frequently leak when developers commit files containing tokens or when scripts echo values to logs.
@@ -98,9 +98,9 @@ Grounding: `../../slides/day2.html`, "Where secrets leak".
 
 Question: In envelope encryption, what protects the Data Encryption Key (DEK)?
 
-- A: A plaintext hash stored in the application repository
+- A: A plaintext comment in a public README file
 - B: A Key Encryption Key (KEK) managed by a KMS
-- C: A reversible Base64 encoding algorithm
+- C: Storing the key on an unencrypted sticky note
 - D: A public DNS text record
 
 Correct Answer: B
@@ -111,10 +111,10 @@ Grounding: `../../slides/day2.html`, "Encryption at rest and envelope encryption
 
 Question: What is the primary function of a secret scanning tool like TruffleHog?
 
-- A: Encrypting production databases during deployment
+- A: Compiling source code into container images
 - B: Detecting credentials committed to source code or git history
-- C: Generating random passwords for new user accounts
-- D: Masking output logs during pipeline execution
+- C: Formatting hard drives on worker nodes
+- D: Resizing images and CSS files for web pages
 
 Correct Answer: B
 Explanation: Secret scanners inspect git history and file changes to flag high-entropy strings, API keys, and certificates.
@@ -135,10 +135,10 @@ Grounding: `../../slides/day2.html`, "Rotation and revocation".
 
 Question: In Kubernetes, how should sensitive database passwords be provided to a Pod?
 
-- A: Hardcoded as plaintext in the container Dockerfile
+- A: Hardcoded directly into the public container Dockerfile
 - B: Injected as environment variables or mounted files from a Secret
-- C: Committed as public comments in the deployment YAML
-- D: Printed to stdout during container initialization
+- C: Typed manually by an operator into every running pod shell
+- D: Displayed on a public web page for anyone to read
 
 Correct Answer: B
 Explanation: Secrets decouple sensitive values from container images and pod manifests, injecting them at runtime.

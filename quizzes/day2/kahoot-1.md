@@ -1,4 +1,4 @@
-# Day 2 Section Quiz 1: Terraform in Pipelines
+# Day 2 Section Quiz 1: ![alt text](image.png)
 
 Placement: immediately before "Lab 05: Terraform in the pipeline".
 Budget: 5 minutes, including joining and debrief. Answer time: 20 seconds per question.
